@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.2 — Kenney Virtual Joystick</title>
+<title>LAST SPARK V3.3.1 — iPad Touch Lock</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -92,11 +92,29 @@ h1{font-size:clamp(30px,6.8vw,53px);color:#ffe4a7;letter-spacing:.03em;margin:3p
  .pad-btn{width:62px;height:62px;flex-basis:62px}
  .pad-btn img{width:23px;height:23px}.pad-btn span{font-size:8px}
 }
+/* V3.3.1 — Keep Safari from panning/zooming the document during a run.
+   The menu can still scroll normally when the game is not running. */
+html,body{max-width:100%;-webkit-text-size-adjust:100%}
+html.game-locked,html.game-locked body{
+  width:100%;height:100%;overflow:hidden!important;
+  overscroll-behavior:none;
+}
+html.game-locked body{position:fixed;top:0;left:0;right:0;height:100dvh}
+html.game-locked .shell{
+  height:100dvh;min-height:0;overflow:hidden;
+  padding-bottom:max(8px,env(safe-area-inset-bottom));
+}
+html.game-locked .frame{touch-action:auto}
+html.game-locked .overlay{touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+html.game-locked .controls,html.game-locked .joy,
+html.game-locked .pad-btn,html.game-locked canvas{
+ touch-action:none;-webkit-user-select:none;user-select:none
+}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.2</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.3.1</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="hud" id="hud" hidden>
@@ -129,7 +147,7 @@ h1{font-size:clamp(30px,6.8vw,53px);color:#ffe4a7;letter-spacing:.03em;margin:3p
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.3 · FIRE ONLY RIGHT BUTTON • Joystick: LEFT/RIGHT = MOVE • UP = JUMP • DOWN = SLIDE • HOLD FIRE = SHOOT • Keyboard: ← →, Space, ↓, F, P</div>
+<div class="helper">V3.3.1 · iPAD TOUCH LOCK · FIRE ONLY RIGHT BUTTON • Joystick: LEFT/RIGHT = MOVE • UP = JUMP • DOWN = SLIDE • HOLD FIRE = SHOOT • Keyboard: ← →, Space, ↓, F, P</div>
 </div>
 <script>
 (()=>{'use strict';
@@ -220,16 +238,36 @@ function sprite(key,x,foot,scale=.8,index=0,flip=false,alpha=1){const o=imageMap
  else ctx.drawImage(o,fr*fw,0,fw,o.naturalHeight,dx,dy,Math.round(fw*scale),Math.round(o.naturalHeight*scale));
  ctx.restore();return true;}
 function pickFrames(key){const img=imageMap[key];return img&&img.naturalWidth?img.naturalWidth/atlas[key].w:1;}
-function resize(){const oldGround=ground,portrait=window.matchMedia('(orientation: portrait)').matches;W=portrait?360:640;H=portrait?430:360;canvas.width=W;canvas.height=H;ground=H-76;heroX=portrait?65:111;ctx.imageSmoothingEnabled=false;hero.foot+=ground-oldGround;if(mode==='menu'||mode==='over')hero.foot=ground;}
+let lastCanvasOrientation=null;
+function resize(){
+ const portrait=window.matchMedia('(orientation: portrait)').matches;
+ // Safari changes visual viewport height as its toolbars appear/disappear.
+ // Only recreate the canvas when the actual orientation changes.
+ if(lastCanvasOrientation===portrait)return;
+ lastCanvasOrientation=portrait;
+ const oldGround=ground;
+ W=portrait?360:640;H=portrait?430:360;
+ canvas.width=W;canvas.height=H;
+ ground=H-76;
+ if(mode==='playing'||mode==='paused')heroX=clamp(heroX,24,W-24);
+ else heroX=portrait?65:111;
+ ctx.imageSmoothingEnabled=false;
+ hero.foot+=ground-oldGround;
+ if(mode==='menu'||mode==='over')hero.foot=ground;
+}
+function lockGamePage(active){
+ document.documentElement.classList.toggle('game-locked',Boolean(active));
+ if(active)window.scrollTo(0,0);
+}
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);}
-function reset(){enableAudio();mode='playing';overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
+function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
 joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;obstacles=[];zombies=[];cells=[];shots=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
-function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
-function gameOver(reason){if(mode!=='playing')return;mode='over';fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Energy: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;jumpHeld=true;if(hero.onGround){hero.vy=-324;hero.onGround=false;hero.slideEnd=0;burst(heroX,ground-2,6,'#c4a98a');sound(350,.1,'triangle',.036)}}
 function releaseJump(){jumpHeld=false;}
@@ -437,6 +475,25 @@ function releaseStick(ev){
  activeJoyPointer=null;releaseJump();joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();
 }
 for(const eventName of ['pointerup','pointercancel','lostpointercapture'])joyEl.addEventListener(eventName,releaseStick);
+// Fallback for mobile browsers that fail to maintain pointer capture.
+window.addEventListener('pointerup',releaseStick);
+window.addEventListener('pointercancel',releaseStick);
+
+// iPad Safari may still interpret multi-finger or rapid touches as browser
+// panning/pinch-zoom even when individual controls have touch-action:none.
+// Use non-passive handlers; do not block button clicks or joystick pointer events.
+document.addEventListener('touchmove',ev=>{
+ if(mode==='playing' && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
+document.addEventListener('touchstart',ev=>{
+ if(mode==='playing' && ev.touches.length>1 && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
+for(const eventName of ['gesturestart','gesturechange','gestureend']){
+ document.addEventListener(eventName,ev=>{if(ev.cancelable)ev.preventDefault();},{passive:false,capture:true});
+}
+document.addEventListener('dblclick',ev=>{
+ if(mode==='playing' && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
 
 window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.code==='ArrowLeft')keyLeft=true;if(e.code==='ArrowRight')keyRight=true;if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
 window.addEventListener('keyup',e=>{if(e.code==='ArrowLeft')keyLeft=false;if(e.code==='ArrowRight')keyRight=false;if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});

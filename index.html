@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.5.4 — One-Touch Jump & Slide + Gold Coins</title>
+<title>LAST SPARK V3.6 — Three-Level Campaign</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -133,13 +133,27 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 @media(orientation:portrait){.dodge-area{width:145px;min-width:118px;gap:5px}.dodge-button{width:87px;height:87px;flex-basis:87px}.dodge-caption{font-size:9px}.dodge-caption b{font-size:9px}.dodge-word{font-size:13px}.dodge-main{font-size:18px}.dodge-mini{font-size:7px}.controls{gap:6px}}
 @media(max-height:550px) and (orientation:landscape){.dodge-area{width:154px;min-width:140px;gap:7px}.dodge-button{width:72px;height:72px;flex-basis:72px;border-width:3px}.dodge-main{font-size:16px}.dodge-word{font-size:12px}.dodge-mini{font-size:6px}.dodge-caption{font-size:9px}.dodge-caption b{font-size:8px}}
 
+
+/* V3.6 — three-stage progression, responsive finish indicator */
+.stage-progress{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:2;width:min(31%,232px);pointer-events:none;font:900 10px monospace;color:#ffe3ac;text-shadow:0 1px 3px #071323}
+.stage-topline{display:flex;justify-content:space-between;gap:6px;white-space:nowrap;font-size:9px}
+.stage-track{height:7px;border:1px solid #a2cddd;background:#091c31d9;border-radius:6px;overflow:hidden;margin-top:4px;box-shadow:0 0 10px #111d34}
+.stage-bar{height:100%;width:0%;background:linear-gradient(90deg,#ffe17c,#61e9ff);border-radius:5px;transition:width .11s linear}
+.choice.scene[disabled]{opacity:.46;filter:grayscale(.75);cursor:not-allowed;border-style:dashed;box-shadow:none}
+.choice.scene.completed{border-color:#65dba6;color:#a8ffda}
+@media(orientation:portrait){.stage-progress{top:37px;width:40%}.stage-topline{font-size:7px}.stage-track{height:5px}}
+@media(max-height:550px) and (orientation:landscape){.stage-progress{top:4px}.stage-topline{font-size:7px}.stage-track{height:5px;margin-top:1px}}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.5.4</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>STORY CAMPAIGN · V3.6</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
+ <div class="stage-progress" id="stageProgress" hidden aria-live="off">
+  <div class="stage-topline"><span id="stageName">STAGE 1 · RUINED CITY</span><span id="stagePercent">0%</span></div>
+  <div class="stage-track"><div class="stage-bar" id="stageBar"></div></div>
+ </div>
  <div class="hud" id="hud" hidden>
   <div>HP <span class="hp" id="hp">♥ ♥ ♥</span><div class="sub">🪙 COINS <span class="accent" id="energy">0</span> · KILLS <span id="kills">0</span></div><div class="sub gun-line"><img id="weaponIcon" alt="" style="height:13px;width:27px;object-fit:contain;vertical-align:-2px;image-rendering:pixelated"/> <span id="weaponName">PISTOL</span> · <span id="ammo">∞</span></div></div>
   <div class="right">SCORE <span class="accent" id="score">0</span><div class="sub">BEST <span id="best">0</span> · <span id="distance">0</span>m</div></div>
@@ -148,18 +162,18 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">COWBOY VS ZOMBIES</div>
    <h1 id="overlayTitle">LAST SPARK</h1><div class="subtitle" id="subtitle">ONE SPARK. ONE LAST CHANCE.</div>
-   <p class="intro" id="overlayText">Your cowboy runs automatically. TAP the large left button to JUMP, HOLD it to DUCK/SLIDE, and hold FIRE to shoot. Collect GOLD COINS and weapons!</p>
+   <p class="intro" id="overlayText">Survive 3 stages to restore the city! TAP left to JUMP, HOLD to DUCK/SLIDE, and hold FIRE to shoot. Reach the glowing EXIT gate to unlock the next stage.</p>
    <div id="characterPicker"><div class="choice-label">CHOOSE YOUR COWBOY</div><div class="choices">
      <button class="choice selected" data-char="1">COWBOY 1</button><button class="choice" data-char="2">COWBOY 2</button><button class="choice" data-char="3">COWBOY 3</button>
    </div></div>
-    <div class="choice-label" id="sceneLabel">CHOOSE YOUR WORLD</div>
+    <div class="choice-label" id="sceneLabel">SELECT STAGE — COMPLETE TO UNLOCK</div>
     <div class="choices scene-choices" id="scenePicker">
-      <button class="choice scene selected" data-scene="ruins">☢ RUINED CITY</button>
-      <button class="choice scene" data-scene="ash">🔥 ASH DUSK</button>
-      <button class="choice scene" data-scene="night">🌃 NIGHT RUN</button>
+      <button class="choice scene selected" data-stage="0">1 · RUINED CITY</button>
+      <button class="choice scene" data-stage="1">🔒 2 · ASH DUSK</button>
+      <button class="choice scene" data-stage="2">🔒 3 · NIGHT RUN</button>
     </div>
     <button class="action" id="playButton" disabled>LOADING ART...</button>
-   <div class="tagline" id="tip">TAP JUMP • HOLD SLIDE • GOLD COINS • 4 GUNS</div>
+   <div class="tagline" id="tip">3 STORY STAGES • FINISH GATES • SAVED UNLOCKS • 4 GUNS</div>
    </div>
  </div>
 </div>
@@ -176,7 +190,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAHP0lEQVR42t2bXaxUVxXHf2vPvUIDRAqKEklrsdUIiQKKYAqktlVrH9qqiQ3QGGyTKkSj4BshMWkTY5NqSjVpWpuqjU3T8ND2hUTsS7/Sh0pobdrUpAlFPiSCWAsUYe45fx9YO2yOM3PPzJx9L/fuZHImM2f22eu/1vqvj70HGh6SzF+3S9ov6ZSkX0r6jH8fJAWm44iCSdqu/x+HJK1PgZquwi+UdEBSIWnMhR9LgPi1pFl+78h0BOCTbvpyEJS8L/39HkkL/f7WZK47hy8KsC7PMqANfBV4VtI1ZlZMJgi5AFCP70eBAlgJvCDpJgdhZLq4wDWSjnRwgeqIvHBa0rcuBXcYFoCWX1dLOuvCleo9IginJN06GcSYwwVmAx8Cyhr3tvy+WcCTkm4xs7GJtIQcACzya9GFDDutoQQuAx6XtMI5IUw1ACLxXe1X63MdBfBh4GlJS8ysnHKc4CnwizUIsNto+/Wvki6fMhljXKSk+ZLO1CTA8Yjxd5JakkZyghAanudGYEaPZKjuXGPAJmCzmY1l4qosIfCJDrn/IKP012lJy9M841JOgD4h6d0h/L864hwvSZqdq4xucsKvA1c6m4eG1lYA1wLfN7NyCLfKzvwtSX9pUPtVVzgpaXEvV4iNmMny/fVDMn+dqPCUR4RWKmgVEAciTIjv+2LmSNrrwhcZAIjz/lfS2grwKRCzJM3st+M0DFJmZgVwJ7DC09kcyJuH1RnANv+slGRmJklLJe0GjgL7JT0sab5/F3Iz/1WSTiS+mnOU7g5rE1NfJOlgh3tfSdpu1qgF+IRB0ijwG+By135uAiq9etwiKZiZPPFa5NEi1iPngNXAI15at3qBMIiJBM/OfgLc3GDYq+sK1wGf8s8+Xym7zTtObWADsMnXak2Z/ohfb/Ccv5gA0+8UEe5wF3i5UkSpEo3+JenTvcJn6CfkebNiOfAkMHOAsrcJKwC4AVgGLE9co3pfAcwDfpUUazao5mPYWSjptQwJTz9EKEnHvbXeax1lajHdeo5WU/OFpCuAZxz1ogPqk5KIjiNDJOf9wOeADzx+q5YLONsWkhYAT19Cwqtm5Al+72LgThc81LKAhDTmuubXep0+1fr3Eai3XYYTnsSV41qA3/TgFBY+bbp+FrjZrcB6uoD7fSlpK7BxCgtfzSHucMUWXV3A/b6UtAp4ztvVdsm3peqNNrDMzN6KtUTobAAaAXZyfpODaSK8PEu8KZUpdDB9AT8AVnVJMqbqiGb/lY6ZoLN+KWk+sIXeO7y52LrI+Nwo62IvlwtJIVTqewG3O2OWE2T6cTs9uLVZZvAXcWH7zkIifTyosJnh+vqDxGgD9gGPedaWA4QYDucAH78IgKRI+CKwZIJYP5bRJ4CtwBozuwv4ZkxWqLfD3O8zzUGAJLa3PNbflrSjWxlNPpLry8CPzGxfoogjwD+9klPGNVxEDBHpZdUbMph8BPy3wDfMbF/s9joHfcSFn5DwG5LEZwFwVcYHR6IzYIeZ3W1mJ2OfIQG9SIDKpQirugDAx4AFmZn+FHCXme3ysKs0LfVx1l85BR9LXSB+OCchB8sgfAC2ufAjZlamdXmi7X8D72WwALnCx4Dj8bNQ8c8yk98HYKuZPSpp1E2+WxH2PnAgEwAAB9P5QyVONu37MZo8ZGYPuIDtLqV3mnu8mIGLIgD/AI56xLkIgKZ9L4a614HtnmSpBmB4A+ZchmRMwJuuhFasBuOijqe+0RDaZ4Afm9l7SYOlVwNGXqa+A+zmQne3iRHT7D+lITl4+RuAw8DfGwIg+v2jZvZ87C32WbTsTCyyCYUIOAbsSeeMW0wxFu9tSHgDDpH05Pv5vbvL88DvuXCYsok17fLcI1wUgZLNzjUNHm25JzJ73+q6sJExT9LfhtyHKPx1WtKXfN6Rbg+eIenNIXZ742+OSfroMKc2EqWsk/SfIc4fpAcsQlUhodILPAs8MUQlFv38MTM7lvQY+k/Z/KSomb3gDZpyQN8PTsa/cBJWN8RbyZ774cpfXvo5yXFG0rU+19Cd5GRb7r4BXCFumt6XWlWdh20f4LxfXNgbkubWemBNV3DlzO7zKE5c+2t+grVVB4D4l7eZkvb1iXhE+6meRDOcFXy75mGs+P0Hkr7clzIS8lkp6f0+XCEC9bOmzL+DcoJbWC/FFK6MtqTvjheJQhfyCWb2KucPQMUaYTwyi2x/wImv8Z6ek9gfKs2VblXf/Wb2uAtfDmN2P0xMql3D7DYMGv/HWU88nXJ95RBlNd5L0v1Dc1A8Aerv706Owbe7+GD8bGMmAKJrLvUDEqkbpOv5aUKe1iQBrZP0eoVlywm0gAjAFZU/ZraTP159r6no0w2EuZJ2JtaQAhGv9zYdBSprWO3PLxPhD0q6sVHNd9OAv/+CpD8mppiOXX7PaCYO+E7F/P+cHKQeJeeoHkSWtEzSzz3ZeMtD1NdymGFiAWvcAg5L2iHpsmFc7n8tXDnk1C7kbAAAAABJRU5ErkJggg==" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.5.4 · ONE TOUCH: TAP = JUMP • HOLD = SLIDE • FIRE RIGHT • GOLD COINS</div>
+<div class="helper">V3.6 · THREE STAGES • TAP = JUMP • HOLD = SLIDE • FIRE RIGHT • GOLD COINS</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -223,6 +237,68 @@ const lowPower=(window.matchMedia&&window.matchMedia('(pointer: coarse)').matche
 const minFrameMs=lowPower?1000/30:1000/60;
 let W=640,H=360,ground=280,heroX=108,mode='menu',clock=0,runTime=0,dist=0,speed=133,energy=0,kills=0,score=0,hp=3,nextOb=440,nextZ=610,nextCell=180,nextWeaponPickup=760,obstacles=[],zombies=[],cells=[],weaponPickups=[],shots=[],explosions=[],particles=[],notices=[],cameraShake=0,selected=1,sceneName='ruins',muted=false,ac=null,bgm=null,loadedScenes=0,totalScenes=0,soundBuffers={},fireHeld=false,jumpHeld=false,prevShot=-99,shotPose=0,frameT=0;
 let best=0;try{best=Number(localStorage.getItem('last_spark_v2_best')||0)||0;}catch(e){}
+// V3.6 CAMPAIGN: each scene is a stage, unlocked only after clearing its EXIT gate.
+const STAGES=[
+ {name:'RUINED CITY',scene:'ruins',goal:3000,tag:'Restore the city signal',reward:300},
+ {name:'ASH DUSK',scene:'ash',goal:4000,tag:'Survive the burning outskirts',reward:500},
+ {name:'NIGHT RUN',scene:'night',goal:5200,tag:'Reach the final transmitter',reward:850}
+];
+const STAGE_SAVE_KEY='last_spark_campaign_unlocked_v36';
+let unlockedStage=0,stageIndex=0,allStagesCleared=false,finalScoreBonus=0;
+try{unlockedStage=Math.max(0,Math.min(STAGES.length-1,Number(localStorage.getItem(STAGE_SAVE_KEY)||0)||0));allStagesCleared=localStorage.getItem('last_spark_campaign_complete_v36')==='yes';}catch(e){}
+function mission(){return STAGES[stageIndex]||STAGES[0];}
+function updateStagePicker(){
+ document.querySelectorAll('[data-stage]').forEach(b=>{
+  const i=Number(b.dataset.stage),locked=i>unlockedStage;
+  b.disabled=locked;
+  b.classList.toggle('selected',i===stageIndex);
+  b.classList.toggle('completed',!locked&&(i<unlockedStage||allStagesCleared));
+  b.textContent=(locked?'🔒 ':((i<unlockedStage||allStagesCleared)?'✓ ':''))+(i+1)+' · '+STAGES[i].name;
+ });
+ $('sceneLabel').textContent=allStagesCleared?'ALL STAGES CLEARED — REPLAY ANY STAGE':'SELECT STAGE — COMPLETE TO UNLOCK';
+}
+function selectStage(i){
+ i=Number(i);if(!Number.isInteger(i)||i<0||i>=STAGES.length||i>unlockedStage)return false;
+ stageIndex=i;selectScene(mission().scene);updateStagePicker();return true;
+}
+function updateStageHud(){
+ const m=mission(),pct=clamp(Math.floor(dist/m.goal*100),0,100);
+ $('stageName').textContent='STAGE '+(stageIndex+1)+' · '+m.name;
+ $('stagePercent').textContent=pct+'%';
+ $('stageBar').style.width=pct+'%';
+}
+function finishGateWorld(){return mission().goal+heroX;}
+function finishGateDraw(){
+ if(mode==='menu'||mode==='over')return;
+ const x=finishGateWorld()-dist;if(x<-60||x>W+75)return;
+ const g=ctx.createRadialGradient(x,ground-58,2,x,ground-58,62);
+ g.addColorStop(0,'#71f2ff85');g.addColorStop(1,'#71f2ff00');rect(x-62,ground-127,124,138,g);
+ const pulse=.68+.28*Math.sin(clock*5);
+ ctx.save();ctx.globalAlpha=pulse;
+ rect(x-9,ground-91,18,92,'#27b4bd66');rect(x-15,ground-98,30,6,'#a5f4ff');
+ rect(x-16,ground-100,5,103,'#86f6ff');rect(x+11,ground-100,5,103,'#86f6ff');
+ rect(x-10,ground-79,20,3,'#b8faff');ctx.restore();
+ safeText('EXIT',x-14,ground-112,'#e5ffbc',11);
+}
+function levelClear(){
+ if(mode!=='playing'||hero.fellInGap||hero.foot>ground+10)return;
+ mode='won';$('pauseButton').hidden=true;finishDodge(true);dodgeTouchId=null;dodgePointer=null;
+ fireHeld=false;jumpHeld=false;if(bgm)bgm.pause();
+ lockGamePage(true);
+ const m=mission();finalScoreBonus=m.reward+hp*100;
+ score=Math.floor(dist/8)+energy*25+kills*120+finalScoreBonus;
+ if(score>best){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+ if(stageIndex===STAGES.length-1){allStagesCleared=true;try{localStorage.setItem('last_spark_campaign_complete_v36','yes');}catch(e){}}
+ else{unlockedStage=Math.max(unlockedStage,stageIndex+1);try{localStorage.setItem(STAGE_SAVE_KEY,String(unlockedStage));}catch(e){}}
+ updateStagePicker();updateStageHud();updateHud();
+ $('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;
+ sound(990,.21,'triangle',.04);setTimeout(()=>sound(1310,.23,'sine',.034),140);
+ panel(allStagesCleared&&stageIndex===STAGES.length-1?'CAMPAIGN CLEAR!':'STAGE CLEAR!',
+  stageIndex===STAGES.length-1?'THE LAST SPARK LIVES!':'NEXT STAGE UNLOCKED!',
+  `${m.name} cleared! Coins: ${energy} · Kills: ${kills} · HP left: ${hp} · Bonus: +${finalScoreBonus} · Total: ${score}.`,
+  stageIndex===STAGES.length-1?'↻ REPLAY FINAL STAGE':'▶ NEXT STAGE','MISSION COMPLETE');
+}
+
 try{const v=localStorage.getItem('last_spark_v3_scene');if(['ruins','ash','night'].includes(v))sceneName=v;}catch(e){}
 const sceneImages={};
 for(const [name,layers] of Object.entries(sceneAssets)){sceneImages[name]=layers.map(o=>{const im=new Image();o.image=im;totalScenes++;im.onload=()=>{loadedScenes++;checkReady();};im.onerror=()=>{loadedScenes++;checkReady();};im.src=o.src;return im;});}
@@ -299,13 +375,13 @@ function lockGamePage(active){
 }
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
-function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
+function reset(){selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();updateStageHud();sound(520,.08,'triangle',.028);toast('STAGE '+(stageIndex+1)+': '+mission().tag,heroX+26,ground-96,'#a2f8ff');}
 function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
 function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
- $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Coins: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
+ $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Stage ${stageIndex+1}: ${mission().name} · Kills: ${kills} · Coins: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;
  jumpHeld=true;
  if(hero.onGround){
@@ -342,16 +418,16 @@ function fire(){
  }
  updateHud();
 }
-function addObstacle(){while(nextOb<dist+W+80){const typ=['box','electric','beam','gap'][Math.floor(rand(nextOb+22)*4)],w=typ==='gap'?52:typ==='beam'?44:typ==='box'?24:28;
- if(!zombies.some(z=>Math.abs(z.wx-nextOb)<145))obstacles.push({wx:nextOb,w,typ,dead:false});nextOb+=240+rand(nextOb)*125;}}
-function addZombies(){while(nextZ<dist+W+105){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:22+rand(nextZ)*17,hp:kind===2?2:1,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=250+rand(nextZ+5)*160;}}
-function addCells(){while(nextCell<dist+W+100){
+function addObstacle(){while(nextOb<dist+W+80 && nextOb<mission().goal+heroX-300){const typ=['box','electric','beam','gap'][Math.floor(rand(nextOb+22)*4)],w=typ==='gap'?52:typ==='beam'?44:typ==='box'?24:28;
+ if(!zombies.some(z=>Math.abs(z.wx-nextOb)<145))obstacles.push({wx:nextOb,w,typ,dead:false});nextOb+=(stageIndex===0?290:stageIndex===1?255:220)+rand(nextOb)*(stageIndex===0?135:125);}}
+function addZombies(){while(nextZ<dist+W+105 && nextZ<mission().goal+heroX-270){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:22+rand(nextZ)*17,hp:kind===2?2:1,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=(stageIndex===0?350:stageIndex===1?290:245)+rand(nextZ+5)*160;}}
+function addCells(){while(nextCell<dist+W+100 && nextCell<mission().goal+heroX-80){
  // Coins sit near the safe running lane; some are high enough to reward a jump.
  cells.push({wx:nextCell,y:ground-33-rand(nextCell)*25,got:false});
  nextCell+=133+rand(nextCell+8)*89;
 }}
 function addWeaponPickups(){
- while(nextWeaponPickup<dist+W+60){
+ while(nextWeaponPickup<dist+W+60 && nextWeaponPickup<mission().goal+heroX-320){
   let wx=nextWeaponPickup;
   for(let attempt=0;attempt<9;attempt++){
     if(!obstacles.some(o=>Math.abs(o.wx-wx)<80)&&!zombies.some(z=>Math.abs(z.wx-wx)<65))break;
@@ -372,7 +448,7 @@ function damageZombie(z,dmg,kind){
  else{toast('HIT',x,ground-57,'#9aefef');sound(180,.09,'triangle',.02);}
 }
 function gapAt(x){return obstacles.some(o=>!o.dead&&o.typ==='gap'&&x>o.wx+4&&x<o.wx+o.w-4)}
-function update(dt){if(mode!=='playing')return;runTime+=dt;dist+=speed*dt;speed=Math.min(225,133+dist*.0095);
+function update(dt){if(mode!=='playing')return;runTime+=dt;dist+=speed*dt;speed=Math.min(240,133+(stageIndex*5)+dist*.0095);
  // Auto-run only: no backward movement or directional stick required.
  heroX=clamp(heroX,72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;addObstacle();addZombies();addCells();addWeaponPickups();
  if(fireHeld)fire();
@@ -431,6 +507,8 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;dist+=speed*dt;speed=
  for(const n of notices){n.y-=dt*22;n.life-=dt;}notices=notices.filter(n=>n.life>0);
  cameraShake=Math.max(0,cameraShake-28*dt);score=Math.floor(dist/8)+energy*25+kills*120;
  if(Math.floor(dist/850)>Math.floor((dist-speed*dt)/850)){toast('SIGNAL RESTORED!',heroX+5,ground-107,'#ffe68d');playFx('charge',.32);sound(940,.14,'sine',.02)}
+ updateStageHud();
+ if(dist>=mission().goal && hero.onGround && !hero.fellInGap){levelClear();return;}
  updateHud();}
 // REAL layered assets from provided CraftPix ZIPs. Each layer moves at a distinct speed.
 const parallaxCache=new WeakMap();
@@ -667,7 +745,7 @@ function shotDraw(){for(const b of shots){
  else rect(b.x-5,b.y-3,10,6,weapon.color);
 }}
 function particleDraw(){for(const p of particles)rect(p.x,p.y,p.size,p.size,p.c);for(const n of notices){ctx.save();ctx.globalAlpha=clamp(n.life,0,1);safeText(n.s,n.x,n.y,n.col,11);ctx.restore();}}
-function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
+function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();finishGateDraw();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
 function animate(t){requestAnimationFrame(animate);if(!frameT)frameT=t;const elapsed=t-frameT;if(elapsed<minFrameMs-1.5)return;let dt=clamp(elapsed/1000,0,.05);frameT=t;clock+=dt;if(mode==='playing')update(dt);render();}
 const play=$('playButton');
 const soundButton=$('soundButton');
@@ -675,12 +753,12 @@ soundButton.addEventListener('click',()=>{muted=!muted;soundButton.textContent=m
  if(!muted){enableAudio();sound(650,.06,'sine',.02);} else if(bgm)bgm.pause();});
 function selectScene(v){if(!sceneAssets[v])return;sceneName=v;
  try{localStorage.setItem('last_spark_v3_scene',v);}catch(e){}
- document.querySelectorAll('[data-scene]').forEach(b=>b.classList.toggle('selected',b.dataset.scene===v));}
-document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>{selectScene(b.dataset.scene);sound(520,.05,'triangle',.014)}));
-selectScene(sceneName);
+ /* Stage-linked scenes */}
+document.querySelectorAll('[data-stage]').forEach(b=>b.addEventListener('click',()=>{if(selectStage(Number(b.dataset.stage)))sound(520,.05,'triangle',.014)}));
+ selectStage(0);
 function checkReady(){if(loaded===total&&loadedScenes>=totalScenes){play.disabled=false;
  if(mode==='menu')play.textContent='▶ PLAY NOW';}}
-play.addEventListener('click',()=>mode==='paused'?pause():reset());$('pauseButton').addEventListener('click',pause);
+play.addEventListener('click',()=>{if(mode==='paused'){pause();return;}if(mode==='won'&&stageIndex<STAGES.length-1)selectStage(stageIndex+1);reset();});$('pauseButton').addEventListener('click',pause);
 document.querySelectorAll('[data-char]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.char);document.querySelectorAll('[data-char]').forEach(x=>x.classList.toggle('selected',x===b));sound(540,.06,'sine',.015);}));
 function bind(id,down,up){const e=$(id);e.addEventListener('pointerdown',ev=>{ev.preventDefault();e.classList.add('held');try{e.setPointerCapture(ev.pointerId);}catch(_){}down();});for(const typ of ['pointerup','pointercancel','lostpointercapture'])e.addEventListener(typ,()=>{e.classList.remove('held');if(up)up();});}
 bind('fireButton',()=>{fireHeld=true;fire();},()=>{fireHeld=false});
@@ -770,7 +848,7 @@ window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLe
 window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
 window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
+window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,stageIndex,unlockedStage,allStagesCleared,stageGoal:mission().goal,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
 resize();updateHud();requestAnimationFrame(animate);
 })();
 </script>

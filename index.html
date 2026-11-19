@@ -175,7 +175,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>SKILL PROGRESSION · V4.5</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>WEAPON BALANCE · V4.6</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -235,7 +235,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V4.5 · SIX-STAGE SKILL PROGRESSION • 2 CHECKPOINTS (STAGES 4–6) • TAP=JUMP • HOLD=DUCK • FIRE</div>
+<div class="helper">V4.6 · WEAPON BALANCE · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • TAP=JUMP • HOLD=DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -318,7 +318,7 @@ function failureAdvice(reason){
 const DIFFICULTY_KEY='last_spark_v39_difficulty';
 let difficulty='challenge';
 try{const v=localStorage.getItem(DIFFICULTY_KEY);if(v==='standard'||v==='challenge')difficulty=v;}catch(e){}
-let gunHeat=0,gunOverheated=false,heatNeedsRelease=false,damageTaken=0,cleanDodges=0,rankDisplay='';
+let gunHeat=0,gunOverheated=false,heatNeedsRelease=false,laserCooling=false,laserBackupAmmo=0,laserHeatWarned=false,damageTaken=0,cleanDodges=0,rankDisplay='';
 const RANK_KEY='last_spark_v39_rank_';
 function rankForStage(i){try{return localStorage.getItem(RANK_KEY+difficulty+'_'+i)||'';}catch(e){return '';}}
 function setRankForStage(i,rank){const old=rankForStage(i);const order={B:1,A:2,S:3};if((order[rank]||0)>(order[old]||0)){try{localStorage.setItem(RANK_KEY+difficulty+'_'+i,rank);}catch(e){}}}
@@ -962,13 +962,15 @@ function lockGamePage(active){
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHeatHud(){
  const node=$('heatHud');if(!node)return;
- node.hidden=difficulty!=='challenge'||(mode!=='playing'&&mode!=='paused');
+ // A standard pistol never overheats; only the Laser Rifle shows heat in Challenge.
+ // During a laser cool-down the pistol is a fully functional emergency backup.
+ node.hidden=difficulty!=='challenge'||(mode!=='playing'&&mode!=='paused')||!(activeWeapon==='laser'||laserCooling);
  const value=$('heatValue');if(!value)return;
  const amount=Math.max(0,Math.min(5,Math.ceil(gunHeat*5)));
- value.textContent=gunOverheated?'COOLING!':heatNeedsRelease?'RELEASE FIRE':('▰'.repeat(amount)+'▱'.repeat(5-amount));
- value.className=gunOverheated||heatNeedsRelease||gunHeat>.72?'heat-hot':'heat-safe';
+ value.textContent=laserCooling?'LASER COOLING · PISTOL':('▰'.repeat(amount)+'▱'.repeat(5-amount));
+ value.className=laserCooling||gunHeat>.78?'heat-hot':'heat-safe';
 }
-function updateHud(){updateHeatHud();$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
+function updateHud(){updateHeatHud();$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=laserCooling?'PISTOL (LASER COOLING)':weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
 function reset(resume=false){
  selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);
  overlay.hidden=true;$('restartFullButton').hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;
@@ -976,7 +978,7 @@ function reset(resume=false){
  runTime=0;dist=0;speed=133;heroX=W===360?65:108;checkpointResumed=false;
  finishDodge(true);joyDownHeld=false;clearDodgeVisual();
  energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;
- gunHeat=0;gunOverheated=false;heatNeedsRelease=false;damageTaken=0;cleanDodges=0;
+ gunHeat=0;gunOverheated=false;heatNeedsRelease=false;laserCooling=false;laserBackupAmmo=0;laserHeatWarned=false;damageTaken=0;cleanDodges=0;
  courseObstacleCursor=0;courseZombieCursor=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;expertCoinCursor=0;
  ruinPhaseIndex=-1;ruinHintKey='';phaseDamageBaseline=0;skillSectionWins=0;lessonSkillSeen=new Set();
  $('lessonHud').hidden=false;$('bossHud').hidden=true;
@@ -1018,26 +1020,39 @@ function releaseJump(){jumpHeld=false;}
 function slide(){if(mode!=='playing')return;if(hero.onGround){hero.slideEnd=runTime+.7;sound(210,.07,'triangle',.02);}}
 function equip(type){
  if(!weapons[type])return;
+ // A picked-up weapon replaces the current special weapon, including any
+ // laser being cooled in the background; no stale laser can re-equip later.
+ gunHeat=0;gunOverheated=false;heatNeedsRelease=false;
+ laserCooling=false;laserBackupAmmo=0;laserHeatWarned=false;
  activeWeapon=type;weaponAmmo=weapons[type].ammo;
  toast(weapons[type].name+' ACQUIRED!',Math.max(22,heroX-20),hero.foot-91,weapons[type].color);
  burst(heroX,hero.foot-36,23,weapons[type].color);
  playFx('pickup',.31);sound(880,.20,'triangle',.028);updateHud();
 }
 function fire(){
- const w=weapons[activeWeapon];if(mode!=='playing'||runTime-prevShot<w.rate)return;
-  if(difficulty==='challenge'&&(gunOverheated||heatNeedsRelease))return;
-  if(difficulty==='challenge'){
-   gunHeat=Math.min(1.05,gunHeat+(activeWeapon==='pistol'?.16:activeWeapon==='laser'?.22:.23));
-   if(gunHeat>=.98){gunOverheated=true;heatNeedsRelease=true;toast('GUN HOT · RELEASE FIRE',heroX+11,ground-105,'#ffb39e');sound(240,.12,'sawtooth',.017);}
-  }
-  prevShot=runTime;shotPose=runTime+.22;
+ // Pistol: unlimited ammunition, no heat, same 0.30-second rate as V4.5.
+ // Shotgun & Plasma: slow fire and limited ammo; they do not overheat.
+ // Laser in CHALLENGE: a warning at 80%, then cooling while the Pistol
+ // becomes the automatic backup. Continuous FIRE remains responsive.
+ const firingWeapon=activeWeapon;
+ const w=weapons[firingWeapon];
+ if(mode!=='playing'||runTime-prevShot<w.rate)return;
+ let justOverheated=false;
+ if(difficulty==='challenge' && firingWeapon==='laser'){
+   gunHeat=Math.min(1.05,gunHeat+.22);
+   if(gunHeat>=.80&&!laserHeatWarned){
+     laserHeatWarned=true;
+     toast('LASER HOT 80% · EASE OFF',heroX-4,ground-105,'#ffcb85');
+     sound(460,.09,'triangle',.015);
+   }
+   if(gunHeat>=.98)justOverheated=true;
+ }
+ prevShot=runTime;shotPose=runTime+.22;
  const muzzle=gunPose();
  const y=muzzle.muzzleY;
- const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:activeWeapon,seen:[],pierce:activeWeapon==='laser'?2:0};
- // Point-blank fix: once a rushing zombie reaches the muzzle, spawning the
- // projectile past its hitbox made it impossible to shoot. Resolve a *short*
- // forward muzzle segment on the instant of firing; do not auto-hit enemies
- // behind the player, or targets above/below the real muzzle height.
+ const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:firingWeapon,seen:[],pierce:firingWeapon==='laser'?2:0};
+ // Preserve the V4.4.2 / V4.5 close-range fix: do not fire past a rushing
+ // zombie already between the cowboy and the muzzle. Shots still face right.
  const contact=zombies.find(z=>{
    if(z.status==='dead')return false;
    const zx=z.wx-dist, left=zx-12, right=left+z.w;
@@ -1045,21 +1060,30 @@ function fire(){
      y>=ground-53 && y<=ground+4;
  });
  if(contact){
-   damageZombie(contact,w.damage,activeWeapon);
+   damageZombie(contact,w.damage,firingWeapon);
    base.seen.push(contact);
-   if(activeWeapon!=='laser')base.life=0;
-   // Mild recoil keeps a surviving armored zombie in front of the muzzle.
+   if(firingWeapon!=='laser')base.life=0;
    if(contact.status!=='dead')contact.wx=Math.max(contact.wx,dist+heroX+57);
  }
- if(activeWeapon==='shotgun'){
-  for(const vy of [-88,-27,32,87])shots.push({...base,vy,life:.46,damage:1,seen:[]});
+ if(firingWeapon==='shotgun'){
+   for(const vy of [-88,-27,32,87])shots.push({...base,vy,life:base.life>0?.46:0,damage:1,seen:[...base.seen]});
  }else shots.push(base);
- burst(muzzle.muzzleX,y,activeWeapon==='plasma'?12:7,w.color);
- playFx('fire',activeWeapon==='plasma'?.28:.17);
- sound(activeWeapon==='plasma'?280:activeWeapon==='laser'?800:activeWeapon==='shotgun'?230:690,.075,'sawtooth',.014);
- if(activeWeapon!=='pistol'){
-  weaponAmmo=Math.max(0,weaponAmmo-1);
-  if(weaponAmmo===0){toast('OUT OF AMMO — PISTOL!',heroX-26,hero.foot-82,'#ffe1a0');activeWeapon='pistol';weaponAmmo=Infinity;}
+ burst(muzzle.muzzleX,y,firingWeapon==='plasma'?12:7,w.color);
+ playFx('fire',firingWeapon==='plasma'?.28:.17);
+ sound(firingWeapon==='plasma'?280:firingWeapon==='laser'?800:firingWeapon==='shotgun'?230:690,.075,'sawtooth',.014);
+ if(firingWeapon!=='pistol'){
+   weaponAmmo=Math.max(0,weaponAmmo-1);
+   if(weaponAmmo===0){
+     toast('OUT OF AMMO — PISTOL!',heroX-26,hero.foot-82,'#ffe1a0');
+     activeWeapon='pistol';weaponAmmo=Infinity;
+     laserCooling=false;gunOverheated=false;laserBackupAmmo=0;gunHeat=0;laserHeatWarned=false;
+   }
+ }
+ if(justOverheated&&activeWeapon==='laser'&&weaponAmmo>0){
+   laserCooling=true;gunOverheated=true;laserBackupAmmo=weaponAmmo;
+   activeWeapon='pistol';weaponAmmo=Infinity;
+   toast('LASER COOLING · PISTOL BACKUP!',heroX-24,ground-105,'#ffba91');
+   sound(240,.13,'sawtooth',.017);
  }
  updateHud();
 }
@@ -1228,9 +1252,19 @@ function damageZombie(z,dmg,kind){
 function gapAt(x){return obstacles.some(o=>!o.dead&&o.typ==='gap'&&x>o.wx+4&&x<o.wx+o.w-4)}
 function update(dt){if(mode!=='playing')return;
  runTime+=dt;
- if(difficulty==='challenge'){
-  gunHeat=Math.max(0,gunHeat-(fireHeld&&!gunOverheated?.12:.38)*dt);
-  if(gunOverheated&&gunHeat<=.25){gunOverheated=false;toast('GUN READY',heroX+12,ground-89,'#a6fff0');}
+ if(difficulty==='challenge'&&(activeWeapon==='laser'||laserCooling)){
+  // Heat decay only belongs to the laser. Never punish Pistol, Shotgun or Plasma.
+  const coolingRate=laserCooling?.50:(fireHeld?.12:.38);
+  gunHeat=Math.max(0,gunHeat-coolingRate*dt);
+  if(gunHeat<.45)laserHeatWarned=false;
+  if(laserCooling&&gunHeat<=.25){
+   laserCooling=false;gunOverheated=false;heatNeedsRelease=false;
+   if(laserBackupAmmo>0){
+     activeWeapon='laser';weaponAmmo=laserBackupAmmo;laserBackupAmmo=0;
+     toast('LASER READY · AUTO EQUIPPED',heroX+4,ground-96,'#a6fff0');
+     sound(830,.12,'sine',.018);
+   }
+  }
  }
  if(!(boss&&boss.active))dist+=speed*dt;
  acquireCheckpoint();
@@ -1833,11 +1867,11 @@ window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLe
 window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}});
 window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({version:'4.5',mode,stageIndex,unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({version:'4.6',mode,stageIndex,unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},
- gunHeat,gunOverheated,damageTaken,boss:boss?{...boss}:null,
+ gunHeat,gunOverheated,laserCooling,laserBackupAmmo,laserHeatWarned,damageTaken,boss:boss?{...boss}:null,
  activeWeapon,weaponAmmo,obstacles:obstacles.length,coinCount:cells.length,zombies:zombies.length,
  noFlag:true,noMysteryBox:true,lowPower,targetFPS:Math.round(1000/minFrameMs)});
 resize();updateHud();requestAnimationFrame(animate);

@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V4.4.1 — Factory Readability</title>
+<title>LAST SPARK V4.4.2 — Factory Readability</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -175,7 +175,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>FOUR-STEP ADVENTURE · V4.4.1</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>SKILL PROGRESSION · V4.5</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -235,7 +235,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAHP0lEQVR42t2bXaxUVxXHf2vPvUIDRAqKEklrsdUIiQKKYAqktlVrH9qqiQ3QGGyTKkSj4BshMWkTY5NqSjVpWpuqjU3T8ND2hUTsS7/Sh0pobdrUpAlFPiSCWAsUYe45fx9YO2yOM3PPzJx9L/fuZHImM2f22eu/1vqvj70HGh6SzF+3S9ov6ZSkX0r6jH8fJAWm44iCSdqu/x+HJK1PgZquwi+UdEBSIWnMhR9LgPi1pFl+78h0BOCTbvpyEJS8L/39HkkL/f7WZK47hy8KsC7PMqANfBV4VtI1ZlZMJgi5AFCP70eBAlgJvCDpJgdhZLq4wDWSjnRwgeqIvHBa0rcuBXcYFoCWX1dLOuvCleo9IginJN06GcSYwwVmAx8Cyhr3tvy+WcCTkm4xs7GJtIQcACzya9GFDDutoQQuAx6XtMI5IUw1ACLxXe1X63MdBfBh4GlJS8ysnHKc4CnwizUIsNto+/Wvki6fMhljXKSk+ZLO1CTA8Yjxd5JakkZyghAanudGYEaPZKjuXGPAJmCzmY1l4qosIfCJDrn/IKP012lJy9M841JOgD4h6d0h/L864hwvSZqdq4xucsKvA1c6m4eG1lYA1wLfN7NyCLfKzvwtSX9pUPtVVzgpaXEvV4iNmMny/fVDMn+dqPCUR4RWKmgVEAciTIjv+2LmSNrrwhcZAIjz/lfS2grwKRCzJM3st+M0DFJmZgVwJ7DC09kcyJuH1RnANv+slGRmJklLJe0GjgL7JT0sab5/F3Iz/1WSTiS+mnOU7g5rE1NfJOlgh3tfSdpu1qgF+IRB0ijwG+By135uAiq9etwiKZiZPPFa5NEi1iPngNXAI15at3qBMIiJBM/OfgLc3GDYq+sK1wGf8s8+Xym7zTtObWADsMnXak2Z/ohfb/Ccv5gA0+8UEe5wF3i5UkSpEo3+JenTvcJn6CfkebNiOfAkMHOAsrcJKwC4AVgGLE9co3pfAcwDfpUUazao5mPYWSjptQwJTz9EKEnHvbXeax1lajHdeo5WU/OFpCuAZxz1ogPqk5KIjiNDJOf9wOeADzx+q5YLONsWkhYAT19Cwqtm5Al+72LgThc81LKAhDTmuubXep0+1fr3Eai3XYYTnsSV41qA3/TgFBY+bbp+FrjZrcB6uoD7fSlpK7BxCgtfzSHucMUWXV3A/b6UtAp4ztvVdsm3peqNNrDMzN6KtUTobAAaAXZyfpODaSK8PEu8KZUpdDB9AT8AVnVJMqbqiGb/lY6ZoLN+KWk+sIXeO7y52LrI+Nwo62IvlwtJIVTqewG3O2OWE2T6cTs9uLVZZvAXcWH7zkIifTyosJnh+vqDxGgD9gGPedaWA4QYDucAH78IgKRI+CKwZIJYP5bRJ4CtwBozuwv4ZkxWqLfD3O8zzUGAJLa3PNbflrSjWxlNPpLry8CPzGxfoogjwD+9klPGNVxEDBHpZdUbMph8BPy3wDfMbF/s9joHfcSFn5DwG5LEZwFwVcYHR6IzYIeZ3W1mJ2OfIQG9SIDKpQirugDAx4AFmZn+FHCXme3ysKs0LfVx1l85BR9LXSB+OCchB8sgfAC2ufAjZlamdXmi7X8D72WwALnCx4Dj8bNQ8c8yk98HYKuZPSpp1E2+WxH2PnAgEwAAB9P5QyVONu37MZo8ZGYPuIDtLqV3mnu8mIGLIgD/AI56xLkIgKZ9L4a614HtnmSpBmB4A+ZchmRMwJuuhFasBuOijqe+0RDaZ4Afm9l7SYOlVwNGXqa+A+zmQne3iRHT7D+lITl4+RuAw8DfGwIg+v2jZvZ87C32WbTsTCyyCYUIOAbsSeeMW0wxFu9tSHgDDpH05Pv5vbvL88DvuXCYsok17fLcI1wUgZLNzjUNHm25JzJ73+q6sJExT9LfhtyHKPx1WtKXfN6Rbg+eIenNIXZ742+OSfroMKc2EqWsk/SfIc4fpAcsQlUhodILPAs8MUQlFv38MTM7lvQY+k/Z/KSomb3gDZpyQN8PTsa/cBJWN8RbyZ774cpfXvo5yXFG0rU+19Cd5GRb7r4BXCFumt6XWlWdh20f4LxfXNgbkubWemBNV3DlzO7zKE5c+2t+grVVB4D4l7eZkvb1iXhE+6meRDOcFXy75mGs+P0Hkr7clzIS8lkp6f0+XCEC9bOmzL+DcoJbWC/FFK6MtqTvjheJQhfyCWb2KucPQMUaYTwyi2x/wImv8Z6ek9gfKs2VblXf/Wb2uAtfDmN2P0xMql3D7DYMGv/HWU88nXJ95RBlNd5L0v1Dc1A8Aerv706Owbe7+GD8bGMmAKJrLvUDEqkbpOv5aUKe1iQBrZP0eoVlywm0gAjAFZU/ZraTP159r6no0w2EuZJ2JtaQAhGv9zYdBSprWO3PLxPhD0q6sVHNd9OAv/+CpD8mppiOXX7PaCYO+E7F/P+cHKQeJeeoHkSWtEzSzz3ZeMtD1NdymGFiAWvcAg5L2iHpsmFc7n8tXDnk1C7kbAAAAABJRU5ErkJggg==" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V4.4.1 · FACTORY REDESIGN • 2 CHECKPOINTS (STAGES 4–6) • TAP=JUMP • HOLD=DUCK • FIRE</div>
+<div class="helper">V4.5 · SIX-STAGE SKILL PROGRESSION • 2 CHECKPOINTS (STAGES 4–6) • TAP=JUMP • HOLD=DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -285,12 +285,12 @@ let best=0;try{best=Number(localStorage.getItem('last_spark_v2_best')||0)||0;}ca
 // Each stage unlocks by defeating its boss; there is no visible finish flag or gate.
 
 const STAGES=[
- {name:'RUINED CITY',scene:'ruins',goal:14500,tag:'Learn, practice, combine, master',reward:450},
- {name:'ASH DUSK',scene:'ash',goal:4000,tag:'Survive the burning outskirts',reward:500},
- {name:'NIGHT RUN',scene:'night',goal:5200,tag:'Use every skill and defeat the boss',reward:850},
- {name:'ABANDONED FACTORY',scene:'factory',goal:7000,tag:'Conveyor rhythm and tighter hazard chains',reward:1000},
- {name:'CYBERPUNK CITY',scene:'cyber',goal:7900,tag:'Neon drones force faster reads',reward:1200},
- {name:'UNDERGROUND BASE',scene:'metal',goal:9000,tag:'Final gauntlet with turrets and dense mixed patterns',reward:1450}
+ {name:'RUINED CITY',scene:'ruins',goal:10500,tag:'Learn, practice, combine, master',reward:450},
+ {name:'ASH DUSK',scene:'ash',goal:11200,tag:'Survive the burning outskirts',reward:500},
+ {name:'NIGHT RUN',scene:'night',goal:14800,tag:'Use every skill and defeat the boss',reward:850},
+ {name:'ABANDONED FACTORY',scene:'factory',goal:16500,tag:'Conveyor rhythm and tighter hazard chains',reward:1000},
+ {name:'CYBERPUNK CITY',scene:'cyber',goal:20200,tag:'Neon drones force faster reads',reward:1200},
+ {name:'UNDERGROUND BASE',scene:'metal',goal:23800,tag:'Final gauntlet with turrets and dense mixed patterns',reward:1450}
 ];
 // Pure Skill Loop: progress is earned by surviving the stage and beating its boss.
 // All restarts begin at the start of the selected stage; no checkpoint poles or mystery blocks.
@@ -309,7 +309,10 @@ function failureAdvice(reason){
  if(/PIPE|overhead|high/i.test(reason))return 'HOLD LEFT early to duck under the low pipe or high boss blast.';
  if(/SHOCKWAVE|LOW/i.test(reason))return 'TAP to jump the low boss blast, then FIRE while its shield is down.';
  if(/ELECTRIC|HAZARD/i.test(reason))return 'Jump over the trap, or FIRE before it reaches your cowboy.';
- if(/ZOMBIE|BITE/i.test(reason))return 'FIRE earlier. Jumping also helps you clear a zombie after a pit.';
+ if(/DRONE/i.test(reason))return 'NEON DRONES: low = JUMP, high = DUCK. You can also shoot them before contact.';
+ if(/HIGH SHOT|TURRET|OVERHEAD/i.test(reason))return 'See the high turret flash? HOLD LEFT before the shot arrives.';
+ if(/LOW SHOT/i.test(reason))return 'Low turret energy sweeps the floor: TAP early to JUMP clear.';
+ if(/ZOMBIE|BITE/i.test(reason))return 'FIRE earlier and watch the armored enemy HP bar. Jump after the shot, not into its hitbox.';
  return 'Watch the next obstacle, try a slightly earlier tap, and retry.';
 }
 const DIFFICULTY_KEY='last_spark_v39_difficulty';
@@ -323,12 +326,12 @@ function updateDifficultyButtons(){document.querySelectorAll('[data-difficulty]'
 function selectDifficulty(v){if(!['challenge','standard'].includes(v))return;difficulty=v;try{localStorage.setItem(DIFFICULTY_KEY,v);}catch(e){}updateDifficultyButtons();loadStageCheckpoint();updateStagePicker();updatePersonalProgress();updateMenuCheckpointControls();}
 
 const BOSSES=[
- {name:'RUIN BRUTE',hp:12,bonus:500,windup:1.3,recovery:1.7,projectileSpeed:225},
- {name:'ASH MUTANT',hp:17,bonus:750,windup:1.15,recovery:1.65,projectileSpeed:245},
- {name:'NIGHT SENTINEL',hp:23,bonus:1200,windup:1.05,recovery:1.48,projectileSpeed:265},
- {name:'FACTORY GOLEM',hp:30,bonus:1500,windup:0.96,recovery:1.28,projectileSpeed:286},
- {name:'NEON WARDEN',hp:34,bonus:1750,windup:0.90,recovery:1.20,projectileSpeed:304},
- {name:'CORE TITAN',hp:39,bonus:2100,windup:0.84,recovery:1.14,projectileSpeed:325}
+ {name:'RUIN BRUTE',hp:10,bonus:500,windup:1.3,recovery:1.7,projectileSpeed:225},
+ {name:'ASH MUTANT',hp:12,bonus:750,windup:1.15,recovery:1.65,projectileSpeed:245},
+ {name:'NIGHT SENTINEL',hp:15,bonus:1200,windup:1.05,recovery:1.48,projectileSpeed:265},
+ {name:'FACTORY GOLEM',hp:18,bonus:1500,windup:0.96,recovery:1.28,projectileSpeed:286},
+ {name:'NEON WARDEN',hp:20,bonus:1750,windup:0.90,recovery:1.20,projectileSpeed:304},
+ {name:'CORE TITAN',hp:23,bonus:2100,windup:0.84,recovery:1.14,projectileSpeed:325}
 ];
 let boss=null,bossShots=[],bossBonus=0,dodgeBonus=0,dodgeStreak=0,obstacleSequence=0,conveyors=[],drones=[],sentries=[],sentryShots=[],gimmickToastShown=false;
 
@@ -446,10 +449,36 @@ const FOUR_STEP_COURSES={
   checkpoint:[{at:3010,name:'BUNKER ACCESS'},{at:6160,name:'CORE CHAMBER'}]
  }
 };
+// V4.5 — the four learning quarters are matched to real stage duration.
+FOUR_STEP_COURSES[3].steps[0].at=0; FOUR_STEP_COURSES[3].steps[0].desc='Learn belt arrows with single hazards';
+FOUR_STEP_COURSES[3].steps[1].at=4100; FOUR_STEP_COURSES[3].steps[1].desc='Repeat belt timing at different speeds';
+FOUR_STEP_COURSES[3].steps[2].at=8250; FOUR_STEP_COURSES[3].steps[2].desc='Combine belts with pipes and gaps';
+FOUR_STEP_COURSES[3].steps[3].at=12400; FOUR_STEP_COURSES[3].steps[3].desc='Use conveyor momentum before FACTORY GOLEM';
+FOUR_STEP_COURSES[3].checkpoint[0].at=5500;
+FOUR_STEP_COURSES[3].checkpoint[1].at=11200;
+FOUR_STEP_COURSES[4].steps[0].at=0; FOUR_STEP_COURSES[4].steps[0].desc='Shoot one low drone before the first pit';
+FOUR_STEP_COURSES[4].steps[1].at=5050; FOUR_STEP_COURSES[4].steps[1].desc='Learn low and high drone flight paths';
+FOUR_STEP_COURSES[4].steps[2].at=10100; FOUR_STEP_COURSES[4].steps[2].desc='React to drone, gap and pipe sequences';
+FOUR_STEP_COURSES[4].steps[3].at=15150; FOUR_STEP_COURSES[4].steps[3].desc='Master the neon crossfire before NEON WARDEN';
+FOUR_STEP_COURSES[4].checkpoint[0].at=6700;
+FOUR_STEP_COURSES[4].checkpoint[1].at=13900;
+FOUR_STEP_COURSES[5].steps[0].at=0; FOUR_STEP_COURSES[5].steps[0].desc='Recognize turret LOW and HIGH warnings';
+FOUR_STEP_COURSES[5].steps[1].at=5950; FOUR_STEP_COURSES[5].steps[1].desc='Practice JUMP and DUCK with safe spacing';
+FOUR_STEP_COURSES[5].steps[2].at=11900; FOUR_STEP_COURSES[5].steps[2].desc='Combine turrets, zombies and terrain reads';
+FOUR_STEP_COURSES[5].steps[3].at=17850; FOUR_STEP_COURSES[5].steps[3].desc='Complete the security gauntlet to CORE TITAN';
+FOUR_STEP_COURSES[5].checkpoint[0].at=7900;
+FOUR_STEP_COURSES[5].checkpoint[1].at=16000;
 for(const idx of [3,4,5]){
  EXPERT_COURSES[idx]=FOUR_STEP_COURSES[idx].obstacles.map(o=>({...o}));
 }
 
+// V4.5 — every stage has an authored progression, not a repeating random obstacle stream.
+const SKILL_COURSES={"1":[{"x":610,"type":"beam","w":46},{"x":1345,"type":"beam","w":46},{"x":2116,"type":"gap","w":70},{"x":3140,"type":"beam","w":46},{"x":3755,"type":"gap","w":77},{"x":4406,"type":"beam","w":46},{"x":5021,"type":"electric","w":28},{"x":5940,"type":"beam","w":46},{"x":6470,"type":"gap","w":84},{"x":7036,"type":"electric","w":28},{"x":7566,"type":"beam","w":46},{"x":8740,"type":"gap","w":91},{"x":9240,"type":"beam","w":46},{"x":9776,"type":"electric","w":28},{"x":10276,"type":"gap","w":91}],"2":[{"x":1450,"type":"gap","w":70},{"x":2170,"type":"electric","w":28},{"x":2926,"type":"beam","w":46},{"x":4040,"type":"gap","w":77},{"x":4640,"type":"beam","w":46},{"x":5276,"type":"rubble","w":24},{"x":5876,"type":"electric","w":28},{"x":6476,"type":"gap","w":77},{"x":7076,"type":"beam","w":46},{"x":7740,"type":"gap","w":84},{"x":8255,"type":"electric","w":28},{"x":8806,"type":"beam","w":46},{"x":9321,"type":"gap","w":84},{"x":9836,"type":"gap","w":84},{"x":10351,"type":"electric","w":28},{"x":11440,"type":"electric","w":28},{"x":11925,"type":"gap","w":91},{"x":12446,"type":"beam","w":46},{"x":12931,"type":"electric","w":28},{"x":13416,"type":"gap","w":91},{"x":13901,"type":"electric","w":28}],"3":[{"x":1430,"type":"beam","w":46},{"x":2120,"type":"rubble","w":24},{"x":2846,"type":"gap","w":70},{"x":3536,"type":"beam","w":46},{"x":4465,"type":"beam","w":46},{"x":5035,"type":"gap","w":77},{"x":5641,"type":"electric","w":28},{"x":6211,"type":"beam","w":46},{"x":6781,"type":"beam","w":46},{"x":7351,"type":"gap","w":77},{"x":8590,"type":"gap","w":84},{"x":9075,"type":"beam","w":46},{"x":9596,"type":"electric","w":28},{"x":10081,"type":"gap","w":84},{"x":10566,"type":"gap","w":84},{"x":11051,"type":"beam","w":46},{"x":11572,"type":"electric","w":28},{"x":12715,"type":"beam","w":46},{"x":13170,"type":"gap","w":91},{"x":13661,"type":"electric","w":28},{"x":14116,"type":"beam","w":46},{"x":14571,"type":"gap","w":91},{"x":15026,"type":"beam","w":46},{"x":15517,"type":"gap","w":91}],"4":[{"x":1710,"type":"gap","w":70},{"x":2400,"type":"beam","w":46},{"x":3126,"type":"electric","w":28},{"x":3816,"type":"gap","w":70},{"x":4506,"type":"beam","w":46},{"x":5390,"type":"electric","w":28},{"x":5960,"type":"gap","w":77},{"x":6566,"type":"beam","w":46},{"x":7136,"type":"electric","w":28},{"x":7706,"type":"gap","w":77},{"x":8276,"type":"beam","w":46},{"x":8882,"type":"electric","w":28},{"x":9452,"type":"gap","w":77},{"x":10440,"type":"gap","w":84},{"x":10925,"type":"electric","w":28},{"x":11446,"type":"beam","w":46},{"x":11931,"type":"gap","w":84},{"x":12416,"type":"gap","w":84},{"x":12901,"type":"electric","w":28},{"x":13422,"type":"beam","w":46},{"x":13907,"type":"gap","w":84},{"x":14392,"type":"gap","w":84},{"x":15490,"type":"beam","w":46},{"x":15945,"type":"gap","w":91},{"x":16436,"type":"electric","w":28},{"x":16891,"type":"beam","w":46},{"x":17346,"type":"gap","w":91},{"x":17801,"type":"beam","w":46},{"x":18292,"type":"gap","w":91},{"x":18747,"type":"electric","w":28},{"x":19202,"type":"beam","w":46}],"5":[{"x":1720,"type":"beam","w":46},{"x":2410,"type":"gap","w":70},{"x":3136,"type":"electric","w":28},{"x":3826,"type":"beam","w":46},{"x":4516,"type":"gap","w":70},{"x":5206,"type":"electric","w":28},{"x":6290,"type":"beam","w":46},{"x":6860,"type":"electric","w":28},{"x":7466,"type":"gap","w":77},{"x":8036,"type":"beam","w":46},{"x":8606,"type":"beam","w":46},{"x":9176,"type":"electric","w":28},{"x":9782,"type":"gap","w":77},{"x":10352,"type":"beam","w":46},{"x":10922,"type":"beam","w":46},{"x":11492,"type":"electric","w":28},{"x":12240,"type":"gap","w":84},{"x":12725,"type":"beam","w":46},{"x":13246,"type":"electric","w":28},{"x":13731,"type":"gap","w":84},{"x":14216,"type":"gap","w":84},{"x":14701,"type":"beam","w":46},{"x":15222,"type":"electric","w":28},{"x":15707,"type":"gap","w":84},{"x":16192,"type":"gap","w":84},{"x":16677,"type":"beam","w":46},{"x":17198,"type":"electric","w":28},{"x":18190,"type":"electric","w":28},{"x":18645,"type":"gap","w":91},{"x":19136,"type":"beam","w":46},{"x":19591,"type":"gap","w":91},{"x":20046,"type":"electric","w":28},{"x":20501,"type":"electric","w":28},{"x":20992,"type":"gap","w":91},{"x":21447,"type":"beam","w":46},{"x":21902,"type":"gap","w":91},{"x":22357,"type":"electric","w":28},{"x":22848,"type":"electric","w":28}]};
+for(const key of Object.keys(SKILL_COURSES)){
+ const idx=Number(key);
+ if(idx>=3)FOUR_STEP_COURSES[idx].obstacles=SKILL_COURSES[idx].map(o=>({...o}));
+ EXPERT_COURSES[idx]=SKILL_COURSES[idx].map(o=>({...o}));
+}
 const EXPERT_COIN_POINTS={};
 for(const idx of [1,2,3,4,5]){
  const pts=[];
@@ -535,9 +564,15 @@ const BASE_SENTRIES=[
  {x:6960,alt:20,mode:'low',gap:1.65},
  {x:7840,alt:42,mode:'high',gap:1.60}
 ];
+// V4.5 mechanics span all four quarters of the extended stage routes.
+FACTORY_CONVEYORS.splice(0,FACTORY_CONVEYORS.length,...[{"from":540,"to":830,"dir":1,"push":38,"label":"BELT \u2192"},{"from":1510,"to":1800,"dir":-1,"push":40,"label":"\u2190 BELT"},{"from":2990,"to":3280,"dir":1,"push":42,"label":"BELT \u2192"},{"from":3450,"to":3740,"dir":-1,"push":44,"label":"\u2190 BELT"},{"from":4420,"to":4710,"dir":1,"push":46,"label":"BELT \u2192"},{"from":5390,"to":5680,"dir":-1,"push":48,"label":"\u2190 BELT"},{"from":6360,"to":6650,"dir":1,"push":50,"label":"BELT \u2192"},{"from":7500,"to":7790,"dir":-1,"push":52,"label":"\u2190 BELT"},{"from":8725,"to":9015,"dir":1,"push":54,"label":"BELT \u2192"},{"from":9270,"to":9560,"dir":-1,"push":56,"label":"\u2190 BELT"},{"from":10750,"to":11040,"dir":1,"push":58,"label":"BELT \u2192"},{"from":11210,"to":11500,"dir":-1,"push":60,"label":"\u2190 BELT"},{"from":12180,"to":12470,"dir":1,"push":60,"label":"BELT \u2192"},{"from":13320,"to":13610,"dir":-1,"push":60,"label":"\u2190 BELT"},{"from":14120,"to":14410,"dir":1,"push":60,"label":"BELT \u2192"},{"from":15090,"to":15380,"dir":-1,"push":60,"label":"\u2190 BELT"}]);
+CYBER_DRONES.splice(0,CYBER_DRONES.length,...[{"x":800,"alt":21,"amp":3,"phase":0.0,"speed":1.55,"type":"low"},{"x":2110,"alt":41,"amp":2,"phase":0.43,"speed":1.615,"type":"high"},{"x":3420,"alt":21,"amp":3,"phase":0.86,"speed":1.68,"type":"low"},{"x":4730,"alt":41,"amp":2,"phase":1.29,"speed":1.745,"type":"high"},{"x":6224,"alt":21,"amp":3,"phase":1.72,"speed":1.81,"type":"low"},{"x":7350,"alt":41,"amp":2,"phase":2.15,"speed":1.875,"type":"high"},{"x":8660,"alt":21,"amp":3,"phase":2.58,"speed":1.94,"type":"low"},{"x":9970,"alt":41,"amp":2,"phase":3.01,"speed":2.005,"type":"high"},{"x":11648,"alt":21,"amp":3,"phase":3.44,"speed":2.07,"type":"low"},{"x":12682,"alt":41,"amp":2,"phase":3.87,"speed":2.135,"type":"high"},{"x":14176,"alt":21,"amp":3,"phase":4.3,"speed":2.2,"type":"low"},{"x":15210,"alt":41,"amp":2,"phase":4.73,"speed":2.265,"type":"high"},{"x":16704,"alt":21,"amp":3,"phase":5.16,"speed":2.33,"type":"low"},{"x":18014,"alt":41,"amp":2,"phase":5.59,"speed":2.395,"type":"high"},{"x":19416,"alt":21,"amp":3,"phase":6.02,"speed":2.46,"type":"low"}]);
+BASE_SENTRIES.splice(0,BASE_SENTRIES.length,...[{"x":800,"alt":20,"mode":"low","gap":2.5},{"x":1995,"alt":42,"mode":"high","gap":2.457},{"x":3374,"alt":20,"mode":"low","gap":2.414},{"x":4753,"alt":42,"mode":"high","gap":2.371},{"x":5580,"alt":20,"mode":"low","gap":2.328},{"x":7143,"alt":42,"mode":"high","gap":2.285},{"x":8338,"alt":20,"mode":"low","gap":2.242},{"x":9441,"alt":42,"mode":"high","gap":2.199},{"x":10636,"alt":20,"mode":"low","gap":2.156},{"x":11739,"alt":42,"mode":"high","gap":2.113},{"x":13486,"alt":20,"mode":"low","gap":2.07},{"x":14957,"alt":42,"mode":"high","gap":2.027},{"x":16244,"alt":20,"mode":"low","gap":1.984},{"x":17439,"alt":42,"mode":"high","gap":1.941},{"x":17530,"alt":20,"mode":"low","gap":1.898},{"x":19829,"alt":42,"mode":"high","gap":1.855},{"x":20748,"alt":20,"mode":"low","gap":1.812},{"x":22219,"alt":42,"mode":"high","gap":1.769},{"x":23138,"alt":20,"mode":"low","gap":1.726}]);
 for(const idx of [3,4,5]){
  EXPERT_ZOMBIES[idx]=FOUR_STEP_COURSES[idx].zombies.map(z=>({...z}));
 }
+const SKILL_ZOMBIES={"1":[{"x":1100,"kind":0},{"x":2366,"kind":0},{"x":3410,"kind":0},{"x":4677,"kind":1},{"x":5277,"kind":0},{"x":6692,"kind":1},{"x":7810,"kind":0},{"x":8411,"kind":1},{"x":9455,"kind":0},{"x":10500,"kind":1}],"2":[{"x":1100,"kind":0},{"x":2405,"kind":0},{"x":3266,"kind":0},{"x":4350,"kind":2},{"x":5507,"kind":0},{"x":6738,"kind":1},{"x":7970,"kind":2},{"x":9053,"kind":1},{"x":10062,"kind":0},{"x":10850,"kind":2},{"x":12155,"kind":0},{"x":13164,"kind":1},{"x":14174,"kind":2}],"3":[{"x":1100,"kind":0},{"x":2436,"kind":0},{"x":3772,"kind":0},{"x":5257,"kind":2},{"x":6445,"kind":0},{"x":7781,"kind":1},{"x":9340,"kind":2},{"x":10824,"kind":1},{"x":11790,"kind":0},{"x":13423,"kind":2},{"x":15055,"kind":0},{"x":15799,"kind":1}],"4":[{"x":1100,"kind":0},{"x":2633,"kind":0},{"x":4166,"kind":0},{"x":5700,"kind":2},{"x":7381,"kind":0},{"x":9136,"kind":1},{"x":10670,"kind":2},{"x":12425,"kind":1},{"x":13662,"kind":0},{"x":14900,"kind":2},{"x":16655,"kind":0},{"x":18040,"kind":1},{"x":19500,"kind":2}],"5":[{"x":1100,"kind":0},{"x":2640,"kind":0},{"x":4107,"kind":0},{"x":5500,"kind":2},{"x":7114,"kind":0},{"x":8877,"kind":1},{"x":10048,"kind":2},{"x":11736,"kind":1},{"x":12981,"kind":0},{"x":14448,"kind":2},{"x":16358,"kind":0},{"x":17455,"kind":1},{"x":19292,"kind":2},{"x":20758,"kind":1},{"x":22225,"kind":0},{"x":23100,"kind":2}]};
+for(const key of Object.keys(SKILL_ZOMBIES))EXPERT_ZOMBIES[Number(key)]=SKILL_ZOMBIES[key].map(z=>({...z}));
 let courseObstacleCursor=0,courseZombieCursor=0;
 function addExpertObstacles(){const seq=EXPERT_COURSES[stageIndex]||[];
  while(courseObstacleCursor<seq.length&&seq[courseObstacleCursor].x<dist+W+80){
@@ -548,61 +583,39 @@ function addExpertObstacles(){const seq=EXPERT_COURSES[stageIndex]||[];
 function addExpertZombies(){const seq=EXPERT_ZOMBIES[stageIndex]||[];
  while(courseZombieCursor<seq.length&&seq[courseZombieCursor].x<dist+W+105){
   const e=seq[courseZombieCursor++];const k=e.kind;
-  zombies.push({wx:e.x,kind:k,v:26+stageIndex*9+(k===2?9:0),hp:k===2?2+stageIndex:1,rushed:false,status:'run',deadAt:0,anim:0,w:k===2?33:28,challenge:true});
+  const toughHp=k===2?Math.min(3,2+stageIndex):1;
+  zombies.push({wx:e.x,kind:k,v:26+stageIndex*9+(k===2?9:0),hp:toughHp,maxHp:toughHp,rushed:false,status:'run',deadAt:0,anim:0,w:k===2?33:28,challenge:true});
  }
 }
 
 const RUIN_PHASES=[
- {at:0,name:'LEARN',desc:'TAP to jump • HOLD to duck • FIRE to shoot'},
- {at:2200,name:'TEST',desc:'Two different pits • find your timing'},
- {at:4700,name:'COMBINE',desc:'Jump, land, then shoot • watch the next hazard'},
- {at:8500,name:'MASTER',desc:'Read the pattern • react cleanly • boss ahead'}
+ {at:0,name:'LEARN',desc:'Jump one safe pit, then FIRE at a slow zombie'},
+ {at:2550,name:'PRACTICE',desc:'Repeat the JUMP and learn to HOLD to duck'},
+ {at:4900,name:'CHALLENGE',desc:'JUMP over a pit, then switch to FIRE or DUCK'},
+ {at:7550,name:'MASTER',desc:'Link your three moves and overcome RUIN BRUTE'}
 ];
 const RUIN_OBSTACLES=[
- {x:850,type:'gap',w:54},
- {x:1510,type:'beam',w:46},
- {x:2110,type:'rubble',w:24},
- {x:2560,type:'gap',w:65},
- {x:2960,type:'beam',w:46,hard:true},
- {x:3350,type:'gap',w:81},
- {x:3750,type:'electric',w:28,hard:true},
- {x:4190,type:'beam',w:46},
- {x:4710,type:'gap',w:84},
- {x:5110,type:'electric',w:28,hard:true},
- {x:5490,type:'gap',w:73},
- {x:5910,type:'beam',w:46},
- {x:6300,type:'rubble',w:24,hard:true},
- {x:6680,type:'gap',w:86},
- {x:7070,type:'electric',w:28},
- {x:7420,type:'beam',w:46,hard:true},
- {x:7810,type:'gap',w:78},
- {x:8180,type:'electric',w:28,hard:true},
- {x:8700,type:'beam',w:46},
- {x:9060,type:'gap',w:86},
- {x:9450,type:'electric',w:28,hard:true},
- {x:9850,type:'gap',w:94},
- {x:10290,type:'beam',w:46,hard:true},
- {x:10680,type:'gap',w:86},
- {x:11080,type:'rubble',w:24},
- {x:11480,type:'electric',w:28,hard:true},
- {x:11860,type:'beam',w:46},
- {x:12260,type:'gap',w:93},
- {x:12650,type:'beam',w:46,hard:true},
- {x:13020,type:'electric',w:28},
- {x:13420,type:'gap',w:90},
- {x:13770,type:'beam',w:46,hard:true},
+ {x:720,type:'gap',w:66},
+ {x:2020,type:'beam',w:46},
+ {x:2880,type:'gap',w:75},
+ {x:3420,type:'rubble',w:24},
+ {x:3890,type:'beam',w:46},
+ {x:5070,type:'gap',w:84},
+ {x:5520,type:'electric',w:28},
+ {x:6230,type:'beam',w:46},
+ {x:6840,type:'gap',w:84},
+ {x:8050,type:'beam',w:46},
+ {x:8590,type:'gap',w:90},
+ {x:9240,type:'electric',w:28},
+ {x:9890,type:'gap',w:88}
 ];
 const RUIN_ZOMBIES=[
- {x:1920,kind:0},
- {x:4050,kind:2},
- {x:5690,kind:1},
- {x:6880,kind:2},
- {x:8350,kind:1},
- {x:9710,kind:2},
- {x:10830,kind:1},
- {x:11580,kind:2},
- {x:12470,kind:1},
- {x:13630,kind:2},
+ {x:1550,kind:0},
+ {x:4400,kind:0},
+ {x:5780,kind:1},
+ {x:7150,kind:1},
+ {x:8300,kind:2},
+ {x:9600,kind:2}
 ];
 // Coins trace the intended route: arcs above pits, ground-level rewards after ducks.
 // Deliberately avoid overlapping the front of a dangerous hazard.
@@ -625,6 +638,7 @@ for(const x of [1200,6140,10400]){
 }
 RUIN_COIN_POINTS.sort((a,b)=>a.x-b.x);
 let ruinObstacleCursor=0,ruinZombieCursor=0,ruinCoinCursor=0,ruinPhaseIndex=-1,ruinHintKey='';
+let phaseDamageBaseline=0,skillSectionWins=0;
 function ruinPhaseFor(d){let phase=0;for(let i=1;i<RUIN_PHASES.length;i++)if(d>=RUIN_PHASES[i].at)phase=i;return phase;}
 function addRuinedObstacles(){
  while(ruinObstacleCursor<RUIN_OBSTACLES.length && RUIN_OBSTACLES[ruinObstacleCursor].x<dist+W+80){
@@ -645,11 +659,25 @@ function addRuinedCoins(){
  }
 }
 const GENERIC_PHASES=[
- {name:'LEARN',desc:'Watch one obstacle at a time'},
- {name:'PRACTICE',desc:'Repeat the move with new timing'},
- {name:'CHALLENGE',desc:'Combine moves — anticipate the next danger'},
- {name:'MASTER',desc:'Read the pattern and stay calm'}
+ {name:'LEARN',desc:'See one move and understand its timing'},
+ {name:'PRACTICE',desc:'Repeat and adjust the timing'},
+ {name:'CHALLENGE',desc:'Combine two moves with a clear recovery window'},
+ {name:'MASTER',desc:'Use everything learned before the boss'}
 ];
+const STAGE_SKILL_STEPS={
+ 1:[
+  {name:'LEARN',desc:'HOLD left to duck under one pipe'},
+  {name:'PRACTICE',desc:'Duck again, then TAP to clear a short pit'},
+  {name:'CHALLENGE',desc:'Alternate DUCK → JUMP → FIRE'},
+  {name:'MASTER',desc:'Keep the rhythm and defeat ASH MUTANT'}
+ ],
+ 2:[
+  {name:'LEARN',desc:'Learn slow and armored zombies by shooting early'},
+  {name:'PRACTICE',desc:'Recognize which zombie rushes and which lingers'},
+  {name:'CHALLENGE',desc:'Fight around pits without firing blindly'},
+  {name:'MASTER',desc:'Read multiple enemy patterns before NIGHT SENTINEL'}
+ ]
+};
 function phaseForStage(){
  if(stageIndex===0)return ruinPhaseFor(dist);
  if(stageIndex>=3){const steps=FOUR_STEP_COURSES[stageIndex].steps;let phase=0;for(let i=1;i<steps.length;i++)if(dist>=steps[i].at)phase=i;return phase;}
@@ -660,8 +688,16 @@ function updateRuinLesson(){
  if(mode!=='playing'||(boss&&boss.active)){el.hidden=true;return;}
  el.hidden=false;
  const phase=phaseForStage();
- const info=stageIndex===0?RUIN_PHASES[phase]:stageIndex>=3?FOUR_STEP_COURSES[stageIndex].steps[phase]:GENERIC_PHASES[phase];
+ const info=stageIndex===0?RUIN_PHASES[phase]:stageIndex>=3?FOUR_STEP_COURSES[stageIndex].steps[phase]:(STAGE_SKILL_STEPS[stageIndex]||GENERIC_PHASES)[phase];
  if(phase!==ruinPhaseIndex){
+  // Reward a cleanly completed quarter. Respawned runs can earn practice bonuses,
+  // but checkpoint-resumed runs are never eligible for the top S rank.
+  if(ruinPhaseIndex>=0&&phase>ruinPhaseIndex&&damageTaken===phaseDamageBaseline){
+   const bonus=35+stageIndex*5;
+   dodgeBonus+=bonus;skillSectionWins++;
+   toast('CLEAN SECTION +'+bonus,heroX+9,ground-115,'#b7ffdc');
+  }
+  phaseDamageBaseline=damageTaken;
   ruinPhaseIndex=phase;ruinHintKey='';
   toast('STEP '+(phase+1)+'/4 · '+info.name,heroX+16,ground-106,'#ffe19a');
   if(phase>0)sound(735,.11,'triangle',.022);
@@ -670,7 +706,8 @@ function updateRuinLesson(){
  const hazard=obstacles.filter(o=>!o.dead&&o.wx>front+55&&o.wx<front+455).sort((a,b)=>a.wx-b.wx)[0];
  const zombie=zombies.filter(z=>z.status!=='dead'&&z.wx>front+55&&z.wx<front+400).sort((a,b)=>a.wx-b.wx)[0];
  let hint=info.desc;
- if(phase<2&&stageIndex>=3){
+ if(phase<2&&(stageIndex===1||stageIndex===2)){hint=info.desc;}
+ else if(phase<2&&stageIndex>=3){
   hint=info.desc;
   if(stageIndex===3&&hazard&&hazard.wx-front<270)hint=hazard.typ==='gap'?'TAP before the gap':hazard.typ==='beam'?'HOLD to duck the pipe':'JUMP or FIRE over the hazard';
   if(stageIndex===4&&phase===0)hint='DRONES: low = JUMP / high = DUCK / or FIRE';
@@ -679,8 +716,8 @@ function updateRuinLesson(){
   if(hazard&&(!zombie||hazard.wx<zombie.wx-65)){
    hint=hazard.typ==='gap'?'TAP JUMP before the pit':hazard.typ==='beam'?'HOLD to DUCK under pipes':hazard.typ==='electric'?'FIRE or JUMP over electricity':'TAP to clear the rubble';
   }else if(zombie)hint=zombie.kind===2?'A fast zombie — aim sooner':'FIRE before the zombie reaches you';
- }else if(phase===2){hint=stageIndex>=3?info.desc:'COMBINE: JUMP / DUCK / FIRE';}
- else{hint=stageIndex>=3?info.desc:'MASTER: WATCH, REACT, THEN SHOOT';}
+ }else if(phase===2){hint=stageIndex>=1?info.desc:'COMBINE: JUMP / DUCK / FIRE';}
+ else{hint=stageIndex>=1?info.desc:'MASTER: WATCH, REACT, THEN SHOOT';}
  const key=stageIndex+'|'+phase+'|'+hint;
  if(key!==ruinHintKey){ruinHintKey=key;$('lessonHead').textContent='STEP '+(phase+1)+'/4 · '+info.name;$('lessonBody').textContent=hint;}
 }
@@ -701,7 +738,7 @@ function drawRuinHints(){
 
 
 // V4.4 checkpoint state: only stages 4-6, no flag or checkpoint blocks.
-const CHECKPOINT_KEY='last_spark_v44_checkpoint_';
+const CHECKPOINT_KEY='last_spark_v45_checkpoint_';
 let activeCheckpoint=null,checkpointResumed=false;
 function checkpointStorageKey(){return CHECKPOINT_KEY+difficulty+'_'+stageIndex;}
 function readCheckpoint(){
@@ -759,7 +796,7 @@ function spawnAtCheckpoint(){
  courseObstacleCursor=obs.findIndex(x=>x.x>safeDist);if(courseObstacleCursor<0)courseObstacleCursor=obs.length;
  courseZombieCursor=zom.findIndex(x=>x.x>safeDist);if(courseZombieCursor<0)courseZombieCursor=zom.length;
  expertCoinCursor=coin.findIndex(x=>x.x>safeDist);if(expertCoinCursor<0)expertCoinCursor=coin.length;
- weaponPickupIndex=1;nextWeaponPickup=at+1200;
+ weaponPickupIndex=1;nextWeaponPickup=at+1700;
  for(const d of drones)if(d.x<safeDist)d.dead=true;
  for(const s of sentries)if(s.x<safeDist)s.dead=true;
  boss=null;bossShots=[];sentryShots=[];obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];
@@ -835,7 +872,7 @@ function levelClear(){
  sound(990,.21,'triangle',.04);setTimeout(()=>sound(1310,.23,'sine',.034),140);
  panel(allStagesCleared&&stageIndex===STAGES.length-1?'CAMPAIGN CLEAR!':'STAGE CLEAR!',
   stageIndex===STAGES.length-1?'THE LAST SPARK LIVES!':'NEXT STAGE UNLOCKED!',
-  `${m.name} · ${difficulty.toUpperCase()} · RANK ${rankDisplay}! ${checkpointResumed?'CHECKPOINT RUN (max A rank). ':''}Coins: ${energy} · Clean dodges: ${cleanDodges} · Damage taken: ${damageTaken} · Score: ${score}.`,
+  `${m.name} · ${difficulty.toUpperCase()} · RANK ${rankDisplay}! ${checkpointResumed?'CHECKPOINT RUN (max A rank). ':''}Coins: ${energy} · Clean dodges: ${cleanDodges} · Clean sections: ${skillSectionWins} · Damage taken: ${damageTaken} · Score: ${score}.`,
   stageIndex===STAGES.length-1?'↻ REPLAY FINAL STAGE':'▶ NEXT STAGE','MISSION COMPLETE');
 }
 
@@ -941,9 +978,9 @@ function reset(resume=false){
  energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;
  gunHeat=0;gunOverheated=false;heatNeedsRelease=false;damageTaken=0;cleanDodges=0;
  courseObstacleCursor=0;courseZombieCursor=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;expertCoinCursor=0;
- ruinPhaseIndex=-1;ruinHintKey='';lessonSkillSeen=new Set();
+ ruinPhaseIndex=-1;ruinHintKey='';phaseDamageBaseline=0;skillSectionWins=0;lessonSkillSeen=new Set();
  $('lessonHud').hidden=false;$('bossHud').hidden=true;
- nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:760;
+ nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:[0,2100,2500,2900,3500,3900][stageIndex];
  weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;
  obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];conveyors=[];drones=[];sentries=[];sentryShots=[];gimmickToastShown=false;
  cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;
@@ -997,6 +1034,23 @@ function fire(){
  const muzzle=gunPose();
  const y=muzzle.muzzleY;
  const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:activeWeapon,seen:[],pierce:activeWeapon==='laser'?2:0};
+ // Point-blank fix: once a rushing zombie reaches the muzzle, spawning the
+ // projectile past its hitbox made it impossible to shoot. Resolve a *short*
+ // forward muzzle segment on the instant of firing; do not auto-hit enemies
+ // behind the player, or targets above/below the real muzzle height.
+ const contact=zombies.find(z=>{
+   if(z.status==='dead')return false;
+   const zx=z.wx-dist, left=zx-12, right=left+z.w;
+   return right>=heroX+7 && left<=muzzle.muzzleX+13 &&
+     y>=ground-53 && y<=ground+4;
+ });
+ if(contact){
+   damageZombie(contact,w.damage,activeWeapon);
+   base.seen.push(contact);
+   if(activeWeapon!=='laser')base.life=0;
+   // Mild recoil keeps a surviving armored zombie in front of the muzzle.
+   if(contact.status!=='dead')contact.wx=Math.max(contact.wx,dist+heroX+57);
+ }
  if(activeWeapon==='shotgun'){
   for(const vy of [-88,-27,32,87])shots.push({...base,vy,life:.46,damage:1,seen:[]});
  }else shots.push(base);
@@ -1014,7 +1068,7 @@ function fire(){
 function beginBoss(){
  if(boss&&boss.active)return;
  const spec=BOSSES[stageIndex];
- const hpBonus=[3,4,5,6,7,8]; const maxHp=spec.hp+(difficulty==='challenge'?(hpBonus[stageIndex]||5):0);
+ const hpBonus=[2,3,4,4,5,5]; const maxHp=spec.hp+(difficulty==='challenge'?(hpBonus[stageIndex]||5):0);
  boss={active:true,name:spec.name,hp:maxHp,maxHp,phase:'warn',timer:1.65,attackNumber:0,pattern:'low',vulnerable:false,lastBlock:-10};
  obstacles=[];zombies=[];weaponPickups=[];cells=[];shots=[];bossShots=[];sentryShots=[];
  hero.fellInGap=false; // arena starts only while grounded and outside a gap
@@ -1159,7 +1213,7 @@ function addWeaponPickups(){
   }
   if(activeWeapon==='pistol' && !weaponPickups.some(p=>!p.got&&p.wx>dist-45))weaponPickups.push({wx,type:weaponSequence[weaponPickupIndex%weaponSequence.length],got:false});
   weaponPickupIndex++;
-  nextWeaponPickup=wx+(stageIndex>=3?2850:2300)+Math.floor(rand(wx+77)*(stageIndex>=3?950:700));
+  nextWeaponPickup=wx+(stageIndex>=3?5700:stageIndex>=1?4500:2300)+Math.floor(rand(wx+77)*700);
  }
 }
 function spawnExplosion(x,y,big=false){explosions.push({wx:dist+x,y,t:0,big});}
@@ -1207,14 +1261,24 @@ function update(dt){if(mode!=='playing')return;
  if(overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx+4,y,o.w-8,h)){o.hit=true;hurt(o.typ==='beam'?'HIT PIPE':'HIT HAZARD');if(mode==='over')return;}}
  for(const z of zombies){if(z.status==='dead')continue;z.wx-=z.v*dt;z.anim+=dt*9;const sx=z.wx-dist;
   if(z.kind===2&&!z.rushed&&sx<heroX+225&&sx>heroX+32){z.rushed=true;z.v+=35+stageIndex*10;toast('RUSH!',sx-9,ground-68,'#ff9e7c');}if(sx<-70||sx>W+80)continue;
- if(!takeoffGrace&&overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx-11,ground-45,z.w,42)){hurt('ZOMBIE BITE');if(mode==='over')return;z.wx+=45;}}
+ if(!takeoffGrace&&overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx-11,ground-45,z.w,42)){
+  hurt('ZOMBIE BITE');if(mode==='over')return;
+  // Push contact enemy ahead instead of letting it pass behind the gun muzzle.
+  z.wx=Math.max(z.wx+62,dist+heroX+75);
+ }}
   for(const shot of shots){
+   const previousX=shot.x,previousY=shot.y;
    shot.x+=shot.vx*dt;shot.y+=(shot.vy||0)*dt;shot.life-=dt;
+   if(shot.life<=0)continue;
    let hit=false;
    for(const z of zombies){
     if(z.status==='dead'||shot.seen.includes(z))continue;
     const x=z.wx-dist;
-    if(!overlap(shot.x-8,shot.y-7,16,14,x-12,ground-49,z.w,48))continue;
+    // Swept hitbox: fast shots/zombies may cross in a 30fps iPad frame
+    // even if their positions at the *end* of that frame don't overlap.
+    const minX=Math.min(previousX,shot.x)-8,maxX=Math.max(previousX,shot.x)+8;
+    const minY=Math.min(previousY,shot.y)-7,maxY=Math.max(previousY,shot.y)+7;
+    if(maxX<x-12||minX>x-12+z.w||maxY<ground-49||minY>ground-1)continue;
     shot.seen.push(z);hit=true;
     if(shot.type==='plasma'){
       spawnExplosion(x,ground-33,true);
@@ -1259,7 +1323,7 @@ function update(dt){if(mode!=='playing')return;
  for(const p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=85*dt;p.life-=dt;}particles=particles.filter(p=>p.life>0);
  for(const n of notices){n.y-=dt*22;n.life-=dt;}notices=notices.filter(n=>n.life>0);
  cameraShake=Math.max(0,cameraShake-28*dt);score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;
- if(stageIndex!==3&&Math.floor(dist/850)>Math.floor((dist-speed*dt)/850)){toast('SIGNAL RESTORED!',heroX+5,ground-107,'#ffe68d');playFx('charge',.32);sound(940,.14,'sine',.02)}
+ if(stageIndex!==3&&Math.floor(dist/2300)>Math.floor((dist-speed*dt)/2300)){toast('KEEP GOING!',heroX+5,ground-107,'#ffe68d');playFx('charge',.22);}
    updateStageHud();updateRuinLesson();
  if(dist>=mission().goal && hero.onGround && !hero.fellInGap && boss&&boss.hp<=0){levelClear();return;}
  updateHud();}
@@ -1517,7 +1581,12 @@ function cellDraw(){
 function zombieDraw(){for(const z of zombies){const x=z.wx-dist;if(x<-100||x>W+100)continue;let n=['zm','zw','wz'][z.kind],scale=z.kind===2?.86:.76,alpha=z.status==='dead'?1:1;
  const anim=z.status==='dead'?'dead':'run';const frames=pickFrames(`${n}_${anim}`);let index=z.status==='dead'?Math.min(frames-1,Math.floor((runTime-z.deadAt)*13)):Math.floor(z.anim)%frames;
  sprite(`${n}_${anim}`,x,ground,scale,index,true,alpha);
- if(z.kind===2&&z.hp===2&&z.status!=='dead'){rect(x-9,ground-59,20,3,'#294333');rect(x-9,ground-59,20,2,'#ff9e63');}}
+ if(z.kind===2&&z.status!=='dead'){
+  // Visible armor HP removes ambiguity about whether bullets are landing.
+  const maxHp=z.maxHp||Math.max(2,z.hp);
+  rect(x-12,ground-61,26,4,'#112534');
+  rect(x-11,ground-60,24*Math.max(0,z.hp)/maxHp,2,'#ffae73');
+ }}
 }
 function imagePixel(im,x,y,w,h){if(!im||!im.complete||!im.naturalWidth)return false;ctx.imageSmoothingEnabled=false;ctx.drawImage(im,Math.round(x),Math.round(y),Math.round(w),Math.round(h));return true;}
 function weaponPickupDraw(){
@@ -1764,12 +1833,12 @@ window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLe
 window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}});
 window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({version:'4.4.1',mode,stageIndex,unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({version:'4.5',mode,stageIndex,unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},
  gunHeat,gunOverheated,damageTaken,boss:boss?{...boss}:null,
- activeWeapon,weaponAmmo,obstacles:obstacles.length,coinCount:cells.length,
+ activeWeapon,weaponAmmo,obstacles:obstacles.length,coinCount:cells.length,zombies:zombies.length,
  noFlag:true,noMysteryBox:true,lowPower,targetFPS:Math.round(1000/minFrameMs)});
 resize();updateHud();requestAnimationFrame(animate);
 })();

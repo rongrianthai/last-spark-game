@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.5.2 — Stable Joystick & Performance</title>
+<title>LAST SPARK V3.5.3 — One-Touch Jump & Slide + Gold Coins</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -118,22 +118,37 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 .joy-area.active{cursor:grabbing}
 @media(orientation:portrait){.joy-area{width:132px;min-height:100px}.joy{width:100px;height:100px}}
 @media(max-height:550px) and (orientation:landscape){.joy-area{width:172px;min-height:82px}.joy{width:82px;height:82px}}
+
+/* V3.5.3: Single forgiving left-side action button instead of directional joystick. */
+.dodge-area{width:245px;min-width:172px;display:flex;align-items:center;gap:10px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer}
+.dodge-button{width:116px;height:116px;flex:0 0 116px;border-radius:50%;border:4px solid #a9c6d9;background:radial-gradient(circle at 40% 29%,#396782 0%,#17364e 63%,#0b1a2a 100%);box-shadow:inset 0 0 0 4px #112b42,0 0 0 3px #101c2d,0 5px 19px #000a;touch-action:none;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#f2faff;font-weight:1000;padding:0;gap:0;pointer-events:none}
+.dodge-main{font-size:24px;line-height:1.1;color:#ffe5a3;text-shadow:0 1px 3px #091426}
+.dodge-word{font-size:16px;letter-spacing:.06em;color:#fcf0cf;text-shadow:0 2px 4px #081827}
+.dodge-mini{font-size:8px;letter-spacing:.1em;color:#b5e8f9;margin-top:4px}
+.dodge-caption{display:flex;flex-direction:column;gap:3px;color:#cae4f3;font-size:12px;line-height:1.25;font-weight:800;white-space:nowrap}
+.dodge-caption b{font-size:11px;letter-spacing:.08em;color:#ffdda5;margin-bottom:5px}
+.dodge-area.active .dodge-button{border-color:#fadd7f;filter:brightness(1.12)}
+.dodge-button.crouching{border-color:#75f3dd;background:radial-gradient(circle at 40% 29%,#245e60,#0a283a)}
+.dodge-button.crouching .dodge-word{color:#a7ffe9}
+@media(orientation:portrait){.dodge-area{width:145px;min-width:118px;gap:5px}.dodge-button{width:87px;height:87px;flex-basis:87px}.dodge-caption{font-size:9px}.dodge-caption b{font-size:9px}.dodge-word{font-size:13px}.dodge-main{font-size:18px}.dodge-mini{font-size:7px}.controls{gap:6px}}
+@media(max-height:550px) and (orientation:landscape){.dodge-area{width:154px;min-width:140px;gap:7px}.dodge-button{width:72px;height:72px;flex-basis:72px;border-width:3px}.dodge-main{font-size:16px}.dodge-word{font-size:12px}.dodge-mini{font-size:6px}.dodge-caption{font-size:9px}.dodge-caption b{font-size:8px}}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.5.2</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.5.3</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="hud" id="hud" hidden>
-  <div>HP <span class="hp" id="hp">♥ ♥ ♥</span><div class="sub">⚡ ENERGY <span class="accent" id="energy">0</span> · KILLS <span id="kills">0</span></div><div class="sub gun-line"><img id="weaponIcon" alt="" style="height:13px;width:27px;object-fit:contain;vertical-align:-2px;image-rendering:pixelated"/> <span id="weaponName">PISTOL</span> · <span id="ammo">∞</span></div></div>
+  <div>HP <span class="hp" id="hp">♥ ♥ ♥</span><div class="sub">🪙 COINS <span class="accent" id="energy">0</span> · KILLS <span id="kills">0</span></div><div class="sub gun-line"><img id="weaponIcon" alt="" style="height:13px;width:27px;object-fit:contain;vertical-align:-2px;image-rendering:pixelated"/> <span id="weaponName">PISTOL</span> · <span id="ammo">∞</span></div></div>
   <div class="right">SCORE <span class="accent" id="score">0</span><div class="sub">BEST <span id="best">0</span> · <span id="distance">0</span>m</div></div>
  </div>
  <button class="pause sound-toggle" id="soundButton" aria-label="Toggle audio">♫ ON</button><button class="pause" id="pauseButton" aria-label="Pause" hidden>Ⅱ</button>
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">COWBOY VS ZOMBIES</div>
    <h1 id="overlayTitle">LAST SPARK</h1><div class="subtitle" id="subtitle">ONE SPARK. ONE LAST CHANCE.</div>
-   <p class="intro" id="overlayText">Jump over floor hazards and zombies! Push the left stick UP to jump, DOWN to crouch under pipes. A downward swipe cannot become a jump until you lift your finger. Hold FIRE to shoot.</p>
+   <p class="intro" id="overlayText">Your cowboy runs automatically. TAP the large left button to JUMP, HOLD it to DUCK/SLIDE, and hold FIRE to shoot. Collect GOLD COINS and weapons!</p>
    <div id="characterPicker"><div class="choice-label">CHOOSE YOUR COWBOY</div><div class="choices">
      <button class="choice selected" data-char="1">COWBOY 1</button><button class="choice" data-char="2">COWBOY 2</button><button class="choice" data-char="3">COWBOY 3</button>
    </div></div>
@@ -144,18 +159,24 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
       <button class="choice scene" data-scene="night">🌃 NIGHT RUN</button>
     </div>
     <button class="action" id="playButton" disabled>LOADING ART...</button>
-   <div class="tagline" id="tip">4 GUNS • REAL WEAPON SWAP • EXPLOSION FX</div>
+   <div class="tagline" id="tip">TAP JUMP • HOLD SLIDE • GOLD COINS • 4 GUNS</div>
    </div>
  </div>
 </div>
 <div class="controls" aria-label="Mobile game controller">
- <div class="joy-area" id="joystickTouchZone"><div id="joystick" class="joy" role="application" aria-label="Joystick: left and right move, up jump, down slide"><img class="joy-base" src="data:image/png;base64,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" alt=""/><img id="joyNub" class="joy-nub" src="data:image/png;base64,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" alt=""/></div>
- <div class="joy-caption"><b>MOVE</b><br/>← → WALK<br/>↑ JUMP<br/>↓ SLIDE</div></div>
+ <div class="dodge-area" id="dodgeTouchZone" aria-label="Tap to jump, hold to crouch and slide">
+  <button type="button" id="dodgeButton" class="dodge-button" aria-label="Tap jump, hold slide">
+   <span class="dodge-main">▲</span>
+   <span class="dodge-word" id="dodgeWord">JUMP</span>
+   <span class="dodge-mini">TAP / HOLD</span>
+  </button>
+  <div class="dodge-caption"><b>ONE-TOUCH</b><span>แตะ = กระโดด</span><span>กดค้าง = หมอบ</span></div>
+ </div>
  <div class="action-pads">
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.5.2 · CONTROL + PERFORMANCE FIX • JOYSTICK ↑ JUMP ↓ SLIDE • HOLD FIRE • LIMITED SPECIAL AMMO</div>
+<div class="helper">V3.5.3 · ONE TOUCH: TAP = JUMP • HOLD = SLIDE • FIRE RIGHT • GOLD COINS</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -207,12 +228,8 @@ const sceneImages={};
 for(const [name,layers] of Object.entries(sceneAssets)){sceneImages[name]=layers.map(o=>{const im=new Image();o.image=im;totalScenes++;im.onload=()=>{loadedScenes++;checkReady();};im.onerror=()=>{loadedScenes++;checkReady();};im.src=o.src;return im;});}
 
 const hero={foot:ground,vy:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0,jumpGraceUntil:0};
-// V3.2: analog controls move the player's screen X while the world continues to scroll.
-// The camera and world obstacle coordinate system remain compatible with V3.
-let joyX=0,joyY=0,joyUpArmed=true,joyDownArmed=true;
-// One intentional vertical action per continuous finger gesture: DOWN cannot rebound into UP.
-let joyVerticalIntent=null,joyDownHeld=false;
-let keyLeft=false,keyRight=false;
+// V3.5.3: the world auto-scrolls; the large left button controls jump/duck only.
+let joyDownHeld=false;
 const weapons={
  pistol:{name:'PISTOL',rate:.30,damage:1,speed:540,ammo:Infinity,desc:'STANDARD',color:'#ffe5ad'},
  shotgun:{name:'SHOTGUN',rate:.77,damage:1,speed:490,ammo:15,desc:'SPREAD',color:'#ffb26b'},
@@ -282,14 +299,13 @@ function lockGamePage(active){
 }
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
-function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
-joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;clearJoystickVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
-function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
+function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
 function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
- $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Energy: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
+ $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Coins: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;
  jumpHeld=true;
  if(hero.onGround){
@@ -329,7 +345,11 @@ function fire(){
 function addObstacle(){while(nextOb<dist+W+80){const typ=['box','electric','beam','gap'][Math.floor(rand(nextOb+22)*4)],w=typ==='gap'?52:typ==='beam'?44:typ==='box'?24:28;
  if(!zombies.some(z=>Math.abs(z.wx-nextOb)<145))obstacles.push({wx:nextOb,w,typ,dead:false});nextOb+=240+rand(nextOb)*125;}}
 function addZombies(){while(nextZ<dist+W+105){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:22+rand(nextZ)*17,hp:kind===2?2:1,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=250+rand(nextZ+5)*160;}}
-function addCells(){while(nextCell<dist+W+100){cells.push({wx:nextCell,y:ground-38-rand(nextCell)*51,got:false});nextCell+=133+rand(nextCell+8)*89;}}
+function addCells(){while(nextCell<dist+W+100){
+ // Coins sit near the safe running lane; some are high enough to reward a jump.
+ cells.push({wx:nextCell,y:ground-33-rand(nextCell)*25,got:false});
+ nextCell+=133+rand(nextCell+8)*89;
+}}
 function addWeaponPickups(){
  while(nextWeaponPickup<dist+W+60){
   let wx=nextWeaponPickup;
@@ -353,8 +373,8 @@ function damageZombie(z,dmg,kind){
 }
 function gapAt(x){return obstacles.some(o=>!o.dead&&o.typ==='gap'&&x>o.wx+4&&x<o.wx+o.w-4)}
 function update(dt){if(mode!=='playing')return;runTime+=dt;dist+=speed*dt;speed=Math.min(225,133+dist*.0095);
- const horizontal=clamp(joyX+(keyRight?1:0)-(keyLeft?1:0),-1,1);
- heroX=clamp(heroX+horizontal*180*dt,72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;addObstacle();addZombies();addCells();addWeaponPickups();
+ // Auto-run only: no backward movement or directional stick required.
+ heroX=clamp(heroX,72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;addObstacle();addZombies();addCells();addWeaponPickups();
  if(fireHeld)fire();
  if(!hero.onGround){const gravity=jumpHeld&&hero.vy<0?660:780;hero.vy+=gravity*dt;hero.foot+=hero.vy*dt;
  if(hero.foot>=ground&&!gapAt(dist+heroX)){hero.foot=ground;hero.vy=0;hero.onGround=true;burst(heroX,ground-2,4,'#7b8c98');}
@@ -479,7 +499,34 @@ function obstacleDraw(){for(const o of obstacles){if(o.dead)continue;let x=o.wx-
  else if(o.typ==='electric'){rect(x,ground-20,28,20,'#425e73');rect(x+4,ground-27,21,9,'#7892a0');rect(x+7,ground-23,16,2,'#95dffc');let pulse=Math.sin(clock*20+x)*5;rect(x+11+pulse,ground-40,3,20,'#a7f5ff');rect(x+4,ground-16,20,4,'#b4d6dd');}
  else{rect(x-3,ground-58,50,13,'#4f6179');rect(x,ground-53,44,26,'#687889');rect(x+3,ground-50,37,5,'#b0b9b9');rect(x+21,ground-46,4,18,'#34485c');rect(x-5,ground-62,6,7,'#805a4e');}}
 }
-function cellDraw(){for(const c of cells){const x=c.wx-dist;if(x<-20||x>W+20)continue;const yy=c.y+Math.sin(clock*5+c.wx)*3;ctx.save();ctx.globalCompositeOperation='screen';const halo=ctx.createRadialGradient(x,yy,1,x,yy,25);halo.addColorStop(0,'#ffe8a866');halo.addColorStop(1,'#ffbb4a00');rect(x-25,yy-25,50,50,halo);ctx.restore();rect(x-7,yy-9,14,18,'#f3bc5170');rect(x-4,yy-7,8,14,'#ffc86a');rect(x-2,yy-4,4,8,'#fff2bf');rect(x-7,yy-1,14,3,'#fff5c1');}}
+function cellDraw(){
+ // Draw an actual round, engraved GOLD COIN, rather than a glowing rectangular pickup.
+ // Dark rim / gold body / C emblem are readable at iPad game scale.
+ for(const c of cells){
+  const x=c.wx-dist;if(x<-22||x>W+22)continue;
+  const y=c.y+Math.sin(clock*4+c.wx)*2;
+  const bx=Math.round(x),by=Math.round(y);
+  ctx.save();ctx.globalCompositeOperation='screen';
+  const halo=ctx.createRadialGradient(bx,by,3,bx,by,20);
+  halo.addColorStop(0,'#ffd5614d');halo.addColorStop(1,'#ffcf5500');
+  rect(bx-20,by-20,40,40,halo);ctx.restore();
+  ctx.save();ctx.imageSmoothingEnabled=false;
+  // strong eight-sided pixel silhouette
+  ctx.fillStyle='#513015';ctx.beginPath();
+  ctx.moveTo(bx-5,by-10);ctx.lineTo(bx+5,by-10);ctx.lineTo(bx+10,by-5);
+  ctx.lineTo(bx+10,by+5);ctx.lineTo(bx+5,by+10);ctx.lineTo(bx-5,by+10);
+  ctx.lineTo(bx-10,by+5);ctx.lineTo(bx-10,by-5);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#ffb526';ctx.beginPath();ctx.arc(bx,by,8.7,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#fff1a0';ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(bx,by,7,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#ffdd58';ctx.beginPath();ctx.arc(bx-1,by-1,5.4,0,Math.PI*2);ctx.fill();
+  ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='#71451a';ctx.fillText('C',bx+.5,by+1.3);
+  // four-point reflection makes it look collectible, not harmful
+  ctx.fillStyle='#fff7c0';ctx.fillRect(bx-13,by-14,2,6);ctx.fillRect(bx-15,by-12,6,2);
+  if(Math.sin(clock*5+c.wx)>0.5){ctx.fillRect(bx+12,by-5,1,5);ctx.fillRect(bx+10,by-3,5,1);}
+  ctx.restore();
+ }
+}
 function zombieDraw(){for(const z of zombies){const x=z.wx-dist;if(x<-100||x>W+100)continue;let n=['zm','zw','wz'][z.kind],scale=z.kind===2?.86:.76,alpha=z.status==='dead'?1:1;
  const anim=z.status==='dead'?'dead':'run';const frames=pickFrames(`${n}_${anim}`);let index=z.status==='dead'?Math.min(frames-1,Math.floor((runTime-z.deadAt)*13)):Math.floor(z.anim)%frames;
  sprite(`${n}_${anim}`,x,ground,scale,index,true,alpha);
@@ -505,7 +552,7 @@ function weaponPickupDraw(){
 // V3.5: single attachment point is shared by drawing and projectile spawn.
 // All positions are in 640x360/360x430 logical coordinates, NOT CSS pixels.
 function gunPose(){
- const sliding=hero.onGround&&runTime<hero.slideEnd;
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
  const shooting=shotPose>runTime && !sliding;
  const airborne=!hero.onGround;
  const w=activeWeapon;
@@ -575,7 +622,7 @@ function heroDraw(){
  // V3.1: The original if(invuln) return caused the cowboy to become fully
  // invisible in alternating frames after taking damage on iPad screenshots.
  // Keep him visible throughout the 1.2s invulnerability window instead.
- const sliding=hero.onGround&&runTime<hero.slideEnd;let anim='run',frame=hero.anim,scale=.86;
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);let anim='run',frame=hero.anim,scale=.86;
  if(mode==='menu'){anim='idle';frame=clock*6;}
  else if(mode==='over'){anim='dead';frame=Math.floor((clock-hero.deadAt)*10);}
  else if(sliding){anim='fighting_stance';frame=clock*5;}
@@ -637,81 +684,71 @@ document.querySelectorAll('[data-char]').forEach(b=>b.addEventListener('click',(
 function bind(id,down,up){const e=$(id);e.addEventListener('pointerdown',ev=>{ev.preventDefault();e.classList.add('held');try{e.setPointerCapture(ev.pointerId);}catch(_){}down();});for(const typ of ['pointerup','pointercancel','lostpointercapture'])e.addEventListener(typ,()=>{e.classList.remove('held');if(up)up();});}
 bind('fireButton',()=>{fireHeld=true;fire();},()=>{fireHeld=false});
 canvas.addEventListener('pointerdown',e=>{if(mode==='playing'){e.preventDefault();fire();}});
-const joyEl=$('joystick'),joyZone=$('joystickTouchZone'),joyNub=$('joyNub');
-let activeJoyPointer=null,activeTouchId=null;
-function clearJoystickVisual(){
- joyX=0;joyY=0;joyDownHeld=false;
- const el=document.getElementById('joyNub'),pad=document.getElementById('joystick');
- if(el)el.style.transform='translate(-50%,-50%) translate(0px,0px)';
- if(pad)pad.classList.remove('active');
- joyZone.classList.remove('active');
+// ONE-TOUCH control V3.5.3: TAP releases jump, HOLD ducks until finger release.
+// A short hold threshold prevents a long press from accidentally jumping.
+const dodgeZone=$('dodgeTouchZone'),dodgeButton=$('dodgeButton'),dodgeWord=$('dodgeWord');
+const HOLD_MS=190;
+let dodgePointer=null,dodgeTouchId=null,dodgeTimer=null,dodgeStartedAt=0,dodgeHolding=false;
+function clearDodgeTimer(){if(dodgeTimer!==null){clearTimeout(dodgeTimer);dodgeTimer=null;}}
+function clearDodgeVisual(){
+ dodgeZone.classList.remove('active');dodgeButton.classList.remove('held','crouching');
+ dodgeWord.textContent='JUMP';
 }
-function applyJoystick(ev){
- const r=joyEl.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
- const radius=r.width*.35, dx=ev.clientX-cx, dy=ev.clientY-cy;
- const len=Math.hypot(dx,dy),ratio=Math.min(1,len/Math.max(1,radius));
- const ax=len>0?dx/len*ratio:0, ay=len>0?dy/len*ratio:0;
- joyX=Math.abs(ax)<.09?0:ax;joyY=Math.abs(ay)<.09?0:ay;
- joyNub.style.transform=`translate(-50%,-50%) translate(${Math.round(ax*radius)}px,${Math.round(ay*radius)}px)`;
- if(mode==='playing'){
-   // Decide UP vs DOWN once per contact. Returning a DOWN swipe toward the
-   // center (or drifting across it) can NEVER issue an accidental jump.
-   if(joyVerticalIntent===null){
-     if(joyY>.43&&joyY>Math.abs(joyX)*.65){joyVerticalIntent='down';slide();}
-     else if(joyY<-.53&&-joyY>Math.abs(joyX)*.7){joyVerticalIntent='up';jump();}
-   }
-   joyDownHeld=joyVerticalIntent==='down'&&joyY>.24;
-   if(joyVerticalIntent==='up'&&joyY>-.30)releaseJump();
- }
+function startDodge(){
+ if(dodgeStartedAt||mode!=='playing')return;
+ dodgeStartedAt=performance.now();dodgeHolding=false;
+ dodgeZone.classList.add('active');dodgeButton.classList.add('held');
+ dodgeWord.textContent='JUMP';
+ dodgeTimer=setTimeout(()=>{
+  dodgeTimer=null;
+  if(!dodgeStartedAt||mode!=='playing')return;
+  dodgeHolding=true;joyDownHeld=true;
+  // A held press has ONE meaning: duck. It must never trigger jump.
+  if(hero.onGround)slide();
+  dodgeButton.classList.add('crouching');dodgeWord.textContent='SLIDE';
+ },HOLD_MS);
 }
-// Mouse/pen pointer control plus dedicated multi-touch for Safari on iPad.
-// Touch ownership is tracked by identifier so pressing FIRE with finger #2 never
-// steals or cancels the finger dragging the left joystick.
-joyZone.addEventListener('pointerdown',ev=>{
- if(ev.pointerType==='touch'||activeTouchId!==null||activeJoyPointer!==null)return;
- ev.preventDefault();activeJoyPointer=ev.pointerId;joyVerticalIntent=null;joyDownHeld=false;
- joyZone.classList.add('active');joyEl.classList.add('active');
- try{joyZone.setPointerCapture(ev.pointerId);}catch(_){}
- applyJoystick(ev);
-});
-joyZone.addEventListener('pointermove',ev=>{
- if(ev.pointerType==='touch'||ev.pointerId!==activeJoyPointer)return;
- ev.preventDefault();applyJoystick(ev);
-});
-function releaseStick(ev){
- if(activeJoyPointer===null||ev.pointerId!==activeJoyPointer)return;
- activeJoyPointer=null;releaseJump();joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;clearJoystickVisual();
+function finishDodge(cancelled=false){
+ if(!dodgeStartedAt)return;
+ const wasHolding=dodgeHolding;
+ const elapsed=performance.now()-dodgeStartedAt;
+ dodgeStartedAt=0;clearDodgeTimer();dodgeHolding=false;joyDownHeld=false;
+ if(wasHolding){hero.slideEnd=Math.min(hero.slideEnd,runTime+.055);}
+ else if(!cancelled&&elapsed<HOLD_MS+35&&mode==='playing'){jump();releaseJump();}
+ clearDodgeVisual();
 }
-for(const type of ['pointerup','pointercancel','lostpointercapture'])joyZone.addEventListener(type,releaseStick);
-window.addEventListener('pointerup',releaseStick);
-window.addEventListener('pointercancel',releaseStick);
-
-function joystickTouchStart(ev){
- if(activeTouchId!==null)return;
+// Touch ID ownership lets a second finger use FIRE independently on Safari.
+dodgeZone.addEventListener('touchstart',ev=>{
+ if(dodgeTouchId!==null)return;
  const t=ev.changedTouches[0];if(!t)return;
- activeTouchId=t.identifier;activeJoyPointer=null;joyVerticalIntent=null;joyDownHeld=false;
- joyZone.classList.add('active');joyEl.classList.add('active');
- if(ev.cancelable)ev.preventDefault();applyJoystick(t);
+ if(ev.cancelable)ev.preventDefault();
+ dodgeTouchId=t.identifier;startDodge();
+},{passive:false});
+dodgeZone.addEventListener('touchmove',ev=>{
+ if(dodgeTouchId===null)return;
+ for(const t of ev.changedTouches){if(t.identifier===dodgeTouchId){if(ev.cancelable)ev.preventDefault();break;}}
+},{passive:false});
+function releaseDodgeTouch(ev,cancelled){
+ if(dodgeTouchId===null)return;
+ for(const t of ev.changedTouches){if(t.identifier!==dodgeTouchId)continue;
+  if(ev.cancelable)ev.preventDefault();dodgeTouchId=null;finishDodge(cancelled);break;}
 }
-function joystickTouchMove(ev){
- if(activeTouchId===null)return;
- for(let i=0;i<ev.changedTouches.length;i++){
-  const t=ev.changedTouches[i];if(t.identifier!==activeTouchId)continue;
-  if(ev.cancelable)ev.preventDefault();applyJoystick(t);break;
- }
+dodgeZone.addEventListener('touchend',ev=>releaseDodgeTouch(ev,false),{passive:false});
+dodgeZone.addEventListener('touchcancel',ev=>releaseDodgeTouch(ev,true),{passive:false});
+// Mouse, trackpad and pen use Pointer Events; touch is handled above to avoid duplicate input.
+dodgeZone.addEventListener('pointerdown',ev=>{
+ if(ev.pointerType==='touch'||dodgeTouchId!==null||dodgePointer!==null)return;
+ ev.preventDefault();dodgePointer=ev.pointerId;
+ try{dodgeZone.setPointerCapture(ev.pointerId);}catch(_){}
+ startDodge();
+});
+function releaseDodgePointer(ev,cancelled){
+ if(dodgePointer===null||ev.pointerId!==dodgePointer)return;
+ dodgePointer=null;finishDodge(cancelled);
 }
-function joystickTouchEnd(ev){
- if(activeTouchId===null)return;
- for(let i=0;i<ev.changedTouches.length;i++){
-  const t=ev.changedTouches[i];if(t.identifier!==activeTouchId)continue;
-  activeTouchId=null;releaseJump();joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;
-  clearJoystickVisual();if(ev.cancelable)ev.preventDefault();break;
- }
-}
-joyZone.addEventListener('touchstart',joystickTouchStart,{passive:false});
-joyZone.addEventListener('touchmove',joystickTouchMove,{passive:false});
-joyZone.addEventListener('touchend',joystickTouchEnd,{passive:false});
-joyZone.addEventListener('touchcancel',joystickTouchEnd,{passive:false});
+dodgeZone.addEventListener('pointerup',ev=>releaseDodgePointer(ev,false));
+dodgeZone.addEventListener('pointercancel',ev=>releaseDodgePointer(ev,true));
+dodgeZone.addEventListener('lostpointercapture',ev=>releaseDodgePointer(ev,true));
 
 // Explicit non-passive touch listeners stop document panning in iPad Safari;
 // pointer events still control the joystick and the FIRE button separately.
@@ -728,11 +765,11 @@ document.addEventListener('dblclick',ev=>{
  if(mode==='playing' && ev.cancelable)ev.preventDefault();
 },{passive:false,capture:true});
 
-window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.code==='ArrowLeft')keyLeft=true;if(e.code==='ArrowRight')keyRight=true;if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
-window.addEventListener('keyup',e=>{if(e.code==='ArrowLeft')keyLeft=false;if(e.code==='ArrowRight')keyRight=false;if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
-window.addEventListener('blur',()=>{keyLeft=false;keyRight=false;fireHeld=false;activeJoyPointer=null;activeTouchId=null;joyVerticalIntent=null;joyDownHeld=false;releaseJump();clearJoystickVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
+window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
+window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
+window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,heroX,joyX,joyY,joyVerticalIntent,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
+window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
 resize();updateHud();requestAnimationFrame(animate);
 })();
 </script>

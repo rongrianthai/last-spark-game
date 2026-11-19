@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.8 — Four-Phase Adventure</title>
+<title>LAST SPARK V4.0 — Discovery & Mastery</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -156,11 +156,23 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 .lesson-hud .lesson-body{font-size:10px;white-space:normal}
 @media(orientation:portrait){.lesson-hud{top:66px;width:56%;max-width:56%;padding:3px 5px}.lesson-hud .lesson-body{font-size:8px}.lesson-hud .lesson-head{font-size:7px}}
 @media(max-height:550px) and (orientation:landscape){.lesson-hud{top:23px;padding:2px 5px}.lesson-hud .lesson-body{font-size:8px}}
+/* V3.9: heat and difficulty. Minimal additions to preserve iPad layout. */
+.heat-line{font-size:9px;letter-spacing:.03em;color:#ffe0aa;margin-top:2px;white-space:nowrap}
+.heat-line .heat-safe{color:#8ceccc}.heat-line .heat-hot{color:#ff8f76}
+.difficulty-choices{margin:2px 0 9px}.difficulty-choices .choice{min-height:31px;font-size:11px}
+@media (orientation:portrait){.heat-line{font-size:8px}.difficulty-choices .choice{font-size:9px;min-height:27px}}
+/* V4.0: low visual noise, in-run wins and optional discoveries. */
+.discovery-hud{position:absolute;left:10px;bottom:7px;pointer-events:none;font:900 10px/1.3 monospace;color:#ffe1a3;background:#0a2031cf;border:1px solid #638ca0;border-radius:5px;padding:3px 6px;z-index:2}
+.discovery-hud #checkpointLabel{color:#9be6f5}
+.personal-progress{color:#a7dcca;font:800 10px/1.3 system-ui;margin:8px auto 0;min-height:13px}
+.restart-full{display:block;margin:12px auto 0;background:#152e40;border:1px solid #86c8db;padding:8px 13px;border-radius:7px;color:#ddf9ff;font-weight:900;font-size:11px;cursor:pointer}
+.restart-full[hidden],.personal-progress[hidden]{display:none!important}
+@media(orientation:portrait){.discovery-hud{bottom:5px;left:6px;font-size:8px}.restart-full{font-size:10px}}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>FOUR-PHASE LEVEL DESIGN · V3.8</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>DISCOVERY & MASTERY · V4.0</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -168,7 +180,8 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
    <div class="boss-track"><div id="bossBar" class="boss-fill"></div></div>
   </div>
   <div class="lesson-hud" id="lessonHud" hidden aria-live="off"><div class="lesson-head" id="lessonHead">01 · LEARN</div><div class="lesson-body" id="lessonBody">TAP to jump the pit</div></div>
- <div class="stage-progress" id="stageProgress" hidden aria-live="off">
+  <div id="discoveryHud" class="discovery-hud" hidden><span id="secretCount">✦ SECRET 0/3</span><span id="checkpointLabel">· START</span></div>
+  <div class="stage-progress" id="stageProgress" hidden aria-live="off">
   <div class="stage-topline"><span id="stageName">STAGE 1 · RUINED CITY</span><span id="stagePercent">0%</span></div>
   <div class="stage-track"><div class="stage-bar" id="stageBar"></div></div>
  </div>
@@ -176,11 +189,12 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <div>HP <span class="hp" id="hp">♥ ♥ ♥</span><div class="sub">🪙 COINS <span class="accent" id="energy">0</span> · KILLS <span id="kills">0</span></div><div class="sub gun-line"><img id="weaponIcon" alt="" style="height:13px;width:27px;object-fit:contain;vertical-align:-2px;image-rendering:pixelated"/> <span id="weaponName">PISTOL</span> · <span id="ammo">∞</span></div></div>
   <div class="right">SCORE <span class="accent" id="score">0</span><div class="sub">BEST <span id="best">0</span> · <span id="distance">0</span>m</div></div>
  </div>
- <button class="pause sound-toggle" id="soundButton" aria-label="Toggle audio">♫ ON</button><button class="pause" id="pauseButton" aria-label="Pause" hidden>Ⅱ</button>
+  <div class="heat-line" id="heatHud" hidden style="position:absolute;top:61px;left:12px;z-index:2;pointer-events:none;background:#0617279c;padding:2px 5px;border-radius:4px">HEAT <span id="heatValue" class="heat-safe">▰▱▱▱▱</span></div>
+  <button class="pause sound-toggle" id="soundButton" aria-label="Toggle audio">♫ ON</button><button class="pause" id="pauseButton" aria-label="Pause" hidden>Ⅱ</button>
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">COWBOY VS ZOMBIES</div>
    <h1 id="overlayTitle">LAST SPARK</h1><div class="subtitle" id="subtitle">ONE SPARK. ONE LAST CHANCE.</div>
-   <p class="intro" id="overlayText">Ruined City now teaches you four ways to survive: learn each move safely, practice it, combine moves, then face a final challenge and the boss. TAP LEFT = JUMP • HOLD LEFT = DUCK • HOLD FIRE = SHOOT.</p>
+   <p class="intro" id="overlayText">Learn by doing: jump over pits, duck under pipes, fire at zombies, and discover hidden SPARK boxes! Checkpoints help you practice. TAP LEFT = JUMP · HOLD LEFT = DUCK · RIGHT = FIRE.</p>
    <div id="characterPicker"><div class="choice-label">CHOOSE YOUR COWBOY</div><div class="choices">
      <button class="choice selected" data-char="1">COWBOY 1</button><button class="choice" data-char="2">COWBOY 2</button><button class="choice" data-char="3">COWBOY 3</button>
    </div></div>
@@ -190,8 +204,15 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
       <button class="choice scene" data-stage="1">🔒 2 · ASH DUSK</button>
       <button class="choice scene" data-stage="2">🔒 3 · NIGHT RUN</button>
     </div>
-    <button class="action" id="playButton" disabled>LOADING ART...</button>
-   <div class="tagline" id="tip">STAGE 1: LEARN → TEST → COMBINE → MASTER • BOSS FINALE</div>
+     <div id="difficultyPicker"><div class="choice-label">CHOOSE DIFFICULTY</div>
+      <div class="choices difficulty-choices">
+       <button class="choice selected" data-difficulty="challenge">⚡ CHALLENGE</button>
+       <button class="choice" data-difficulty="standard">STANDARD</button>
+      </div></div>
+     <button class="action" id="playButton" disabled>LOADING ART...</button>
+     <button class="restart-full" id="restartFullButton" hidden type="button">↻ START FROM BEGINNING (FULL RANK)</button>
+     <div id="personalProgress" class="personal-progress" aria-live="off"></div>
+   <div class="tagline" id="tip">DISCOVER SECRETS · PRACTICE SKILLS · BEAT YOUR BEST</div>
    </div>
  </div>
 </div>
@@ -208,7 +229,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.8 · FOUR PHASES IN RUINED CITY • TAP = JUMP • HOLD = DUCK • FIRE RIGHT</div>
+<div class="helper">V4.0 · TAP=JUMP • HOLD=DUCK • FIRE • FIND ? BOXES • MASTER THE STAGE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -261,8 +282,98 @@ const STAGES=[
  {name:'ASH DUSK',scene:'ash',goal:4000,tag:'Survive the burning outskirts',reward:500},
  {name:'NIGHT RUN',scene:'night',goal:5200,tag:'Reach the final transmitter',reward:850}
 ];
+// Discovery Loop: three optional airborne-shot secret blocks in Stage 1.
+// Visible as ? blocks. Their elevated height makes a well-timed jump + FIRE valuable.
+const SECRET_BLOCKS=[{x:1340,yOffset:104},{x:6140,yOffset:109},{x:10200,yOffset:105}];
+const PRACTICE_CHECKPOINTS=[{trigger:4510,spawn:4230,label:'COMBINE'},{trigger:8460,spawn:8300,label:'MASTER'}];
+const PROGRESS_KEY='last_spark_v40_best_stage_';
+const SECRET_KEY='last_spark_v40_secrets_';
+let secretBlocks=[],secretsFound=0,checkpointAt=0,checkpointPractice=false,lastDeathCheckpoint=0,checkpointCursor=0,attempts=0;
+let lastFailureAdvice='Watch the hazard and adjust the timing on your next try.';
+let bestDistanceThisStage=0,lessonSkillSeen=new Set(),lastCheckpointToast='';
+function readNumber(k){try{return Number(localStorage.getItem(k)||0)||0;}catch(e){return 0;}}
+function saveMax(k,n){try{if(n>readNumber(k))localStorage.setItem(k,String(n));}catch(e){}}
+function progressStat(){const stage=stageIndex;return {best:readNumber(PROGRESS_KEY+difficulty+'_'+stage),secrets:readNumber(SECRET_KEY+difficulty+'_'+stage)};}
+function updatePersonalProgress(){
+ const node=$('personalProgress');if(!node)return;
+ const p=progressStat();node.textContent='PERSONAL BEST '+Math.floor(Math.min(1,p.best/mission().goal)*100)+'%'+(stageIndex===0?' · SECRETS FOUND '+p.secrets+'/3':'')+' · TAP=JUMP · HOLD=DUCK';
+}
+function updateDiscoveryHud(){
+ const node=$('discoveryHud');if(!node)return;
+ node.hidden=stageIndex!==0||(mode!=='playing'&&mode!=='paused');
+ $('secretCount').textContent='✦ SECRETS '+secretsFound+'/3';
+ $('checkpointLabel').textContent=checkpointAt?' · CHECKPOINT':' · FIND THE ?';
+}
+function failureAdvice(reason){
+ if(/fell|pit|ruins/i.test(reason))return 'TAP before the pit edge. Look for coins above the safe jump path.';
+ if(/PIPE|overhead|high/i.test(reason))return 'HOLD LEFT early to duck under the low pipe or high boss blast.';
+ if(/SHOCKWAVE|LOW/i.test(reason))return 'TAP to jump the low boss blast, then FIRE while its shield is down.';
+ if(/ELECTRIC|HAZARD/i.test(reason))return 'Jump over the trap, or FIRE before it reaches your cowboy.';
+ if(/ZOMBIE|BITE/i.test(reason))return 'FIRE earlier. Jumping also helps you clear a zombie after a pit.';
+ return 'Watch the next obstacle, try a slightly earlier tap, and retry.';
+}
+function spawnSecrets(){
+ if(stageIndex!==0)return;
+ secretBlocks=SECRET_BLOCKS.filter(p=>p.x>=dist+heroX-55).map(p=>({...p,opened:false}));
+}
+function secretHit(shot){
+ if(stageIndex!==0)return false;
+ for(const b of secretBlocks){
+  if(b.opened||shot.life<=0)continue;
+  const xx=b.x-dist,yy=ground-b.yOffset;
+  if(!overlap(shot.x-7,shot.y-7,14,14,xx-11,yy-11,22,22))continue;
+  b.opened=true;shot.life=0;secretsFound++;energy+=5;dodgeBonus+=150;
+  burst(xx,yy,20,'#ffe67b');toast('SECRET! +5 COINS',Math.max(8,xx-48),yy-35,'#ffdf75');
+  sound(1060,.16,'triangle',.038);saveMax(SECRET_KEY+difficulty+'_0',secretsFound);updateDiscoveryHud();return true;
+ }
+ return false;
+}
+function drawSecrets(){
+ if(stageIndex!==0||(mode!=='playing'&&mode!=='paused'))return;
+ for(const b of secretBlocks){
+  if(b.opened)continue;
+  const x=b.x-dist,y=ground-b.yOffset;
+  if(x<-25||x>W+25)continue;
+  // A game-looking question block (not a damage hazard).
+  const pulse=.65+.35*Math.sin(clock*4+b.x);
+  ctx.save();ctx.shadowColor='#ffc760';ctx.shadowBlur=5*pulse;
+  rect(x-13,y-13,26,26,'#47351c');rect(x-10,y-10,20,20,'#edb857');
+  rect(x-7,y-7,14,14,'#8a5b26');safeText('?',x-5,y+5,'#fff2b8',17);
+  ctx.restore();
+  if(b===secretBlocks[0]&&dist<800)safeText('?',x-4,y-27,'#ffeab2',10);
+ }
+}
+function drawCheckpoints(){
+ if(stageIndex!==0||mode!=='playing')return;
+ for(const cp of PRACTICE_CHECKPOINTS){
+  const x=cp.trigger-dist;if(x<-40||x>W+40)continue;
+  const lit=dist>=cp.trigger;
+  rect(x-2,ground-73,4,73,lit?'#7bffd9':'#bdd3e3');
+  rect(x,ground-72,27,14,lit?'#3ebc9d':'#345b7a');
+  safeText('⚑',x+6,ground-60,'#fff2b8',10);
+  safeText('SAVE',x-12,ground-82,'#c9ffdf',9);
+ }
+}
+function maybeCheckpoint(){
+ if(stageIndex!==0||hero.fellInGap)return;
+ while(checkpointCursor<PRACTICE_CHECKPOINTS.length && dist>=PRACTICE_CHECKPOINTS[checkpointCursor].trigger){
+  const cp=PRACTICE_CHECKPOINTS[checkpointCursor++];checkpointAt=cp.spawn;
+  toast('CHECKPOINT! PRACTICE UNLOCKED',Math.max(8,heroX),ground-123,'#a3ffe7');
+  burst(heroX+18,ground-70,12,'#a1ffe2');sound(920,.14,'triangle',.024);
+  updateDiscoveryHud();
+ }
+}
+const DIFFICULTY_KEY='last_spark_v39_difficulty';
+let difficulty='challenge';
+try{const v=localStorage.getItem(DIFFICULTY_KEY);if(v==='standard'||v==='challenge')difficulty=v;}catch(e){}
+let gunHeat=0,gunOverheated=false,heatNeedsRelease=false,damageTaken=0,cleanDodges=0,rankDisplay='';
+const RANK_KEY='last_spark_v39_rank_';
+function rankForStage(i){try{return localStorage.getItem(RANK_KEY+difficulty+'_'+i)||'';}catch(e){return '';}}
+function setRankForStage(i,rank){const old=rankForStage(i);const order={B:1,A:2,S:3};if((order[rank]||0)>(order[old]||0)){try{localStorage.setItem(RANK_KEY+difficulty+'_'+i,rank);}catch(e){}}}
+function updateDifficultyButtons(){document.querySelectorAll('[data-difficulty]').forEach(b=>b.classList.toggle('selected',b.dataset.difficulty===difficulty));}
+function selectDifficulty(v){if(!['challenge','standard'].includes(v))return;difficulty=v;try{localStorage.setItem(DIFFICULTY_KEY,v);}catch(e){}updateDifficultyButtons();updateStagePicker();updatePersonalProgress();}
 const BOSSES=[
- {name:'RUIN BRUTE',hp:12,bonus:500,windup:1.35,recovery:1.75,projectileSpeed:225},
+ {name:'RUIN BRUTE',hp:12,bonus:500,windup:1.3,recovery:1.7,projectileSpeed:225},
  {name:'ASH MUTANT',hp:17,bonus:750,windup:1.15,recovery:1.65,projectileSpeed:245},
  {name:'NIGHT SENTINEL',hp:23,bonus:1200,windup:1.05,recovery:1.48,projectileSpeed:265}
 ];
@@ -271,6 +382,55 @@ let boss=null,bossShots=[],bossBonus=0,dodgeBonus=0,dodgeStreak=0,obstacleSequen
 // V3.8 RUINED CITY: deliberately authored challenges, NOT random hazard spam.
 // Coordinates are world units; the run takes roughly 75s before the boss.
 // Each obstacle is visible well in advance and has a learnable response.
+// V3.9 handcrafted sequences on ALL three stages: no random unfair hazard stacks.
+const EXPERT_COURSES={
+ 1:[
+  {x:470,type:'beam',w:46}, {x:800,type:'gap',w:72},
+  {x:1130,type:'electric',w:28}, {x:1450,type:'beam',w:46},
+  {x:1770,type:'gap',w:84}, {x:2090,type:'box',w:24},
+  {x:2400,type:'electric',w:28}, {x:2710,type:'beam',w:46},
+  {x:3020,type:'gap',w:90}, {x:3330,type:'electric',w:28},
+  {x:3590,type:'beam',w:46}
+ ],
+ 2:[
+  {x:430,type:'gap',w:68}, {x:750,type:'beam',w:46},
+  {x:1070,type:'electric',w:28}, {x:1390,type:'gap',w:86},
+  {x:1700,type:'beam',w:46}, {x:2020,type:'box',w:24},
+  {x:2330,type:'gap',w:95}, {x:2640,type:'electric',w:28},
+  {x:2950,type:'beam',w:46}, {x:3260,type:'gap',w:91},
+  {x:3560,type:'electric',w:28}, {x:3870,type:'beam',w:46},
+  {x:4160,type:'gap',w:92}, {x:4460,type:'electric',w:28},
+  {x:4720,type:'beam',w:46}
+ ]
+};
+const EXPERT_ZOMBIES={
+ 1:[
+  {x:1110,kind:2},
+  {x:1790,kind:1},
+  {x:2860,kind:2},
+  {x:3230,kind:1},
+ ],
+ 2:[
+  {x:1010,kind:2},
+  {x:2440,kind:1},
+  {x:3590,kind:2},
+  {x:4530,kind:1},
+ ],
+};
+let courseObstacleCursor=0,courseZombieCursor=0;
+function addExpertObstacles(){const seq=EXPERT_COURSES[stageIndex]||[];
+ while(courseObstacleCursor<seq.length&&seq[courseObstacleCursor].x<dist+W+80){
+  const e=seq[courseObstacleCursor++];
+  obstacles.push({wx:e.x,w:e.w,typ:e.type,dead:false,challenge:true});
+ }
+}
+function addExpertZombies(){const seq=EXPERT_ZOMBIES[stageIndex]||[];
+ while(courseZombieCursor<seq.length&&seq[courseZombieCursor].x<dist+W+105){
+  const e=seq[courseZombieCursor++];const k=e.kind;
+  zombies.push({wx:e.x,kind:k,v:26+stageIndex*9+(k===2?9:0),hp:k===2?2+stageIndex:1,rushed:false,status:'run',deadAt:0,anim:0,w:k===2?33:28,challenge:true});
+ }
+}
+
 const RUIN_PHASES=[
  {at:0,name:'LEARN',desc:'TAP to jump • HOLD to duck • FIRE to shoot'},
  {at:2200,name:'TEST',desc:'Two different pits • find your timing'},
@@ -278,33 +438,50 @@ const RUIN_PHASES=[
  {at:8500,name:'MASTER',desc:'Read the pattern • react cleanly • boss ahead'}
 ];
 const RUIN_OBSTACLES=[
- {x:850,type:'gap',w:54},      // Learn: single safe pit
- {x:1620,type:'beam',w:46},   // Learn: first duck
- {x:2520,type:'gap',w:56},    // Test: regular pit
- {x:3240,type:'gap',w:78},    // Test: wider pit, same jump mechanic
- {x:3970,type:'beam',w:46},   // Test: clean duck
- {x:4500,type:'box',w:24},    // Test: low obstacle
- {x:5030,type:'gap',w:68},    // Combine: jump then fire
- {x:6110,type:'beam',w:46},   // Combine: duck then fire
- {x:7190,type:'electric',w:28},// Combine: shoot to disable or time a jump
- {x:7840,type:'gap',w:75},    // Combine: another landing + zombie
- {x:8840,type:'gap',w:83},    // Master: wide but possible leap
- {x:9950,type:'beam',w:46},   // Master: crouch on cue
- {x:10640,type:'electric',w:28},
- {x:11440,type:'gap',w:82},
- {x:12160,type:'beam',w:46},
- {x:13010,type:'gap',w:78},
- {x:13680,type:'electric',w:28}
+ {x:850,type:'gap',w:54},
+ {x:1510,type:'beam',w:46},
+ {x:2110,type:'box',w:24},
+ {x:2560,type:'gap',w:65},
+ {x:2960,type:'beam',w:46,hard:true},
+ {x:3350,type:'gap',w:81},
+ {x:3750,type:'electric',w:28,hard:true},
+ {x:4190,type:'beam',w:46},
+ {x:4710,type:'gap',w:84},
+ {x:5110,type:'electric',w:28,hard:true},
+ {x:5490,type:'gap',w:73},
+ {x:5910,type:'beam',w:46},
+ {x:6300,type:'box',w:24,hard:true},
+ {x:6680,type:'gap',w:86},
+ {x:7070,type:'electric',w:28},
+ {x:7420,type:'beam',w:46,hard:true},
+ {x:7810,type:'gap',w:78},
+ {x:8180,type:'electric',w:28,hard:true},
+ {x:8700,type:'beam',w:46},
+ {x:9060,type:'gap',w:86},
+ {x:9450,type:'electric',w:28,hard:true},
+ {x:9850,type:'gap',w:94},
+ {x:10290,type:'beam',w:46,hard:true},
+ {x:10680,type:'gap',w:86},
+ {x:11080,type:'box',w:24},
+ {x:11480,type:'electric',w:28,hard:true},
+ {x:11860,type:'beam',w:46},
+ {x:12260,type:'gap',w:93},
+ {x:12650,type:'beam',w:46,hard:true},
+ {x:13020,type:'electric',w:28},
+ {x:13420,type:'gap',w:90},
+ {x:13770,type:'beam',w:46,hard:true},
 ];
 const RUIN_ZOMBIES=[
- {x:2080,kind:0}, // Learn: isolated enemy
- {x:5540,kind:0}, // After the pit, time the shot
- {x:6650,kind:1}, // After the beam
- {x:8100,kind:0}, // After the pit
- {x:9360,kind:2}, // Rusher after jump
- {x:10190,kind:1},// After duck
- {x:12480,kind:2},// Late combo
- {x:13880,kind:1} // Final exam before boss
+ {x:1920,kind:0},
+ {x:4050,kind:2},
+ {x:5690,kind:1},
+ {x:6880,kind:2},
+ {x:8350,kind:1},
+ {x:9710,kind:2},
+ {x:10830,kind:1},
+ {x:11580,kind:2},
+ {x:12470,kind:1},
+ {x:13630,kind:2},
 ];
 // Coins trace the intended route: arcs above pits, ground-level rewards after ducks.
 // Deliberately avoid overlapping the front of a dangerous hazard.
@@ -321,13 +498,16 @@ for(const o of RUIN_OBSTACLES){
 for(const x of [320,650,1190,1930,2830,3660,4740,5800,6850,7490,8510,9630,10960,11880,12700,13400]){
  RUIN_COIN_POINTS.push({x,offset:34});
 }
+// Two gold coins near each ? block invite the player to look above the main lane.
+for(const p of SECRET_BLOCKS){RUIN_COIN_POINTS.push({x:p.x-73,offset:62},{x:p.x+75,offset:58});}
 RUIN_COIN_POINTS.sort((a,b)=>a.x-b.x);
 let ruinObstacleCursor=0,ruinZombieCursor=0,ruinCoinCursor=0,ruinPhaseIndex=-1,ruinHintKey='';
 function ruinPhaseFor(d){let phase=0;for(let i=1;i<RUIN_PHASES.length;i++)if(d>=RUIN_PHASES[i].at)phase=i;return phase;}
 function addRuinedObstacles(){
  while(ruinObstacleCursor<RUIN_OBSTACLES.length && RUIN_OBSTACLES[ruinObstacleCursor].x<dist+W+80){
-  const e=RUIN_OBSTACLES[ruinObstacleCursor++];
-  obstacles.push({wx:e.x,w:e.w,typ:e.type,dead:false,lesson:true});
+   const e=RUIN_OBSTACLES[ruinObstacleCursor++];
+   if(difficulty==='standard'&&e.hard)continue;
+   obstacles.push({wx:e.x,w:e.w,typ:e.type,dead:false,lesson:true});
  }
 }
 function addRuinedZombies(){
@@ -343,7 +523,14 @@ function addRuinedCoins(){
 }
 function updateRuinLesson(){
  const el=$('lessonHud');
- if(stageIndex!==0||mode!=='playing'||(boss&&boss.active)){el.hidden=true;return;}
+ if(mode!=='playing'||(boss&&boss.active)){el.hidden=true;return;}
+ if(stageIndex!==0){
+  el.hidden=false;
+  const upcoming=obstacles.filter(o=>!o.dead&&o.wx>dist+heroX+65&&o.wx<dist+heroX+395).sort((a,b)=>a.wx-b.wx)[0];
+  $('lessonHead').textContent='STAGE '+(stageIndex+1)+' · '+(difficulty==='challenge'?'CHALLENGE':'STANDARD');
+  $('lessonBody').textContent=upcoming?(upcoming.typ==='gap'?'TAP JUMP · PIT':upcoming.typ==='beam'?'HOLD DUCK · PIPE':upcoming.typ==='electric'?'FIRE OR JUMP · ELECTRIC':'TAP JUMP · BOX'):'READ THE NEXT PATTERN';
+  return;
+ }
  el.hidden=false;
  const phase=ruinPhaseFor(dist),data=RUIN_PHASES[phase];
  if(phase!==ruinPhaseIndex){
@@ -357,8 +544,10 @@ function updateRuinLesson(){
    .sort((a,b)=>a.wx-b.wx)[0];
  let prompt=data.desc;
  if(nextHazard && (!nextZombie||nextHazard.wx<nextZombie.wx-100)){
-  prompt=nextHazard.typ==='gap'?'TAP LEFT · JUMP OVER PIT':nextHazard.typ==='beam'?'HOLD LEFT · DUCK UNDER PIPE':nextHazard.typ==='electric'?'FIRE · DISABLE THE ELECTRIC TRAP':'TAP LEFT · JUMP THE BOX';
- }else if(nextZombie)prompt=nextZombie.kind===2?'FAST ZOMBIE · TIME YOUR SHOT':'HOLD FIRE · ZOMBIE AHEAD';
+  const skill=nextHazard.typ;
+  if(!lessonSkillSeen.has(skill)){prompt=skill==='gap'?'TRY: TAP TO JUMP':skill==='beam'?'TRY: HOLD TO DUCK':skill==='electric'?'TRY: FIRE AT BLUE SPARK':'TRY: TAP OVER BOX';}
+  else prompt=phase===3?'MASTER · READ THE PATTERN':'YOUR MOVE · WATCH THE NEXT HAZARD';
+ }else if(nextZombie)prompt=nextZombie.kind===2?'FAST ZOMBIE · TIME YOUR SHOT':(!lessonSkillSeen.has('zombie')?'TRY: FIRE BEFORE IT REACHES YOU':'SPOT THE ZOMBIE · PICK YOUR MOVE');
  const key=phase+'|'+prompt;
  if(ruinHintKey!==key){ruinHintKey=key;$('lessonHead').textContent='PHASE '+(phase+1)+'/4 · '+data.name;$('lessonBody').textContent=prompt;}
 }
@@ -388,13 +577,13 @@ function updateStagePicker(){
   b.disabled=locked;
   b.classList.toggle('selected',i===stageIndex);
   b.classList.toggle('completed',!locked&&(i<unlockedStage||allStagesCleared));
-  b.textContent=(locked?'🔒 ':((i<unlockedStage||allStagesCleared)?'✓ ':''))+(i+1)+' · '+STAGES[i].name;
+  b.textContent=(locked?'🔒 ':((i<unlockedStage||allStagesCleared)?'✓ ':''))+(i+1)+' · '+STAGES[i].name+(rankForStage(i)?' · '+rankForStage(i):'');
  });
  $('sceneLabel').textContent=allStagesCleared?'ALL STAGES CLEARED — REPLAY ANY STAGE':'SELECT STAGE — COMPLETE TO UNLOCK';
 }
 function selectStage(i){
  i=Number(i);if(!Number.isInteger(i)||i<0||i>=STAGES.length||i>unlockedStage)return false;
- stageIndex=i;selectScene(mission().scene);updateStagePicker();return true;
+ stageIndex=i;selectScene(mission().scene);updateStagePicker();updatePersonalProgress();return true;
 }
 function updateStageHud(){
  const m=mission(),pct=clamp(Math.floor(dist/m.goal*100),0,100);
@@ -425,12 +614,16 @@ function levelClear(){
  if(score>best){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  if(stageIndex===STAGES.length-1){allStagesCleared=true;try{localStorage.setItem('last_spark_campaign_complete_v36','yes');}catch(e){}}
  else{unlockedStage=Math.max(unlockedStage,stageIndex+1);try{localStorage.setItem(STAGE_SAVE_KEY,String(unlockedStage));}catch(e){}}
- updateStagePicker();updateStageHud();updateHud();
+  rankDisplay=damageTaken===0&&cleanDodges>=[8,6,9][stageIndex]?'S':damageTaken<=1?'A':'B';
+  if(checkpointPractice&&rankDisplay==='S')rankDisplay='A';
+  saveMax(PROGRESS_KEY+difficulty+'_'+stageIndex,mission().goal);updatePersonalProgress();$('restartFullButton').hidden=true;
+  setRankForStage(stageIndex,rankDisplay);
+  updateStagePicker();updateStageHud();updateHud();updateDiscoveryHud();
  $('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;
  sound(990,.21,'triangle',.04);setTimeout(()=>sound(1310,.23,'sine',.034),140);
  panel(allStagesCleared&&stageIndex===STAGES.length-1?'CAMPAIGN CLEAR!':'STAGE CLEAR!',
   stageIndex===STAGES.length-1?'THE LAST SPARK LIVES!':'NEXT STAGE UNLOCKED!',
-  `${m.name} boss defeated! Coins: ${energy} · Kills: ${kills} · Dodges: +${dodgeBonus} · Boss: +${bossBonus} · HP left: ${hp} · Total: ${score}.`,
+  `${m.name} · ${difficulty.toUpperCase()} · RANK ${rankDisplay}! ${checkpointPractice?'PRACTICE RUN · ':''}Coins: ${energy} · Secrets: ${secretsFound}/3 · Clean dodges: ${cleanDodges} · Damage taken: ${damageTaken} · Score: ${score}.`,
   stageIndex===STAGES.length-1?'↻ REPLAY FINAL STAGE':'▶ NEXT STAGE','MISSION COMPLETE');
 }
 
@@ -509,23 +702,42 @@ function lockGamePage(active){
  if(active)window.scrollTo(0,0);
 }
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
-function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
-function reset(){selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;ruinPhaseIndex=-1;ruinHintKey='';$('lessonHud').hidden=stageIndex!==0;$('bossHud').hidden=true;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();updateStageHud();sound(520,.08,'triangle',.028);toast('STAGE '+(stageIndex+1)+': '+mission().tag,heroX+26,ground-96,'#a2f8ff');}
-function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function updateHeatHud(){
+ const node=$('heatHud');if(!node)return;
+ node.hidden=difficulty!=='challenge'||(mode!=='playing'&&mode!=='paused');
+ const value=$('heatValue');if(!value)return;
+ const amount=Math.max(0,Math.min(5,Math.ceil(gunHeat*5)));
+ value.textContent=gunOverheated?'COOLING!':heatNeedsRelease?'RELEASE FIRE':('▰'.repeat(amount)+'▱'.repeat(5-amount));
+ value.className=gunOverheated||heatNeedsRelease||gunHeat>.72?'heat-hot':'heat-safe';
+}
+function updateHud(){updateHeatHud();$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
+function reset(resumeAt=0){selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=(stageIndex===0?Math.max(0,resumeAt):0);speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;gunHeat=0;gunOverheated=false;heatNeedsRelease=false;damageTaken=0;cleanDodges=0;courseObstacleCursor=0;courseZombieCursor=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;ruinPhaseIndex=-1;ruinHintKey='';lessonSkillSeen=new Set();checkpointAt=dist>0?dist:0;checkpointPractice=dist>0;checkpointCursor=PRACTICE_CHECKPOINTS.filter(x=>x.trigger<=dist).length;secretsFound=0;secretBlocks=[];$('restartFullButton').hidden=true;$('lessonHud').hidden=stageIndex!==0;$('bossHud').hidden=true;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.coyoteUntil=0;hero.jumpBufferUntil=0;hero.anim=0;
+ if(dist>0){
+  while(ruinObstacleCursor<RUIN_OBSTACLES.length&&RUIN_OBSTACLES[ruinObstacleCursor].x<dist+heroX-65)ruinObstacleCursor++;
+  while(ruinZombieCursor<RUIN_ZOMBIES.length&&RUIN_ZOMBIES[ruinZombieCursor].x<dist+heroX-80)ruinZombieCursor++;
+  while(ruinCoinCursor<RUIN_COIN_POINTS.length&&RUIN_COIN_POINTS[ruinCoinCursor].x<dist+heroX-65)ruinCoinCursor++;
+  if(dist>3450)nextWeaponPickup=Infinity;
+ }
+ spawnSecrets();updateDiscoveryHud();updatePersonalProgress();updateHud();updateStageHud();sound(520,.08,'triangle',.028);toast(dist>0?'PRACTICE FROM CHECKPOINT':'STAGE '+(stageIndex+1)+': '+mission().tag,heroX+26,ground-96,'#a2f8ff');}
+function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;$('restartFullButton').hidden=true;lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
-function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;dodgeStreak=0;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
-function gameOver(reason){if(mode!=='playing')return;mode='over';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
- $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Stage ${stageIndex+1}: ${mission().name} · Kills: ${kills} · Coins: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
+function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;damageTaken++;dodgeStreak=0;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
+function gameOver(reason){if(mode!=='playing')return;lastFailureAdvice=failureAdvice(reason);lastDeathCheckpoint=stageIndex===0?checkpointAt:0;saveMax(PROGRESS_KEY+difficulty+'_'+stageIndex,dist);mode='over';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+ $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. You reached ${Math.floor(dist/mission().goal*100)}%. NEXT TRY: ${lastFailureAdvice} · Coins: ${energy} · Score: ${score}.`,
+    lastDeathCheckpoint?'↻ RETRY CHECKPOINT':'↻ RETRY','LEARN · ADAPT · TRY AGAIN');
+  $('restartFullButton').hidden=!(lastDeathCheckpoint>0);updatePersonalProgress();}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;
  jumpHeld=true;
- if(hero.onGround){
+ if(hero.onGround||(hero.fellInGap&&runTime<=hero.coyoteUntil&&hero.foot<ground+14)){
+   hero.fellInGap=false;hero.foot=ground;
    // Clear low hazards with a responsive leap. A short takeoff grace prevents a hit
    // during the first few animation frames (not unlimited airborne invulnerability).
    hero.vy=-385;hero.onGround=false;hero.slideEnd=0;hero.jumpGraceUntil=runTime+.22;
    burst(heroX,ground-2,6,'#c4a98a');sound(350,.1,'triangle',.036);
- }
+ }else if(!hero.fellInGap){hero.jumpBufferUntil=runTime+.10;}
 }
+
 function releaseJump(){jumpHeld=false;}
 function slide(){if(mode!=='playing')return;if(hero.onGround){hero.slideEnd=runTime+.7;sound(210,.07,'triangle',.02);}}
 function equip(type){
@@ -537,7 +749,12 @@ function equip(type){
 }
 function fire(){
  const w=weapons[activeWeapon];if(mode!=='playing'||runTime-prevShot<w.rate)return;
- prevShot=runTime;shotPose=runTime+.22;
+  if(difficulty==='challenge'&&(gunOverheated||heatNeedsRelease))return;
+  if(difficulty==='challenge'){
+   gunHeat=Math.min(1.05,gunHeat+(activeWeapon==='pistol'?.16:activeWeapon==='laser'?.22:.23));
+   if(gunHeat>=.98){gunOverheated=true;heatNeedsRelease=true;toast('GUN HOT · RELEASE FIRE',heroX+11,ground-105,'#ffb39e');sound(240,.12,'sawtooth',.017);}
+  }
+  prevShot=runTime;shotPose=runTime+.22;
  const muzzle=gunPose();
  const y=muzzle.muzzleY;
  const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:activeWeapon,seen:[],pierce:activeWeapon==='laser'?2:0};
@@ -558,7 +775,8 @@ function fire(){
 function beginBoss(){
  if(boss&&boss.active)return;
  const spec=BOSSES[stageIndex];
- boss={active:true,name:spec.name,hp:spec.hp,maxHp:spec.hp,phase:'warn',timer:1.65,attackNumber:0,pattern:'low',vulnerable:false,lastBlock:-10};
+ const maxHp=spec.hp+(difficulty==='challenge'?[3,4,5][stageIndex]:0);
+ boss={active:true,name:spec.name,hp:maxHp,maxHp,phase:'warn',timer:1.65,attackNumber:0,pattern:'low',vulnerable:false,lastBlock:-10};
  obstacles=[];zombies=[];weaponPickups=[];cells=[];shots=[];bossShots=[];
  hero.fellInGap=false; // arena starts only while grounded and outside a gap
  $('bossHud').hidden=false;$('lessonHud').hidden=true;updateBossHUD();
@@ -567,9 +785,11 @@ function beginBoss(){
 }
 function nextBossPattern(){
  const count=boss.attackNumber;
- if(stageIndex===0)return 'low';
- if(stageIndex===1)return count%3===2?'low':'high';
- return count%2===0?'low':'high';
+ if(difficulty==='standard'&&stageIndex===0)return 'low';
+ const sequence=stageIndex===0?['low','high','low','high']:
+    stageIndex===1?['high','low','high','low','low']:
+    ['low','high','high','low','high','low'];
+ return sequence[count%sequence.length];
 }
 function updateBossHUD(){
  if(!boss||!boss.active){$('bossHud').hidden=true;return;}
@@ -600,11 +820,11 @@ function updateBoss(dt,py,hh){
    if(mode!=='playing')return;
    // Getting hit never breaks the shield. The next attack comes with a fresh cue.
    if(boss.phase==='attack'){
-    boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup;boss.vulnerable=false;
+    boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup*(difficulty==='challenge'?.83:1);boss.vulnerable=false;
    }
   }else if(b.x<heroX-24&&boss.phase==='attack'){
    b.life=0;
-   boss.phase='open';boss.vulnerable=true;boss.timer=2.25;
+   boss.phase='open';boss.vulnerable=true;boss.timer=difficulty==='challenge'?1.75:2.25;
    dodgeBonus+=60;
    toast('PERFECT DODGE! SHIELD DOWN',heroX+13,ground-100,'#98ffce');
    playFx('charge',.18);sound(910,.12,'triangle',.027);
@@ -612,9 +832,9 @@ function updateBoss(dt,py,hh){
  }
  bossShots=bossShots.filter(b=>b.life>0&&b.x>-30);
  if(boss.phase==='attack'&&boss.timer<=0){
-  boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup;boss.vulnerable=false;
+  boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup*(difficulty==='challenge'?.83:1);boss.vulnerable=false;
  }else if(boss.phase==='open'&&boss.timer<=0){
-  boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup;boss.vulnerable=false;
+  boss.attackNumber++;boss.pattern=nextBossPattern();boss.phase='warn';boss.timer=spec.windup*(difficulty==='challenge'?.83:1);boss.vulnerable=false;
   sound(420,.16,'triangle',.023);
  }
  updateBossHUD();
@@ -666,10 +886,14 @@ function drawBoss(){
  }
 }
 
-function addObstacle(){if(stageIndex===0){addRuinedObstacles();return;}while(nextOb<dist+W+80 && nextOb<mission().goal+heroX-300){const patterns=[['box','gap','electric','beam'],['beam','gap','electric','box','beam'],['gap','beam','electric','box','beam','gap']];
- const seq=patterns[stageIndex];const typ=seq[obstacleSequence++%seq.length],w=typ==='gap'?52:typ==='beam'?44:typ==='box'?24:28;
- if(!zombies.some(z=>Math.abs(z.wx-nextOb)<145))obstacles.push({wx:nextOb,w,typ,dead:false});nextOb+=(stageIndex===0?290:stageIndex===1?258:237)+rand(nextOb)*(stageIndex===0?130:stageIndex===1?100:85);}}
-function addZombies(){if(stageIndex===0){addRuinedZombies();return;}while(nextZ<dist+W+105 && nextZ<mission().goal+heroX-270){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:24+stageIndex*11+rand(nextZ)*19,hp:kind===2?2+stageIndex:1,rushed:false,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=(stageIndex===0?350:stageIndex===1?305:270)+rand(nextZ+5)*140;}}
+function addObstacle(){
+ if(stageIndex===0){addRuinedObstacles();return;}
+ addExpertObstacles();
+}
+function addZombies(){
+ if(stageIndex===0){addRuinedZombies();return;}
+ addExpertZombies();
+}
 function addCells(){if(stageIndex===0){addRuinedCoins();return;}while(nextCell<dist+W+100 && nextCell<mission().goal+heroX-80){
  // Coins sit near the safe running lane; some are high enough to reward a jump.
  cells.push({wx:nextCell,y:ground-33-rand(nextCell)*25,got:false});
@@ -700,20 +924,31 @@ function damageZombie(z,dmg,kind){
  z.hp-=dmg;
  const x=z.wx-dist;
  burst(x,ground-28,kind==='plasma'?18:9,kind==='plasma'?'#d8a6ff':'#ffcf8e');
- if(z.hp<=0){z.status='dead';z.deadAt=runTime;kills++;toast('+120',x-15,ground-60,'#ffdc7b');spawnExplosion(x,ground-34,kind==='plasma');playFx('hit',.3);sound(290,.11,'triangle',.024);}
+ if(z.hp<=0){lessonSkillSeen.add('zombie');z.status='dead';z.deadAt=runTime;kills++;toast('+120',x-15,ground-60,'#ffdc7b');spawnExplosion(x,ground-34,kind==='plasma');playFx('hit',.3);sound(290,.11,'triangle',.024);}
  else{toast('HIT',x,ground-57,'#9aefef');sound(180,.09,'triangle',.02);}
 }
 function gapAt(x){return obstacles.some(o=>!o.dead&&o.typ==='gap'&&x>o.wx+4&&x<o.wx+o.w-4)}
-function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.active))dist+=speed*dt;speed=Math.min(235,133+(stageIndex*8)+dist*.0095);
+function update(dt){if(mode!=='playing')return;
+ runTime+=dt;
+ if(difficulty==='challenge'){
+  gunHeat=Math.max(0,gunHeat-(fireHeld&&!gunOverheated?.12:.38)*dt);
+  if(gunOverheated&&gunHeat<=.25){gunOverheated=false;toast('GUN READY',heroX+12,ground-89,'#a6fff0');}
+ }
+ if(!(boss&&boss.active))dist+=speed*dt;
+ maybeCheckpoint();
+ speed=difficulty==='challenge'?Math.min(242,143+stageIndex*9+dist*.0095):Math.min(235,133+stageIndex*8+dist*.0095);
  // Auto-run only: no backward movement or directional stick required.
  heroX=clamp(heroX,W===360?65:72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;if(!(boss&&boss.active)){addObstacle();addZombies();addCells();addWeaponPickups();}
  if(!(boss&&boss.active)&&dist>=mission().goal-360&&hero.onGround&&!gapAt(dist+heroX))beginBoss();
  if(fireHeld)fire();
  // Once the cowboy steps into a pit, crossing the far ledge cannot magically reset the fall.
  if(!hero.onGround){const gravity=jumpHeld&&hero.vy<0?660:780;hero.vy+=gravity*dt;hero.foot+=hero.vy*dt;
- if(hero.foot>=ground&&!hero.fellInGap&&!gapAt(dist+heroX)){hero.foot=ground;hero.vy=0;hero.onGround=true;burst(heroX,ground-2,4,'#7b8c98');}
+ if(hero.foot>=ground&&!hero.fellInGap&&!gapAt(dist+heroX)){
+  hero.foot=ground;hero.vy=0;hero.onGround=true;burst(heroX,ground-2,4,'#7b8c98');
+  if(hero.jumpBufferUntil>runTime){hero.jumpBufferUntil=0;jump();releaseJump();}
+ }
  if(hero.foot>H+60){gameOver('You fell into the ruins');return;}}
- else if(gapAt(dist+heroX)){hero.onGround=false;hero.fellInGap=true;hero.vy=50;}
+ else if(gapAt(dist+heroX)){hero.onGround=false;hero.fellInGap=true;hero.vy=50;hero.coyoteUntil=runTime+.10;}
  // Holding DOWN maintains the crouch so the slide does not expire under a finger.
  const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
  const hh=sliding?23:48,py=hero.foot-hh;
@@ -729,7 +964,8 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.activ
  if(!takeoffGrace&&overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx-11,ground-45,z.w,42)){hurt('ZOMBIE BITE');if(mode==='over')return;z.wx+=45;}}
   for(const shot of shots){
    shot.x+=shot.vx*dt;shot.y+=(shot.vy||0)*dt;shot.life-=dt;
-   let hit=false;
+   let hit=secretHit(shot);
+   if(hit)continue;
    for(const z of zombies){
     if(z.status==='dead'||shot.seen.includes(z))continue;
     const x=z.wx-dist;
@@ -764,7 +1000,7 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.activ
  for(const cell of cells){if(cell.got)continue;const x=cell.wx-dist;if(Math.abs(x-heroX)<26&&Math.abs(cell.y-(hero.foot-24))<37){cell.got=true;energy++;burst(x,cell.y,7,'#ffe197');playFx('pickup',.18);sound(810,.08,'sine',.02);}}
  for(const o of obstacles){if(o.dead||o.scored||o.hit||o.typ==='gap'&&hero.fellInGap)continue;
    if(o.wx+o.w<dist+heroX-12 && o.wx+o.w>dist-75){
-    o.scored=true;dodgeStreak++;const award=Math.min(60,15+(dodgeStreak-1)*5);
+    o.scored=true;lessonSkillSeen.add(o.typ);cleanDodges++;dodgeStreak++;const award=Math.min(60,15+(dodgeStreak-1)*5);
     dodgeBonus+=award;if(stageIndex===0&&!o.hit&&o.lesson){toast(o.typ==='beam'?'GOOD DUCK!':o.typ==='electric'?'GOOD TIMING!':'CLEAN JUMP!',heroX+30,ground-107,'#aeffd7');}if(dodgeStreak===3||dodgeStreak%6===0)toast('DODGE COMBO x'+dodgeStreak,heroX+12,ground-108,'#c7ffe0');
    }
   }
@@ -773,7 +1009,7 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.activ
  for(const n of notices){n.y-=dt*22;n.life-=dt;}notices=notices.filter(n=>n.life>0);
  cameraShake=Math.max(0,cameraShake-28*dt);score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;
  if(Math.floor(dist/850)>Math.floor((dist-speed*dt)/850)){toast('SIGNAL RESTORED!',heroX+5,ground-107,'#ffe68d');playFx('charge',.32);sound(940,.14,'sine',.02)}
- updateStageHud();updateRuinLesson();
+ updateStageHud();updateRuinLesson();updateDiscoveryHud();
  if(dist>=mission().goal && hero.onGround && !hero.fellInGap && boss&&boss.hp<=0){levelClear();return;}
  updateHud();}
 // REAL layered assets from provided CraftPix ZIPs. Each layer moves at a distinct speed.
@@ -1011,7 +1247,7 @@ function shotDraw(){for(const b of shots){
  else rect(b.x-5,b.y-3,10,6,weapon.color);
 }}
 function particleDraw(){for(const p of particles)rect(p.x,p.y,p.size,p.size,p.c);for(const n of notices){ctx.save();ctx.globalAlpha=clamp(n.life,0,1);safeText(n.s,n.x,n.y,n.col,11);ctx.restore();}}
-function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();drawRuinHints();finishGateDraw();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
+function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();drawRuinHints();drawCheckpoints();finishGateDraw();heroBeacon();cellDraw();drawSecrets();weaponPickupDraw();obstacleDraw();zombieDraw();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
 function animate(t){requestAnimationFrame(animate);if(!frameT)frameT=t;const elapsed=t-frameT;if(elapsed<minFrameMs-1.5)return;let dt=clamp(elapsed/1000,0,.05);frameT=t;clock+=dt;if(mode==='playing')update(dt);render();}
 const play=$('playButton');
 const soundButton=$('soundButton');
@@ -1021,13 +1257,20 @@ function selectScene(v){if(!sceneAssets[v])return;sceneName=v;
  try{localStorage.setItem('last_spark_v3_scene',v);}catch(e){}
  /* Stage-linked scenes */}
 document.querySelectorAll('[data-stage]').forEach(b=>b.addEventListener('click',()=>{if(selectStage(Number(b.dataset.stage)))sound(520,.05,'triangle',.014)}));
- selectStage(0);
-function checkReady(){if(loaded===total&&loadedScenes>=totalScenes){play.disabled=false;
+ selectStage(0);updateDifficultyButtons();updatePersonalProgress();
+ document.querySelectorAll('[data-difficulty]').forEach(b=>b.addEventListener('click',()=>selectDifficulty(b.dataset.difficulty)));
+ function checkReady(){if(loaded===total&&loadedScenes>=totalScenes){play.disabled=false;
  if(mode==='menu')play.textContent='▶ PLAY NOW';}}
-play.addEventListener('click',()=>{if(mode==='paused'){pause();return;}if(mode==='won'&&stageIndex<STAGES.length-1)selectStage(stageIndex+1);reset();});$('pauseButton').addEventListener('click',pause);
+play.addEventListener('click',()=>{
+ if(mode==='paused'){pause();return;}
+ if(mode==='won'&&stageIndex<STAGES.length-1)selectStage(stageIndex+1);
+ const resume=(mode==='over'&&stageIndex===0)?lastDeathCheckpoint:0;
+ reset(resume);
+});
+$('restartFullButton').addEventListener('click',()=>{reset(0);});$('pauseButton').addEventListener('click',pause);
 document.querySelectorAll('[data-char]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.char);document.querySelectorAll('[data-char]').forEach(x=>x.classList.toggle('selected',x===b));sound(540,.06,'sine',.015);}));
 function bind(id,down,up){const e=$(id);e.addEventListener('pointerdown',ev=>{ev.preventDefault();e.classList.add('held');try{e.setPointerCapture(ev.pointerId);}catch(_){}down();});for(const typ of ['pointerup','pointercancel','lostpointercapture'])e.addEventListener(typ,()=>{e.classList.remove('held');if(up)up();});}
-bind('fireButton',()=>{fireHeld=true;fire();},()=>{fireHeld=false});
+bind('fireButton',()=>{fireHeld=true;fire();},()=>{fireHeld=false;heatNeedsRelease=false});
 canvas.addEventListener('pointerdown',e=>{if(mode==='playing'){e.preventDefault();fire();}});
 // ONE-TOUCH control V3.5.4: TAP releases jump, HOLD ducks until finger release.
 // A short hold threshold prevents a long press from accidentally jumping.
@@ -1111,10 +1354,10 @@ document.addEventListener('dblclick',ev=>{
 },{passive:false,capture:true});
 
 window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
-window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
+window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}});
 window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({version:'3.8',ruin:{phase:ruinPhaseIndex,obstaclesSpawned:ruinObstacleCursor,zombiesSpawned:ruinZombieCursor,coinsSpawned:ruinCoinCursor},boss:boss?{...boss}:null,bossShots:bossShots.map(b=>({...b})),dodgeBonus,dodgeStreak,lowPower,targetFPS:Math.round(1000/minFrameMs),mode,stageIndex,unlockedStage,allStagesCleared,stageGoal:mission().goal,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
+window.__lastSparkDiagnostics=()=>({version:'4.0',checkpointAt,checkpointPractice,lastDeathCheckpoint,secretsFound,secretBlocks:secretBlocks.map(b=>({x:b.x,opened:b.opened})),gunHeat,gunOverheated,heatNeedsRelease,damageTaken,cleanDodges,courseObstacleCursor,courseZombieCursor,ruin:{phase:ruinPhaseIndex,obstaclesSpawned:ruinObstacleCursor,zombiesSpawned:ruinZombieCursor,coinsSpawned:ruinCoinCursor},boss:boss?{...boss}:null,bossShots:bossShots.map(b=>({...b})),dodgeBonus,dodgeStreak,lowPower,targetFPS:Math.round(1000/minFrameMs),mode,stageIndex,unlockedStage,allStagesCleared,stageGoal:mission().goal,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
 resize();updateHud();requestAnimationFrame(animate);
 })();
 </script>

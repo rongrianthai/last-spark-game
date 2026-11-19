@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.7 — Boss & Challenge</title>
+<title>LAST SPARK V3.8 — Four-Phase Adventure</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -149,18 +149,26 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 .choice.scene.completed{border-color:#65dba6;color:#a8ffda}
 @media(orientation:portrait){.stage-progress{top:37px;width:40%}.stage-topline{font-size:7px}.stage-track{height:5px}}
 @media(max-height:550px) and (orientation:landscape){.stage-progress{top:4px}.stage-topline{font-size:7px}.stage-track{height:5px;margin-top:1px}}
+
+/* V3.8 - Four-phase lesson ribbon. Small, always readable, never intercept touches. */
+.lesson-hud{position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:2;max-width:56%;width:330px;pointer-events:none;text-align:center;background:#071827d9;border:1px solid #5d97a4b8;border-radius:6px;padding:4px 7px 5px;box-shadow:0 3px 11px #05101caa;font:900 10px/1.25 system-ui,sans-serif;color:#c9f6ff}
+.lesson-hud .lesson-head{color:#ffd492;font-size:9px;letter-spacing:.06em}
+.lesson-hud .lesson-body{font-size:10px;white-space:normal}
+@media(orientation:portrait){.lesson-hud{top:66px;width:56%;max-width:56%;padding:3px 5px}.lesson-hud .lesson-body{font-size:8px}.lesson-hud .lesson-head{font-size:7px}}
+@media(max-height:550px) and (orientation:landscape){.lesson-hud{top:23px;padding:2px 5px}.lesson-hud .lesson-body{font-size:8px}}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>BOSS CHALLENGE · V3.7</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>FOUR-PHASE LEVEL DESIGN · V3.8</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
    <div class="boss-head"><span id="bossName">BOSS</span><span id="bossCue">GUARD UP</span></div>
    <div class="boss-track"><div id="bossBar" class="boss-fill"></div></div>
   </div>
-  <div class="stage-progress" id="stageProgress" hidden aria-live="off">
+  <div class="lesson-hud" id="lessonHud" hidden aria-live="off"><div class="lesson-head" id="lessonHead">01 · LEARN</div><div class="lesson-body" id="lessonBody">TAP to jump the pit</div></div>
+ <div class="stage-progress" id="stageProgress" hidden aria-live="off">
   <div class="stage-topline"><span id="stageName">STAGE 1 · RUINED CITY</span><span id="stagePercent">0%</span></div>
   <div class="stage-track"><div class="stage-bar" id="stageBar"></div></div>
  </div>
@@ -172,7 +180,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">COWBOY VS ZOMBIES</div>
    <h1 id="overlayTitle">LAST SPARK</h1><div class="subtitle" id="subtitle">ONE SPARK. ONE LAST CHANCE.</div>
-   <p class="intro" id="overlayText">Beat 3 boss encounters! TAP LEFT = JUMP, HOLD LEFT = DUCK, hold FIRE on the right. Dodge LOW attacks by JUMPING and HIGH attacks by DUCKING to break each boss shield. Then shoot during FIRE NOW!</p>
+   <p class="intro" id="overlayText">Ruined City now teaches you four ways to survive: learn each move safely, practice it, combine moves, then face a final challenge and the boss. TAP LEFT = JUMP • HOLD LEFT = DUCK • HOLD FIRE = SHOOT.</p>
    <div id="characterPicker"><div class="choice-label">CHOOSE YOUR COWBOY</div><div class="choices">
      <button class="choice selected" data-char="1">COWBOY 1</button><button class="choice" data-char="2">COWBOY 2</button><button class="choice" data-char="3">COWBOY 3</button>
    </div></div>
@@ -183,7 +191,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
       <button class="choice scene" data-stage="2">🔒 3 · NIGHT RUN</button>
     </div>
     <button class="action" id="playButton" disabled>LOADING ART...</button>
-   <div class="tagline" id="tip">3 BOSSES • HIGH / LOW ATTACKS • SAVE PROGRESS • 4 GUNS</div>
+   <div class="tagline" id="tip">STAGE 1: LEARN → TEST → COMBINE → MASTER • BOSS FINALE</div>
    </div>
  </div>
 </div>
@@ -200,7 +208,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.7 · DODGE COMBOS • 3 BOSSES • TAP = JUMP • HOLD = DUCK • FIRE RIGHT</div>
+<div class="helper">V3.8 · FOUR PHASES IN RUINED CITY • TAP = JUMP • HOLD = DUCK • FIRE RIGHT</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -249,7 +257,7 @@ let W=640,H=360,ground=280,heroX=108,mode='menu',clock=0,runTime=0,dist=0,speed=
 let best=0;try{best=Number(localStorage.getItem('last_spark_v2_best')||0)||0;}catch(e){}
 // V3.6 CAMPAIGN: each scene is a stage, unlocked only after clearing its EXIT gate.
 const STAGES=[
- {name:'RUINED CITY',scene:'ruins',goal:3000,tag:'Restore the city signal',reward:300},
+ {name:'RUINED CITY',scene:'ruins',goal:14500,tag:'Learn, practice, combine, master',reward:450},
  {name:'ASH DUSK',scene:'ash',goal:4000,tag:'Survive the burning outskirts',reward:500},
  {name:'NIGHT RUN',scene:'night',goal:5200,tag:'Reach the final transmitter',reward:850}
 ];
@@ -259,6 +267,117 @@ const BOSSES=[
  {name:'NIGHT SENTINEL',hp:23,bonus:1200,windup:1.05,recovery:1.48,projectileSpeed:265}
 ];
 let boss=null,bossShots=[],bossBonus=0,dodgeBonus=0,dodgeStreak=0,obstacleSequence=0;
+
+// V3.8 RUINED CITY: deliberately authored challenges, NOT random hazard spam.
+// Coordinates are world units; the run takes roughly 75s before the boss.
+// Each obstacle is visible well in advance and has a learnable response.
+const RUIN_PHASES=[
+ {at:0,name:'LEARN',desc:'TAP to jump • HOLD to duck • FIRE to shoot'},
+ {at:2200,name:'TEST',desc:'Two different pits • find your timing'},
+ {at:4700,name:'COMBINE',desc:'Jump, land, then shoot • watch the next hazard'},
+ {at:8500,name:'MASTER',desc:'Read the pattern • react cleanly • boss ahead'}
+];
+const RUIN_OBSTACLES=[
+ {x:850,type:'gap',w:54},      // Learn: single safe pit
+ {x:1620,type:'beam',w:46},   // Learn: first duck
+ {x:2520,type:'gap',w:56},    // Test: regular pit
+ {x:3240,type:'gap',w:78},    // Test: wider pit, same jump mechanic
+ {x:3970,type:'beam',w:46},   // Test: clean duck
+ {x:4500,type:'box',w:24},    // Test: low obstacle
+ {x:5030,type:'gap',w:68},    // Combine: jump then fire
+ {x:6110,type:'beam',w:46},   // Combine: duck then fire
+ {x:7190,type:'electric',w:28},// Combine: shoot to disable or time a jump
+ {x:7840,type:'gap',w:75},    // Combine: another landing + zombie
+ {x:8840,type:'gap',w:83},    // Master: wide but possible leap
+ {x:9950,type:'beam',w:46},   // Master: crouch on cue
+ {x:10640,type:'electric',w:28},
+ {x:11440,type:'gap',w:82},
+ {x:12160,type:'beam',w:46},
+ {x:13010,type:'gap',w:78},
+ {x:13680,type:'electric',w:28}
+];
+const RUIN_ZOMBIES=[
+ {x:2080,kind:0}, // Learn: isolated enemy
+ {x:5540,kind:0}, // After the pit, time the shot
+ {x:6650,kind:1}, // After the beam
+ {x:8100,kind:0}, // After the pit
+ {x:9360,kind:2}, // Rusher after jump
+ {x:10190,kind:1},// After duck
+ {x:12480,kind:2},// Late combo
+ {x:13880,kind:1} // Final exam before boss
+];
+// Coins trace the intended route: arcs above pits, ground-level rewards after ducks.
+// Deliberately avoid overlapping the front of a dangerous hazard.
+const RUIN_COIN_POINTS=[];
+for(const o of RUIN_OBSTACLES){
+ if(o.type==='gap'){
+  RUIN_COIN_POINTS.push({x:o.x+18,offset:74},{x:o.x+o.w+46,offset:53});
+ }else if(o.type==='beam'){
+  RUIN_COIN_POINTS.push({x:o.x+o.w+72,offset:30});
+ }else if(o.type==='electric'){
+  RUIN_COIN_POINTS.push({x:o.x+o.w+112,offset:48});
+ }else RUIN_COIN_POINTS.push({x:o.x+110,offset:61});
+}
+for(const x of [320,650,1190,1930,2830,3660,4740,5800,6850,7490,8510,9630,10960,11880,12700,13400]){
+ RUIN_COIN_POINTS.push({x,offset:34});
+}
+RUIN_COIN_POINTS.sort((a,b)=>a.x-b.x);
+let ruinObstacleCursor=0,ruinZombieCursor=0,ruinCoinCursor=0,ruinPhaseIndex=-1,ruinHintKey='';
+function ruinPhaseFor(d){let phase=0;for(let i=1;i<RUIN_PHASES.length;i++)if(d>=RUIN_PHASES[i].at)phase=i;return phase;}
+function addRuinedObstacles(){
+ while(ruinObstacleCursor<RUIN_OBSTACLES.length && RUIN_OBSTACLES[ruinObstacleCursor].x<dist+W+80){
+  const e=RUIN_OBSTACLES[ruinObstacleCursor++];
+  obstacles.push({wx:e.x,w:e.w,typ:e.type,dead:false,lesson:true});
+ }
+}
+function addRuinedZombies(){
+ while(ruinZombieCursor<RUIN_ZOMBIES.length && RUIN_ZOMBIES[ruinZombieCursor].x<dist+W+105){
+  const e=RUIN_ZOMBIES[ruinZombieCursor++],kind=e.kind;
+  zombies.push({wx:e.x,kind,v:25+(kind===2?13:0),hp:kind===2?2:1,rushed:false,status:'run',deadAt:0,anim:0,w:kind===2?33:28,lesson:true});
+ }
+}
+function addRuinedCoins(){
+ while(ruinCoinCursor<RUIN_COIN_POINTS.length && RUIN_COIN_POINTS[ruinCoinCursor].x<dist+W+100){
+  const e=RUIN_COIN_POINTS[ruinCoinCursor++];cells.push({wx:e.x,y:ground-e.offset,got:false,lesson:true});
+ }
+}
+function updateRuinLesson(){
+ const el=$('lessonHud');
+ if(stageIndex!==0||mode!=='playing'||(boss&&boss.active)){el.hidden=true;return;}
+ el.hidden=false;
+ const phase=ruinPhaseFor(dist),data=RUIN_PHASES[phase];
+ if(phase!==ruinPhaseIndex){
+  ruinPhaseIndex=phase;ruinHintKey='';
+  toast('PHASE '+(phase+1)+': '+data.name,heroX+20,ground-116,'#ffe19a');
+  if(phase>0){sound(735,.11,'triangle',.022);}
+ }
+ const nextHazard=obstacles.filter(o=>!o.dead&&o.wx>dist+heroX+65&&o.wx<dist+heroX+460)
+   .sort((a,b)=>a.wx-b.wx)[0];
+ const nextZombie=zombies.filter(z=>z.status!=='dead'&&z.wx>dist+heroX+65&&z.wx<dist+heroX+400)
+   .sort((a,b)=>a.wx-b.wx)[0];
+ let prompt=data.desc;
+ if(nextHazard && (!nextZombie||nextHazard.wx<nextZombie.wx-100)){
+  prompt=nextHazard.typ==='gap'?'TAP LEFT · JUMP OVER PIT':nextHazard.typ==='beam'?'HOLD LEFT · DUCK UNDER PIPE':nextHazard.typ==='electric'?'FIRE · DISABLE THE ELECTRIC TRAP':'TAP LEFT · JUMP THE BOX';
+ }else if(nextZombie)prompt=nextZombie.kind===2?'FAST ZOMBIE · TIME YOUR SHOT':'HOLD FIRE · ZOMBIE AHEAD';
+ const key=phase+'|'+prompt;
+ if(ruinHintKey!==key){ruinHintKey=key;$('lessonHead').textContent='PHASE '+(phase+1)+'/4 · '+data.name;$('lessonBody').textContent=prompt;}
+}
+function drawRuinHints(){
+ if(stageIndex!==0||mode!=='playing'||(boss&&boss.active))return;
+ // Tiny distance-linked warnings in the playfield reinforce the lesson, without hiding the character.
+ for(const o of obstacles){
+  if(o.dead)continue;
+  const x=o.wx-dist;
+  if(x<heroX+72||x>W-35)continue;
+  const label=o.typ==='gap'?'JUMP':o.typ==='beam'?'DUCK':o.typ==='electric'?'FIRE':'JUMP';
+  if(x<heroX+340){
+   rect(x-18,ground-108,43,16,'#091d32d9');
+   safeText(label,x-14,ground-97,o.typ==='electric'?'#8deaff':'#ffe3a2',9);
+   rect(x+1,ground-89,2,8,'#ffe6a4a9');
+  }
+ }
+}
+
 const STAGE_SAVE_KEY='last_spark_campaign_unlocked_v36';
 let unlockedStage=0,stageIndex=0,allStagesCleared=false,finalScoreBonus=0;
 try{unlockedStage=Math.max(0,Math.min(STAGES.length-1,Number(localStorage.getItem(STAGE_SAVE_KEY)||0)||0));allStagesCleared=localStorage.getItem('last_spark_campaign_complete_v36')==='yes';}catch(e){}
@@ -298,7 +417,7 @@ function finishGateDraw(){
 }
 function levelClear(){
  if(mode!=='playing'||hero.fellInGap||hero.foot>ground+10)return;
- mode='won';$('pauseButton').hidden=true;finishDodge(true);dodgeTouchId=null;dodgePointer=null;
+ mode='won';$('lessonHud').hidden=true;$('pauseButton').hidden=true;finishDodge(true);dodgeTouchId=null;dodgePointer=null;
  fireHeld=false;jumpHeld=false;if(bgm)bgm.pause();
  lockGamePage(true);
  const m=mission();finalScoreBonus=m.reward+hp*100;
@@ -391,12 +510,12 @@ function lockGamePage(active){
 }
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
-function reset(){selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;$('bossHud').hidden=true;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();updateStageHud();sound(520,.08,'triangle',.028);toast('STAGE '+(stageIndex+1)+': '+mission().tag,heroX+26,ground-96,'#a2f8ff');}
-function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function reset(){selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;finishDodge(true);joyDownHeld=false;clearDodgeVisual();energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;ruinPhaseIndex=-1;ruinHintKey='';$('lessonHud').hidden=stageIndex!==0;$('bossHud').hidden=true;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();updateStageHud();sound(520,.08,'triangle',.028);toast('STAGE '+(stageIndex+1)+': '+mission().tag,heroX+26,ground-96,'#a2f8ff');}
+function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;dodgeStreak=0;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
-function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+function gameOver(reason){if(mode!=='playing')return;mode='over';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Stage ${stageIndex+1}: ${mission().name} · Kills: ${kills} · Coins: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;
  jumpHeld=true;
@@ -442,7 +561,7 @@ function beginBoss(){
  boss={active:true,name:spec.name,hp:spec.hp,maxHp:spec.hp,phase:'warn',timer:1.65,attackNumber:0,pattern:'low',vulnerable:false,lastBlock:-10};
  obstacles=[];zombies=[];weaponPickups=[];cells=[];shots=[];bossShots=[];
  hero.fellInGap=false; // arena starts only while grounded and outside a gap
- $('bossHud').hidden=false;updateBossHUD();
+ $('bossHud').hidden=false;$('lessonHud').hidden=true;updateBossHUD();
  toast('BOSS INCOMING!',Math.max(15,heroX+55),ground-115,'#ffb8a0');
  sound(170,.3,'sawtooth',.038);playFx('charge',.25);
 }
@@ -547,16 +666,23 @@ function drawBoss(){
  }
 }
 
-function addObstacle(){while(nextOb<dist+W+80 && nextOb<mission().goal+heroX-300){const patterns=[['box','gap','electric','beam'],['beam','gap','electric','box','beam'],['gap','beam','electric','box','beam','gap']];
+function addObstacle(){if(stageIndex===0){addRuinedObstacles();return;}while(nextOb<dist+W+80 && nextOb<mission().goal+heroX-300){const patterns=[['box','gap','electric','beam'],['beam','gap','electric','box','beam'],['gap','beam','electric','box','beam','gap']];
  const seq=patterns[stageIndex];const typ=seq[obstacleSequence++%seq.length],w=typ==='gap'?52:typ==='beam'?44:typ==='box'?24:28;
  if(!zombies.some(z=>Math.abs(z.wx-nextOb)<145))obstacles.push({wx:nextOb,w,typ,dead:false});nextOb+=(stageIndex===0?290:stageIndex===1?258:237)+rand(nextOb)*(stageIndex===0?130:stageIndex===1?100:85);}}
-function addZombies(){while(nextZ<dist+W+105 && nextZ<mission().goal+heroX-270){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:24+stageIndex*11+rand(nextZ)*19,hp:kind===2?2+stageIndex:1,rushed:false,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=(stageIndex===0?350:stageIndex===1?305:270)+rand(nextZ+5)*140;}}
-function addCells(){while(nextCell<dist+W+100 && nextCell<mission().goal+heroX-80){
+function addZombies(){if(stageIndex===0){addRuinedZombies();return;}while(nextZ<dist+W+105 && nextZ<mission().goal+heroX-270){const kind=Math.floor(rand(nextZ+11)*3);if(!obstacles.some(o=>Math.abs(o.wx-nextZ)<150)){zombies.push({wx:nextZ,kind,v:24+stageIndex*11+rand(nextZ)*19,hp:kind===2?2+stageIndex:1,rushed:false,status:'run',deadAt:0,anim:rand(nextZ)*2,w:kind===2?33:28});}nextZ+=(stageIndex===0?350:stageIndex===1?305:270)+rand(nextZ+5)*140;}}
+function addCells(){if(stageIndex===0){addRuinedCoins();return;}while(nextCell<dist+W+100 && nextCell<mission().goal+heroX-80){
  // Coins sit near the safe running lane; some are high enough to reward a jump.
  cells.push({wx:nextCell,y:ground-33-rand(nextCell)*25,got:false});
  nextCell+=133+rand(nextCell+8)*89;
 }}
 function addWeaponPickups(){
+  if(stageIndex===0){
+   // One earned special weapon after the first lesson; no random drops mid-combo.
+   if(nextWeaponPickup!==Infinity && dist+W+60>nextWeaponPickup){
+    weaponPickups.push({wx:3450,type:'shotgun',got:false});nextWeaponPickup=Infinity;
+   }
+   return;
+  }
  while(nextWeaponPickup<dist+W+60 && nextWeaponPickup<mission().goal+heroX-320){
   let wx=nextWeaponPickup;
   for(let attempt=0;attempt<9;attempt++){
@@ -639,7 +765,7 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.activ
  for(const o of obstacles){if(o.dead||o.scored||o.hit||o.typ==='gap'&&hero.fellInGap)continue;
    if(o.wx+o.w<dist+heroX-12 && o.wx+o.w>dist-75){
     o.scored=true;dodgeStreak++;const award=Math.min(60,15+(dodgeStreak-1)*5);
-    dodgeBonus+=award;if(dodgeStreak===3||dodgeStreak%6===0)toast('DODGE COMBO x'+dodgeStreak,heroX+12,ground-108,'#c7ffe0');
+    dodgeBonus+=award;if(stageIndex===0&&!o.hit&&o.lesson){toast(o.typ==='beam'?'GOOD DUCK!':o.typ==='electric'?'GOOD TIMING!':'CLEAN JUMP!',heroX+30,ground-107,'#aeffd7');}if(dodgeStreak===3||dodgeStreak%6===0)toast('DODGE COMBO x'+dodgeStreak,heroX+12,ground-108,'#c7ffe0');
    }
   }
   obstacles=obstacles.filter(o=>o.wx+o.w>dist-85);zombies=zombies.filter(z=>z.wx>dist-100&&(z.status!=='dead'||runTime-z.deadAt<.65));cells=cells.filter(c=>!c.got&&c.wx>dist-50);weaponPickups=weaponPickups.filter(p=>!p.got&&p.wx>dist-75);shots=shots.filter(p=>p.life>0&&p.x<W+40&&p.y>-30&&p.y<H+20);for(const e of explosions)e.t+=dt;explosions=explosions.filter(e=>e.t<1.15);
@@ -647,7 +773,7 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;if(!(boss&&boss.activ
  for(const n of notices){n.y-=dt*22;n.life-=dt;}notices=notices.filter(n=>n.life>0);
  cameraShake=Math.max(0,cameraShake-28*dt);score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;
  if(Math.floor(dist/850)>Math.floor((dist-speed*dt)/850)){toast('SIGNAL RESTORED!',heroX+5,ground-107,'#ffe68d');playFx('charge',.32);sound(940,.14,'sine',.02)}
- updateStageHud();
+ updateStageHud();updateRuinLesson();
  if(dist>=mission().goal && hero.onGround && !hero.fellInGap && boss&&boss.hp<=0){levelClear();return;}
  updateHud();}
 // REAL layered assets from provided CraftPix ZIPs. Each layer moves at a distinct speed.
@@ -885,7 +1011,7 @@ function shotDraw(){for(const b of shots){
  else rect(b.x-5,b.y-3,10,6,weapon.color);
 }}
 function particleDraw(){for(const p of particles)rect(p.x,p.y,p.size,p.size,p.c);for(const n of notices){ctx.save();ctx.globalAlpha=clamp(n.life,0,1);safeText(n.s,n.x,n.y,n.col,11);ctx.restore();}}
-function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();finishGateDraw();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
+function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();drawRuinHints();finishGateDraw();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
 function animate(t){requestAnimationFrame(animate);if(!frameT)frameT=t;const elapsed=t-frameT;if(elapsed<minFrameMs-1.5)return;let dt=clamp(elapsed/1000,0,.05);frameT=t;clock+=dt;if(mode==='playing')update(dt);render();}
 const play=$('playButton');
 const soundButton=$('soundButton');
@@ -988,7 +1114,7 @@ window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLe
 window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
 window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({version:'3.7',boss:boss?{...boss}:null,bossShots:bossShots.map(b=>({...b})),dodgeBonus,dodgeStreak,lowPower,targetFPS:Math.round(1000/minFrameMs),mode,stageIndex,unlockedStage,allStagesCleared,stageGoal:mission().goal,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
+window.__lastSparkDiagnostics=()=>({version:'3.8',ruin:{phase:ruinPhaseIndex,obstaclesSpawned:ruinObstacleCursor,zombiesSpawned:ruinZombieCursor,coinsSpawned:ruinCoinCursor},boss:boss?{...boss}:null,bossShots:bossShots.map(b=>({...b})),dodgeBonus,dodgeStreak,lowPower,targetFPS:Math.round(1000/minFrameMs),mode,stageIndex,unlockedStage,allStagesCleared,stageGoal:mission().goal,heroX,dodgeHolding,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
 resize();updateHud();requestAnimationFrame(animate);
 })();
 </script>

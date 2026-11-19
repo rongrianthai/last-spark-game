@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.5.1 — Stable Joystick & Performance</title>
+<title>LAST SPARK V3.5.2 — Stable Joystick & Performance</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -110,7 +110,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none
 }
 
-/* V3.5.1: generous hit zone and non-scrolling, thumb-friendly touch target. */
+/* V3.5.2: generous hit zone and non-scrolling, thumb-friendly touch target. */
 .joy-area{width:250px;min-height:128px;touch-action:none;-webkit-user-select:none;user-select:none;position:relative;cursor:grab}
 .joy{width:120px;height:120px;pointer-events:none}
 .joy-base{width:100%;height:100%}
@@ -122,7 +122,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.5.1</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.5.2</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="hud" id="hud" hidden>
@@ -133,7 +133,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">COWBOY VS ZOMBIES</div>
    <h1 id="overlayTitle">LAST SPARK</h1><div class="subtitle" id="subtitle">ONE SPARK. ONE LAST CHANCE.</div>
-   <p class="intro" id="overlayText">Collect new weapons as you run! Tilt the left joystick UP to jump, DOWN to slide, and hold FIRE to shoot. Survive the zombie horde!</p>
+   <p class="intro" id="overlayText">Jump over floor hazards and zombies! Push the left stick UP to jump, DOWN to crouch under pipes. A downward swipe cannot become a jump until you lift your finger. Hold FIRE to shoot.</p>
    <div id="characterPicker"><div class="choice-label">CHOOSE YOUR COWBOY</div><div class="choices">
      <button class="choice selected" data-char="1">COWBOY 1</button><button class="choice" data-char="2">COWBOY 2</button><button class="choice" data-char="3">COWBOY 3</button>
    </div></div>
@@ -155,7 +155,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V3.5.1 · CONTROL + PERFORMANCE FIX • JOYSTICK ↑ JUMP ↓ SLIDE • HOLD FIRE • LIMITED SPECIAL AMMO</div>
+<div class="helper">V3.5.2 · CONTROL + PERFORMANCE FIX • JOYSTICK ↑ JUMP ↓ SLIDE • HOLD FIRE • LIMITED SPECIAL AMMO</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom)</div>
 </div>
 <script>
@@ -206,10 +206,12 @@ try{const v=localStorage.getItem('last_spark_v3_scene');if(['ruins','ash','night
 const sceneImages={};
 for(const [name,layers] of Object.entries(sceneAssets)){sceneImages[name]=layers.map(o=>{const im=new Image();o.image=im;totalScenes++;im.onload=()=>{loadedScenes++;checkReady();};im.onerror=()=>{loadedScenes++;checkReady();};im.src=o.src;return im;});}
 
-const hero={foot:ground,vy:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0};
+const hero={foot:ground,vy:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0,jumpGraceUntil:0};
 // V3.2: analog controls move the player's screen X while the world continues to scroll.
 // The camera and world obstacle coordinate system remain compatible with V3.
 let joyX=0,joyY=0,joyUpArmed=true,joyDownArmed=true;
+// One intentional vertical action per continuous finger gesture: DOWN cannot rebound into UP.
+let joyVerticalIntent=null,joyDownHeld=false;
 let keyLeft=false,keyRight=false;
 const weapons={
  pistol:{name:'PISTOL',rate:.30,damage:1,speed:540,ammo:Infinity,desc:'STANDARD',color:'#ffe5ad'},
@@ -281,14 +283,22 @@ function lockGamePage(active){
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('weaponIcon').src=gearAssets[activeWeapon];$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
 function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
-joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
+joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;clearJoystickVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=760;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.jumpGraceUntil=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
 function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
 function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Energy: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
-function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;jumpHeld=true;if(hero.onGround){hero.vy=-324;hero.onGround=false;hero.slideEnd=0;burst(heroX,ground-2,6,'#c4a98a');sound(350,.1,'triangle',.036)}}
+function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;
+ jumpHeld=true;
+ if(hero.onGround){
+   // Clear low hazards with a responsive leap. A short takeoff grace prevents a hit
+   // during the first few animation frames (not unlimited airborne invulnerability).
+   hero.vy=-385;hero.onGround=false;hero.slideEnd=0;hero.jumpGraceUntil=runTime+.22;
+   burst(heroX,ground-2,6,'#c4a98a');sound(350,.1,'triangle',.036);
+ }
+}
 function releaseJump(){jumpHeld=false;}
 function slide(){if(mode!=='playing')return;if(hero.onGround){hero.slideEnd=runTime+.7;sound(210,.07,'triangle',.02);}}
 function equip(type){
@@ -346,15 +356,21 @@ function update(dt){if(mode!=='playing')return;runTime+=dt;dist+=speed*dt;speed=
  const horizontal=clamp(joyX+(keyRight?1:0)-(keyLeft?1:0),-1,1);
  heroX=clamp(heroX+horizontal*180*dt,72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;addObstacle();addZombies();addCells();addWeaponPickups();
  if(fireHeld)fire();
- if(!hero.onGround){const gravity=jumpHeld&&hero.vy<0?510:860;hero.vy+=gravity*dt;hero.foot+=hero.vy*dt;
+ if(!hero.onGround){const gravity=jumpHeld&&hero.vy<0?660:780;hero.vy+=gravity*dt;hero.foot+=hero.vy*dt;
  if(hero.foot>=ground&&!gapAt(dist+heroX)){hero.foot=ground;hero.vy=0;hero.onGround=true;burst(heroX,ground-2,4,'#7b8c98');}
  if(hero.foot>H+60){gameOver('You fell into the ruins');return;}}
  else if(gapAt(dist+heroX)){hero.onGround=false;hero.vy=50;}
- const sliding=hero.onGround&&runTime<hero.slideEnd;const hh=sliding?23:48,py=hero.foot-hh;
+ // Holding DOWN maintains the crouch so the slide does not expire under a finger.
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
+ const hh=sliding?23:48,py=hero.foot-hh;
+ const takeoffGrace=!hero.onGround&&hero.vy<0&&runTime<hero.jumpGraceUntil;
  for(const o of obstacles){if(o.dead||o.typ==='gap')continue;const sx=o.wx-dist;if(sx<-50||sx>W+50)continue;let y=ground-25,h=25;if(o.typ==='electric'){y=ground-28;h=28;}if(o.typ==='beam'){y=ground-55;h=29;}
- if(overlap(heroX-12,py+3,26,hh-6,sx+3,y,o.w-6,h)){hurt(o.typ==='beam'?'HIT PIPE':'HIT HAZARD');if(mode==='over')return;}}
+ // Forgive the first 0.22s of an intentional takeoff. After that use actual
+ // body/obstacle overlap, so jumping too early or late can still hurt.
+ if(takeoffGrace)continue;
+ if(overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx+4,y,o.w-8,h)){hurt(o.typ==='beam'?'HIT PIPE':'HIT HAZARD');if(mode==='over')return;}}
  for(const z of zombies){if(z.status==='dead')continue;z.wx-=z.v*dt;z.anim+=dt*9;const sx=z.wx-dist;if(sx<-70||sx>W+80)continue;
- if(overlap(heroX-11,py+4,24,hh-8,sx-11,ground-47,z.w,44)){hurt('ZOMBIE BITE');if(mode==='over')return;z.wx+=45;}}
+ if(!takeoffGrace&&overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx-11,ground-45,z.w,42)){hurt('ZOMBIE BITE');if(mode==='over')return;z.wx+=45;}}
   for(const shot of shots){
    shot.x+=shot.vx*dt;shot.y+=(shot.vy||0)*dt;shot.life-=dt;
    let hit=false;
@@ -624,7 +640,7 @@ canvas.addEventListener('pointerdown',e=>{if(mode==='playing'){e.preventDefault(
 const joyEl=$('joystick'),joyZone=$('joystickTouchZone'),joyNub=$('joyNub');
 let activeJoyPointer=null,activeTouchId=null;
 function clearJoystickVisual(){
- joyX=0;joyY=0;
+ joyX=0;joyY=0;joyDownHeld=false;
  const el=document.getElementById('joyNub'),pad=document.getElementById('joystick');
  if(el)el.style.transform='translate(-50%,-50%) translate(0px,0px)';
  if(pad)pad.classList.remove('active');
@@ -638,11 +654,14 @@ function applyJoystick(ev){
  joyX=Math.abs(ax)<.09?0:ax;joyY=Math.abs(ay)<.09?0:ay;
  joyNub.style.transform=`translate(-50%,-50%) translate(${Math.round(ax*radius)}px,${Math.round(ay*radius)}px)`;
  if(mode==='playing'){
-   if(joyY<-.48&&joyUpArmed){joyUpArmed=false;jump();}
-   if(joyY>-.22)joyUpArmed=true;
-   if(joyY>.53&&joyDownArmed){joyDownArmed=false;slide();}
-   if(joyY<.22)joyDownArmed=true;
-   if(joyY>-.45)releaseJump();
+   // Decide UP vs DOWN once per contact. Returning a DOWN swipe toward the
+   // center (or drifting across it) can NEVER issue an accidental jump.
+   if(joyVerticalIntent===null){
+     if(joyY>.43&&joyY>Math.abs(joyX)*.65){joyVerticalIntent='down';slide();}
+     else if(joyY<-.53&&-joyY>Math.abs(joyX)*.7){joyVerticalIntent='up';jump();}
+   }
+   joyDownHeld=joyVerticalIntent==='down'&&joyY>.24;
+   if(joyVerticalIntent==='up'&&joyY>-.30)releaseJump();
  }
 }
 // Mouse/pen pointer control plus dedicated multi-touch for Safari on iPad.
@@ -650,7 +669,7 @@ function applyJoystick(ev){
 // steals or cancels the finger dragging the left joystick.
 joyZone.addEventListener('pointerdown',ev=>{
  if(ev.pointerType==='touch'||activeTouchId!==null||activeJoyPointer!==null)return;
- ev.preventDefault();activeJoyPointer=ev.pointerId;
+ ev.preventDefault();activeJoyPointer=ev.pointerId;joyVerticalIntent=null;joyDownHeld=false;
  joyZone.classList.add('active');joyEl.classList.add('active');
  try{joyZone.setPointerCapture(ev.pointerId);}catch(_){}
  applyJoystick(ev);
@@ -661,7 +680,7 @@ joyZone.addEventListener('pointermove',ev=>{
 });
 function releaseStick(ev){
  if(activeJoyPointer===null||ev.pointerId!==activeJoyPointer)return;
- activeJoyPointer=null;releaseJump();joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();
+ activeJoyPointer=null;releaseJump();joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;clearJoystickVisual();
 }
 for(const type of ['pointerup','pointercancel','lostpointercapture'])joyZone.addEventListener(type,releaseStick);
 window.addEventListener('pointerup',releaseStick);
@@ -670,7 +689,7 @@ window.addEventListener('pointercancel',releaseStick);
 function joystickTouchStart(ev){
  if(activeTouchId!==null)return;
  const t=ev.changedTouches[0];if(!t)return;
- activeTouchId=t.identifier;activeJoyPointer=null;
+ activeTouchId=t.identifier;activeJoyPointer=null;joyVerticalIntent=null;joyDownHeld=false;
  joyZone.classList.add('active');joyEl.classList.add('active');
  if(ev.cancelable)ev.preventDefault();applyJoystick(t);
 }
@@ -685,7 +704,7 @@ function joystickTouchEnd(ev){
  if(activeTouchId===null)return;
  for(let i=0;i<ev.changedTouches.length;i++){
   const t=ev.changedTouches[i];if(t.identifier!==activeTouchId)continue;
-  activeTouchId=null;releaseJump();joyUpArmed=true;joyDownArmed=true;
+  activeTouchId=null;releaseJump();joyUpArmed=true;joyDownArmed=true;joyVerticalIntent=null;joyDownHeld=false;
   clearJoystickVisual();if(ev.cancelable)ev.preventDefault();break;
  }
 }
@@ -711,9 +730,9 @@ document.addEventListener('dblclick',ev=>{
 
 window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.code==='ArrowLeft')keyLeft=true;if(e.code==='ArrowRight')keyRight=true;if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
 window.addEventListener('keyup',e=>{if(e.code==='ArrowLeft')keyLeft=false;if(e.code==='ArrowRight')keyRight=false;if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});
-window.addEventListener('blur',()=>{keyLeft=false;keyRight=false;fireHeld=false;activeJoyPointer=null;activeTouchId=null;clearJoystickVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
+window.addEventListener('blur',()=>{keyLeft=false;keyRight=false;fireHeld=false;activeJoyPointer=null;activeTouchId=null;joyVerticalIntent=null;joyDownHeld=false;releaseJump();clearJoystickVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,heroX,joyX,joyY,dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
+window.__lastSparkDiagnostics=()=>({lowPower,targetFPS:Math.round(1000/minFrameMs),mode,heroX,joyX,joyY,joyVerticalIntent,joyDownHeld,heroFoot:hero.foot,heroOnGround:hero.onGround,jumpGraceRemaining:Math.max(0,hero.jumpGraceUntil-runTime),dist,score,hp,shots:shots.length,kills,sceneName,weapon:activeWeapon,ammo:weaponAmmo,gunPose:{x:Math.round(gunPose().x),y:Math.round(gunPose().y)},pickups:weaponPickups.length,explosions:explosions.length});
 resize();updateHud();requestAnimationFrame(animate);
 })();
 </script>

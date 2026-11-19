@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V3.4 — Weapon Pickups</title>
+<title>LAST SPARK V3.4.1 — Weapons + iPad Screen Lock</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -99,11 +99,21 @@ h1{font-size:clamp(30px,6.8vw,53px);color:#ffe4a7;letter-spacing:.03em;margin:3p
 .credit-line a{color:#9dd8ed}
 @media(max-height:550px) and (orientation:landscape){.credit-line{display:none}}
 @media(orientation:portrait){.gun-line{font-size:9px}}
+/* V3.4.1: Prevent Safari dragging, rubber-banding or pinching the game page.
+   The initial menu remains scrollable. Once playing, only the overlay can scroll. */
+html,body{max-width:100%;-webkit-text-size-adjust:100%}
+html.game-locked,html.game-locked body{width:100%;height:100%;overflow:hidden!important;overscroll-behavior:none}
+html.game-locked body{position:fixed;inset:0;height:100dvh}
+html.game-locked .shell{height:100dvh;min-height:0;overflow:hidden;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+html.game-locked .overlay{touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.game-locked canvas{
+ touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none
+}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.4</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>CINEMATIC PIXEL SURVIVAL · V3.4.1</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="hud" id="hud" hidden>
@@ -238,16 +248,34 @@ function sprite(key,x,foot,scale=.8,index=0,flip=false,alpha=1){const o=imageMap
  else ctx.drawImage(o,fr*fw,0,fw,o.naturalHeight,dx,dy,Math.round(fw*scale),Math.round(o.naturalHeight*scale));
  ctx.restore();return true;}
 function pickFrames(key){const img=imageMap[key];return img&&img.naturalWidth?img.naturalWidth/atlas[key].w:1;}
-function resize(){const oldGround=ground,portrait=window.matchMedia('(orientation: portrait)').matches;W=portrait?360:640;H=portrait?430:360;canvas.width=W;canvas.height=H;ground=H-76;heroX=portrait?65:111;ctx.imageSmoothingEnabled=false;hero.foot+=ground-oldGround;if(mode==='menu'||mode==='over')hero.foot=ground;}
+let lastCanvasOrientation=null;
+function resize(){
+ const portrait=window.matchMedia('(orientation: portrait)').matches;
+ // On iPad Safari the address bar can resize the viewport mid-game.
+ // Avoid resetting the canvas, character and position unless orientation changes.
+ if(lastCanvasOrientation===portrait)return;
+ lastCanvasOrientation=portrait;
+ const oldGround=ground;
+ W=portrait?360:640;H=portrait?430:360;
+ canvas.width=W;canvas.height=H;ground=H-76;
+ if(mode==='playing'||mode==='paused')heroX=clamp(heroX,24,W-24);
+ else heroX=portrait?65:111;
+ ctx.imageSmoothingEnabled=false;hero.foot+=ground-oldGround;
+ if(mode==='menu'||mode==='over')hero.foot=ground;
+}
+function lockGamePage(active){
+ document.documentElement.classList.toggle('game-locked',Boolean(active));
+ if(active)window.scrollTo(0,0);
+}
 function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHud(){$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=weapons[activeWeapon].name;$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
-function reset(){enableAudio();mode='playing';overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
+function reset(){enableAudio();mode='playing';lockGamePage(true);overlay.hidden=true;$('pauseButton').hidden=false;hud.hidden=false;$('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;runTime=0;dist=0;speed=133;heroX=W===360?65:108;joyX=0;joyY=0;keyLeft=false;keyRight=false;
 joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();energy=0;kills=0;score=0;hp=3;nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=295;weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;hero.foot=ground;hero.vy=0;hero.onGround=true;hero.slideEnd=0;hero.invuln=0;hero.anim=0;updateHud();sound(520,.08,'triangle',.028);}
-function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function pause(){if(mode==='playing'){if(bgm)bgm.pause();mode='paused';lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;hero.invuln=1.2;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
-function gameOver(reason){if(mode!=='playing')return;mode='over';fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+function gameOver(reason){if(mode!=='playing')return;mode='over';lockGamePage(true);fireHeld=false;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. Zombies defeated: ${kills} · Energy: ${energy} · Score: ${score}.`,'↻ RETRY','THE SPARK MUST SURVIVE');}
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset();return;}if(mode!=='playing')return;jumpHeld=true;if(hero.onGround){hero.vy=-324;hero.onGround=false;hero.slideEnd=0;burst(heroX,ground-2,6,'#c4a98a');sound(350,.1,'triangle',.036)}}
 function releaseJump(){jumpHeld=false;}
@@ -572,6 +600,24 @@ function releaseStick(ev){
  activeJoyPointer=null;releaseJump();joyUpArmed=true;joyDownArmed=true;clearJoystickVisual();
 }
 for(const eventName of ['pointerup','pointercancel','lostpointercapture'])joyEl.addEventListener(eventName,releaseStick);
+// Some mobile browsers lose pointer capture when a second finger presses FIRE.
+window.addEventListener('pointerup',releaseStick);
+window.addEventListener('pointercancel',releaseStick);
+
+// Explicit non-passive touch listeners stop document panning in iPad Safari;
+// pointer events still control the joystick and the FIRE button separately.
+document.addEventListener('touchmove',ev=>{
+ if(mode==='playing' && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
+document.addEventListener('touchstart',ev=>{
+ if(mode==='playing' && ev.touches.length>1 && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
+for(const eventName of ['gesturestart','gesturechange','gestureend']){
+ document.addEventListener(eventName,ev=>{if(mode==='playing'&&ev.cancelable)ev.preventDefault();},{passive:false,capture:true});
+}
+document.addEventListener('dblclick',ev=>{
+ if(mode==='playing' && ev.cancelable)ev.preventDefault();
+},{passive:false,capture:true});
 
 window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.code==='ArrowLeft')keyLeft=true;if(e.code==='ArrowRight')keyRight=true;if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
 window.addEventListener('keyup',e=>{if(e.code==='ArrowLeft')keyLeft=false;if(e.code==='ArrowRight')keyRight=false;if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX')fireHeld=false;});

@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V4.9.3 — Mobile UI Polish</title>
+<title>LAST SPARK V5.0 — Unique Hero Combat FX</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -224,7 +224,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>MOBILE UI POLISH · V4.9.3</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>UNIQUE COMBAT FX · V5.0</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -290,7 +290,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V4.9.3 · MOBILE UI POLISH · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • INSTANT JUMP • HOLD DUCK • FIRE</div>
+<div class="helper">V5.0 · UNIQUE HERO COMBAT FX · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • INSTANT JUMP • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -1017,6 +1017,101 @@ const weapons={
  laser:{name:'LASER RIFLE',rate:.155,damage:2,speed:740,ammo:38,desc:'PIERCING',color:'#84efff'},
  plasma:{name:'PLASMA CANNON',rate:.72,damage:3,speed:390,ammo:12,desc:'SPLASH',color:'#cf92ff'}
 };
+
+// V5.0: four distinct visual-only hero combat identities.
+// Weapon damage, projectile velocity, collision dimensions, ammo, heat and rate are unchanged.
+const HERO_COMBAT_V50={
+ 4:{name:'RILEY',main:'#ff64c9',core:'#ffe5fa',edge:'#af56ee',tone:1100,type:'sine'},
+ 5:{name:'NOVA',main:'#58e6ff',core:'#f1feff',edge:'#238aff',tone:710,type:'triangle'},
+ 6:{name:'KAI',main:'#52ffe4',core:'#efffff',edge:'#25aaff',tone:540,type:'triangle'},
+ 7:{name:'BRICK',main:'#ff9c42',core:'#fff0b2',edge:'#ff572b',tone:240,type:'sawtooth'}
+};
+let heroImpactV50=[];
+function impactHeroV50(x,y,heroId,heavy=false){
+ const a=HERO_COMBAT_V50[heroId];if(!a)return;
+ if(heroImpactV50.length>24)heroImpactV50.shift();
+ heroImpactV50.push({x,y,heroId,at:clock,heavy});
+ const count=heavy?12:7;
+ for(let i=0;i<count;i++){
+  const ang=(i/count)*Math.PI*2+rand(i+clock*8)*.33;
+  const v=(heavy?115:72)*(0.55+rand(clock*16+i)*.65);
+  const tint=(i%3===0?a.core:(i%2===0?a.edge:a.main));
+  particles.push({x,y,vx:Math.cos(ang)*v,vy:Math.sin(ang)*v-12,life:.17+rand(i+clock)*.2,c:tint,size:i%3===0?3:2});
+ }
+}
+function drawHeroImpactsV50(){
+ heroImpactV50=heroImpactV50.filter(v=>clock-v.at<.38);
+ for(const v of heroImpactV50){
+  const a=HERO_COMBAT_V50[v.heroId],t=Math.max(0,clock-v.at),fade=1-t/.38,r=(v.heavy?22:13)*t/.38;
+  if(fade<=0)continue;
+  ctx.save();ctx.globalAlpha=fade;ctx.strokeStyle=a.main;ctx.lineWidth=v.heroId===6?3:2;
+  if(v.heroId===4){ // Precision hit: four-point magenta crosshair
+    ctx.beginPath();ctx.moveTo(v.x-r-5,v.y);ctx.lineTo(v.x-3,v.y);ctx.moveTo(v.x+3,v.y);ctx.lineTo(v.x+r+5,v.y);
+    ctx.moveTo(v.x,v.y-r-5);ctx.lineTo(v.x,v.y-3);ctx.moveTo(v.x,v.y+3);ctx.lineTo(v.x,v.y+r+5);ctx.stroke();
+    rect(v.x-2,v.y-2,4,4,a.core);
+  }else if(v.heroId===5){ // Plasma ring with tiny electric sparks
+    ctx.beginPath();ctx.ellipse(v.x,v.y,r+2,(r+2)*.78,0,0,Math.PI*2);ctx.stroke();
+    for(let i=0;i<4;i++){let ang=i*Math.PI/2+t*9;rect(v.x+Math.cos(ang)*(r+5)-1,v.y+Math.sin(ang)*(r+5)-1,3,3,a.core);}
+  }else if(v.heroId===6){ // Blade impact: double turquoise slicing arcs
+    ctx.beginPath();ctx.arc(v.x,v.y,r+6,-1.22,.75);ctx.stroke();
+    ctx.strokeStyle=a.edge;ctx.beginPath();ctx.arc(v.x+3,v.y-2,r+2,Math.PI*.75,Math.PI*1.7);ctx.stroke();
+  }else{ // Heavy fire impact: bursts of shrapnel
+    ctx.beginPath();for(let i=0;i<8;i++){const ang=i*Math.PI/4;ctx.moveTo(v.x+Math.cos(ang)*(r*.45),v.y+Math.sin(ang)*(r*.45));ctx.lineTo(v.x+Math.cos(ang)*(r+6),v.y+Math.sin(ang)*(r+6));}ctx.stroke();
+    rect(v.x-3,v.y-3,6,6,a.core);
+  }
+  ctx.restore();
+ }
+}
+function drawHeroProjectileV50(b){
+ const a=HERO_COMBAT_V50[b.heroFx];if(!a)return false;
+ const x=b.x,y=b.y,bonus=b.type==='plasma'?1.45:b.type==='laser'?1.15:b.type==='shotgun'?.72:1;
+ const k=bonus,spin=clock*13+(b.fxSeed||0);
+ ctx.save();ctx.imageSmoothingEnabled=false;ctx.globalCompositeOperation='screen';
+ if(b.heroFx===4){ // RILEY - rapid magenta precision tracer
+   rect(x-29*k,y-1,27*k,3,a.edge+'77');
+   rect(x-20*k,y-1,24*k,2,a.main);
+   rect(x-5*k,y-2,13*k,4,a.main);rect(x+3*k,y-1,9*k,2,a.core);
+   if(!lowPower){rect(x-7,y-5,2,10,a.edge+'aa');rect(x+6,y-3,2,7,a.core+'aa');}
+ }else if(b.heroFx===5){ // NOVA - plasma orb plus dancing electric forks
+   ctx.fillStyle=a.main+'80';ctx.beginPath();ctx.arc(x,y,8*k,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle=a.core;ctx.beginPath();ctx.arc(x+1,y,3*k,0,Math.PI*2);ctx.fill();
+   rect(x-19*k,y-1,14*k,2,a.edge+'99');
+   ctx.strokeStyle=a.edge;ctx.lineWidth=2;ctx.beginPath();
+   ctx.moveTo(x-12*k,y+Math.sin(spin)*4);ctx.lineTo(x-5*k,y-3*k);ctx.lineTo(x+2*k,y+5*k);
+   ctx.moveTo(x+2*k,y-5*k);ctx.lineTo(x+7*k,y-1*k);ctx.lineTo(x+11*k,y-4*k);ctx.stroke();
+ }else if(b.heroFx===6){ // KAI - forward facing sword energy crescent
+   ctx.strokeStyle=a.edge;ctx.lineWidth=4*k;ctx.beginPath();ctx.arc(x-2*k,y,10*k,-Math.PI*.9,Math.PI*.7);ctx.stroke();
+   ctx.strokeStyle=a.core;ctx.lineWidth=2*k;ctx.beginPath();ctx.arc(x-1*k,y,9*k,-Math.PI*.88,Math.PI*.65);ctx.stroke();
+   rect(x-17*k,y-1,15*k,2,a.main+'bb');rect(x-28*k,y,7*k,1,a.edge+'66');
+ }else if(b.heroFx===7){ // BRICK - bright heavy muzzle slug, hot sparks
+   rect(x-24*k,y-2,23*k,4,a.edge+'77');rect(x-13*k,y-3,21*k,6,a.main);
+   rect(x+2*k,y-2,9*k,4,a.core);rect(x-6*k,y-5,5*k,2,a.edge);
+   rect(x-14*k,y-6+Math.sin(spin)*2,4,2,a.core+'bb');
+   rect(x-24*k,y+5+Math.cos(spin)*3,3,2,a.main);
+ }
+ ctx.restore();return true;
+}
+function drawHeroMuzzleV50(){
+ const a=HERO_COMBAT_V50[selected];if(!a)return false;
+ const g=gunPose();const t=Math.max(0,Math.min(1,(shotPose-runTime)/.22));
+ const x=g.muzzleX,y=g.muzzleY,scale=activeWeapon==='plasma'?1.3:1;
+ ctx.save();ctx.globalAlpha=.5+.5*t;ctx.globalCompositeOperation='screen';
+ if(selected===4){
+  rect(x,y-2,17*scale,4,a.main);rect(x+10*scale,y-1,15*scale,2,a.core);
+  rect(x-3,y-7,3,14,a.edge);rect(x+9,y-4,2,8,a.core);
+ }else if(selected===5){
+  ctx.strokeStyle=a.main;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x+3,y,9*scale,-Math.PI*.6,Math.PI*.6);ctx.stroke();
+  rect(x+1,y-3,11*scale,6,a.core);rect(x+12*scale,y-1,8*scale,2,a.edge);
+ }else if(selected===6){
+  ctx.strokeStyle=a.main;ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,16*scale,-Math.PI*.88,Math.PI*.68);ctx.stroke();
+  ctx.strokeStyle=a.core;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,13*scale,-Math.PI*.84,Math.PI*.64);ctx.stroke();
+ }else{
+  ctx.fillStyle=a.main;ctx.beginPath();ctx.moveTo(x,y-5);ctx.lineTo(x+14*scale,y-9);ctx.lineTo(x+27*scale,y);ctx.lineTo(x+14*scale,y+8);ctx.lineTo(x,y+5);ctx.fill();
+  rect(x+5,y-2,23*scale,4,a.core);
+ }
+ ctx.restore();return true;
+}
+
 const weaponSequence=['shotgun','laser','plasma'];
 let activeWeapon='pistol',weaponAmmo=Infinity,weaponPickupIndex=0;
 
@@ -1118,7 +1213,7 @@ function reset(resume=false){
  $('lessonHud').hidden=false;$('bossHud').hidden=true;
  nextOb=425;nextZ=610;nextCell=190;nextWeaponPickup=stageIndex===0?3450:[0,2100,2500,2900,3500,3900][stageIndex];
  weaponPickupIndex=0;activeWeapon='pistol';weaponAmmo=Infinity;
- obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];conveyors=[];drones=[];sentries=[];sentryShots=[];gimmickToastShown=false;
+  obstacles=[];zombies=[];cells=[];weaponPickups=[];shots=[];explosions=[];particles=[];notices=[];heroImpactV50=[];conveyors=[];drones=[];sentries=[];sentryShots=[];gimmickToastShown=false;
  cameraShake=0;fireHeld=false;jumpHeld=false;prevShot=-99;shotPose=0;
  hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.hurtUntil=0;
  hero.jumpGraceUntil=0;hero.coyoteUntil=0;hero.jumpBufferUntil=0;hero.anim=0;
@@ -1184,7 +1279,7 @@ function fire(){
  prevShot=runTime;shotPose=runTime+.22;
  const muzzle=gunPose();
  const y=muzzle.muzzleY;
- const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:firingWeapon,seen:[],pierce:firingWeapon==='laser'?2:0};
+ const base={x:muzzle.muzzleX+2,y,vx:w.speed,vy:0,life:1.25,damage:w.damage,type:firingWeapon,seen:[],pierce:firingWeapon==='laser'?2:0,heroFx:HERO_COMBAT_V50[selected]?selected:0,fxSeed:rand(clock+heroX)};
  // Preserve the V4.4.2 / V4.5 close-range fix: do not fire past a rushing
  // zombie already between the cowboy and the muzzle. Shots still face right.
  const contact=zombies.find(z=>{
@@ -1208,6 +1303,8 @@ function fire(){
   // Retain the original built-in sound until CraftPix audio has finished decoding.
   if(!playFx('fire',.18))sound(firingWeapon==='plasma'?280:firingWeapon==='laser'?800:firingWeapon==='shotgun'?230:690,.075,'sawtooth',.014);
  }
+  const heroFxAudio=HERO_COMBAT_V50[selected];
+  if(heroFxAudio && !lowPower){sound(heroFxAudio.tone*(firingWeapon==='laser'?1.18:firingWeapon==='shotgun'?.81:1),.055,heroFxAudio.type,.008);}
  if(firingWeapon!=='pistol'){
    weaponAmmo=Math.max(0,weaponAmmo-1);
    if(weaponAmmo===0){
@@ -1309,8 +1406,9 @@ function hitBoss(shot){
  const bx=W-103,scale=(BOSSES[stageIndex]||BOSSES[0]).scale||1.1;
  const halfWidth=Math.round(47*scale),hitHeight=Math.round(130*scale);
  if(!overlap(shot.x-8,shot.y-7,16,14,bx-halfWidth,ground-hitHeight+8,halfWidth*2,hitHeight))return false;
- shot.life=0;
- if(!boss.vulnerable){
+  shot.life=0;
+  if(shot.heroFx)impactHeroV50(bx-15,ground-69,shot.heroFx,!boss.vulnerable);
+  if(!boss.vulnerable){
   if(runTime-boss.lastBlock>.48){toast('BLOCKED',bx-47,ground-102,'#a5d4ff');boss.lastBlock=runTime;}
   return true;
  }
@@ -1443,8 +1541,9 @@ function spawnExplosion(x,y,big=false){explosions.push({wx:dist+x,y,t:0,big});}
 function damageZombie(z,dmg,kind){
  if(z.status==='dead')return;
  z.hp-=dmg;
- const x=z.wx-dist;
- burst(x,ground-28,kind==='plasma'?18:9,kind==='plasma'?'#d8a6ff':'#ffcf8e');
+  const x=z.wx-dist;
+  if(HERO_COMBAT_V50[selected])impactHeroV50(x,ground-29,selected,kind==='plasma');
+  burst(x,ground-28,kind==='plasma'?18:9,kind==='plasma'?'#d8a6ff':'#ffcf8e');
  if(!playFx('zombie_hit',.42))sound(180,.09,'triangle',.02);
  if(z.hp<=0){
   lessonSkillSeen.add('zombie');z.status='dead';z.deadAt=runTime;kills++;
@@ -1527,7 +1626,7 @@ function update(dt){if(mode!=='playing')return;
    }
    if(!hit&&boss&&boss.active){if(hitBoss(shot)){hit=true;if(mode!=='playing')return;}}
    if(!hit&&stageIndex===4){
-    for(const d of drones){if(d.dead)continue;const dx=d.x-dist,dy=ground-d.alt+Math.sin(clock*d.speed+d.phase)*d.amp; if(overlap(shot.x-8,shot.y-7,16,14,dx-14,dy-16,28,32)){d.dead=true;d.hitAt=runTime;hit=true;shot.life=0;kills++;toast('+90',dx-10,dy-16,'#9df3ff');burst(dx,dy,7,'#7cf4ff');sound(880,.07,'sine',.018);break;}}
+    for(const d of drones){if(d.dead)continue;const dx=d.x-dist,dy=ground-d.alt+Math.sin(clock*d.speed+d.phase)*d.amp; if(overlap(shot.x-8,shot.y-7,16,14,dx-14,dy-16,28,32)){d.dead=true;d.hitAt=runTime;hit=true;shot.life=0;kills++;toast('+90',dx-10,dy-16,'#9df3ff');if(shot.heroFx)impactHeroV50(dx,dy,shot.heroFx);burst(dx,dy,7,'#7cf4ff');sound(880,.07,'sine',.018);break;}}
    }
    if(!hit&&stageIndex===5){
     for(const s of sentryShots){if(s.dead)continue;if(overlap(shot.x-8,shot.y-7,16,14,s.x-9,s.y-6,18,12)){s.dead=true;hit=true;shot.life=0;toast('CLANG',s.x-12,s.y-10,'#d5f2ff');sound(600,.05,'triangle',.012);break;}}
@@ -1537,7 +1636,7 @@ function update(dt){if(mode!=='playing')return;
      const x=o.wx-dist;
      if(overlap(shot.x-7,shot.y-6,14,12,x,ground-30,o.w,30)){
        o.dead=true;hit=true;
-       burst(x+12,ground-17,13,'#72d7ff');toast('DISABLED',x-10,ground-44,'#9de7ff');
+       if(shot.heroFx)impactHeroV50(x+12,ground-17,shot.heroFx);burst(x+12,ground-17,13,'#72d7ff');toast('DISABLED',x-10,ground-44,'#9de7ff');
        if(shot.type==='plasma')spawnExplosion(x+12,ground-21,true);
        shot.life=0;break;
      }
@@ -1869,7 +1968,8 @@ function gunPose(){
          sliding,shooting,airborne};
 }
 function equippedGunDraw(){
- if(mode!=='playing'&&mode!=='paused')return;
+  if(mode!=='playing'&&mode!=='paused')return;
+  if(selected===6 && activeWeapon==='pistol')return; // KAI's pistol logic is a sword wave visually.
  const g=gunPose(),im=g.im;
  if(!im||!im.complete||!im.naturalWidth)return;
  ctx.save();
@@ -1885,8 +1985,9 @@ function equippedGunDraw(){
 }
 function muzzleFlashDraw(){
  if(mode!=='playing'||shotPose<=runTime)return;
- const g=gunPose(), im=gearImages.muzzle;
- const fade=Math.min(1,(shotPose-runTime)/.10);
+  if(drawHeroMuzzleV50())return;
+  const g=gunPose(), im=gearImages.muzzle;
+  const fade=Math.min(1,(shotPose-runTime)/.10);
  ctx.save();ctx.globalAlpha=Math.max(.2,fade);
  ctx.globalCompositeOperation='screen';
  if(im&&im.complete&&im.naturalWidth){
@@ -1959,7 +2060,7 @@ function newHeroDraw(){
 function setHeroV49Choice(){
  document.querySelectorAll('[data-char]').forEach(x=>x.classList.toggle('selected',Number(x.dataset.char)===selected));
  const label=document.getElementById('heroSelectedDesc');
- if(label){const cfg=HERO_V49[selected];label.textContent=cfg?(cfg.name+' · '+cfg.role+' LOOK · WEAPONS / STATS UNCHANGED'):'CLASSIC COWBOY '+selected+' · ORIGINAL ART';}
+ if(label){const cfg=HERO_V49[selected];label.textContent=cfg?(cfg.name+' · SIGNATURE ATTACK FX · WEAPON STATS UNCHANGED'):'CLASSIC COWBOY '+selected+' · ORIGINAL ART';}
  const classic=document.getElementById('classicHeroes');if(classic&&selected<=3)classic.open=true;
 }
 
@@ -2000,7 +2101,8 @@ function heroDraw(){
  }
 }
 function shotDraw(){for(const b of shots){
- const weapon=weapons[b.type]||weapons.pistol;
+  if(b.heroFx && drawHeroProjectileV50(b))continue;
+  const weapon=weapons[b.type]||weapons.pistol;
  const im=gearImages['proj_'+b.type];
  const size=b.type==='plasma'?25:b.type==='laser'?23:b.type==='shotgun'?12:15;
  ctx.save();ctx.globalCompositeOperation='screen';
@@ -2012,7 +2114,7 @@ function shotDraw(){for(const b of shots){
  else rect(b.x-5,b.y-3,10,6,weapon.color);
 }}
 function particleDraw(){for(const p of particles)rect(p.x,p.y,p.size,p.size,p.c);for(const n of notices){ctx.save();ctx.globalAlpha=clamp(n.life,0,1);safeText(n.s,n.x,n.y,n.col,11);ctx.restore();}}
-function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();drawCheckpointMarkers();drawStageGimmicksBelow();drawRuinHints();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();drawStageGimmicksAbove();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();particleDraw();ctx.restore();}
+function render(){ctx.save();ctx.imageSmoothingEnabled=false;if(cameraShake>0)ctx.translate(Math.round((Math.random()-.5)*cameraShake),Math.round((Math.random()-.5)*cameraShake));background();groundDraw();drawCheckpointMarkers();drawStageGimmicksBelow();drawRuinHints();heroBeacon();cellDraw();weaponPickupDraw();obstacleDraw();zombieDraw();drawStageGimmicksAbove();drawBoss();equippedGunDraw();heroDraw();muzzleFlashDraw();shotDraw();explosionDraw();drawHeroImpactsV50();particleDraw();ctx.restore();}
 function animate(t){requestAnimationFrame(animate);if(!frameT)frameT=t;const elapsed=t-frameT;if(elapsed<minFrameMs-1.5)return;let dt=clamp(elapsed/1000,0,.05);frameT=t;clock+=dt;if(mode==='playing')update(dt);render();}
 const play=$('playButton');
 const soundButton=$('soundButton');

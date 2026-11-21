@@ -251,7 +251,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>RAPID COMBAT · V5.2.4</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>DOUBLE JUMP · V5.2.5</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -321,7 +321,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.2.4 · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • RE-JUMP IN AIR • HOLD DUCK • FIRE</div>
+<div class="helper">V5.2.5 · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -1222,7 +1222,7 @@ sceneAssets.metal=[{name:'metal',factor:0.12,src:'data:image/png;base64,iVBORw0K
 for(const [name,layers] of Object.entries(sceneAssets)){sceneImages[name]=layers.map(o=>{const im=new Image();o.image=im;totalScenes++;im.onload=()=>{loadedScenes++;checkReady();};im.onerror=()=>{loadedScenes++;checkReady();};im.src=o.src;return im;});}
 
 
-const hero={foot:ground,vy:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0,jumpGraceUntil:0,fellInGap:false};
+const hero={foot:ground,vy:0,jumpPressCount:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0,jumpGraceUntil:0,fellInGap:false};
 // V3.5.4: the world auto-scrolls; the large left button controls jump/duck only.
 let joyDownHeld=false;
  let keyboardDuckHeld=false;
@@ -1471,26 +1471,28 @@ function gameOver(reason){if(mode!=='playing')return;lastFailureAdvice=failureAd
     checkpointReady()?'▶ CONTINUE FROM CHECKPOINT':'↻ RETRY','LEARN · ADAPT · TRY AGAIN');
      $('restartFullButton').hidden=!checkpointReady();
      updatePersonalProgress();}
-// V5.2.2 — Responsive Jump: every fresh JUMP press re-triggers a leap,
-// including mid-air. Keep the pit-fall rescue restricted to the original
-// short coyote window so a missed gap does not become unlimited flying.
+// V5.2.5 — Double Jump: exactly two takeoffs per landing.
+// Repeated taps after the mid-air jump do nothing until the hero touches
+// safe ground again. Releasing JUMP still changes rise height naturally.
 function jump(){if(mode==='menu'||mode==='over'){if(loaded===total&&loadedScenes>=totalScenes)reset((mode==='over'||mode==='menu')&&Boolean(checkpointReady()));return;}if(mode!=='playing')return;
- jumpHeld=true;
  const groundOrCoyote=hero.onGround||(hero.fellInGap&&runTime<=hero.coyoteUntil&&hero.foot<ground+14);
- const airRejump=!hero.onGround&&!hero.fellInGap;
- if(groundOrCoyote||airRejump){
-   const fromAir=!hero.onGround&&!hero.fellInGap;
-   const takeoffY=hero.foot;
-   if(hero.fellInGap){hero.fellInGap=false;hero.foot=ground;}
+ const fromAir=!groundOrCoyote&&!hero.fellInGap;
+ // Ground jump (including short pit-edge grace) is #1; air jump is #2.
+ if(!groundOrCoyote && (!fromAir || (hero.jumpPressCount||0)>=2)){
+   // Never queue a third press into an automatic hop on landing.
    hero.jumpBufferUntil=0;
-   hero.vy=fromAir?-335:-385;hero.onGround=false;hero.slideEnd=0;
-   // Only the ORIGINAL ground takeoff gets hazard grace: pressing repeatedly
-   // in the air must not refresh immunity against zombies and obstacles.
-   if(!fromAir)hero.jumpGraceUntil=runTime+.22;
-   hero.jumpPressCount=(hero.jumpPressCount||0)+1;
-   burst(heroX,fromAir?takeoffY-6:ground-2,fromAir?4:6,fromAir?'#8eeaff':'#c4a98a');
-   sound(fromAir?460:350,.09,'triangle',.032);
- }else if(!hero.fellInGap){hero.jumpBufferUntil=runTime+.22;}
+   return;
+ }
+ jumpHeld=true;
+ const takeoffY=hero.foot;
+ if(hero.fellInGap){hero.fellInGap=false;hero.foot=ground;}
+ hero.jumpBufferUntil=0;
+ hero.vy=fromAir?-335:-385;hero.onGround=false;hero.slideEnd=0;
+ // Only the first takeoff has a short grace period against hazards.
+ if(!fromAir)hero.jumpGraceUntil=runTime+.22;
+ hero.jumpPressCount=fromAir?2:1;
+ burst(heroX,fromAir?takeoffY-6:ground-2,fromAir?4:6,fromAir?'#8eeaff':'#c4a98a');
+ sound(fromAir?460:350,.09,'triangle',.032);
 }
 
 function releaseJump(){jumpHeld=false;}
@@ -1808,8 +1810,9 @@ function update(dt){if(mode!=='playing')return;
   const ceilingY=Math.max(56,ground-190);
   if(hero.foot<ceilingY){hero.foot=ceilingY;if(hero.vy<0)hero.vy=0;}
  if(hero.foot>=ground&&!hero.fellInGap&&!gapAt(dist+heroX)){
-  hero.foot=ground;hero.vy=0;hero.onGround=true;burst(heroX,ground-2,4,'#7b8c98');
-  if(hero.jumpBufferUntil>runTime){hero.jumpBufferUntil=0;jump();releaseJump();}
+  hero.foot=ground;hero.vy=0;hero.onGround=true;
+   hero.jumpPressCount=0;hero.jumpBufferUntil=0;
+   burst(heroX,ground-2,4,'#7b8c98');
  }
  if(hero.foot>H+60){gameOver('You fell into the ruins');return;}}
  else if(gapAt(dist+heroX)){hero.onGround=false;hero.fellInGap=true;hero.vy=50;hero.coyoteUntil=runTime+.10;}
@@ -2449,7 +2452,7 @@ window.addEventListener('keydown',e=>{
  });
  window.addEventListener('blur',()=>{fireHeld=false;fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.2.4',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.2.5',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},

@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.3.3 — Bug Fix & Stability</title>
+<title>LAST SPARK V5.3.4 — Stability & Performance</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -250,11 +250,27 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 /* V5.2.1 SOUND / PAUSE hit-target isolation; 12px gap */
 #soundButton.sound-toggle{top:9px !important;right:55px !important;width:57px !important;height:34px;z-index:5;font-size:10px}
 #pauseButton.pause{top:9px;right:9px;width:34px;height:34px;z-index:5}
+
+/* V5.3.4 · compact HUD: remove only secondary BEST/distance metadata where
+   it collides with the lesson ribbon or progress bar. SCORE stays visible. */
+@media (orientation:portrait) and (max-width:380px){
+ .hud .right .sub{display:none!important}
+ .hud .right{padding-right:110px;font-size:9px}
+ /* Avoid progress touching the SOUND button or left-side ammo labels. */
+ .stage-progress{top:62px;width:40%}
+ .lesson-hud{top:93px;max-width:68%;width:250px}
+ .boss-hud{top:96px;width:70%}
+ .boss-hud.late-boss{top:109px;width:73%}
+}
+@media (orientation:landscape) and (max-height:550px){
+ .hud .right .sub{display:none!important}
+ .lesson-hud{top:62px;max-width:58%;width:330px}
+}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>BUG FIX · V5.3.3</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>STABILITY · V5.3.4</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -324,7 +340,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.3.3 · BUG FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
+<div class="helper">V5.3.4 · STABILITY · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -951,11 +967,44 @@ function drawZombieSpitV51(){
  }
 }
 
-function addExpertZombies(){const seq=EXPERT_ZOMBIES[stageIndex]||[];
- while(courseZombieCursor<seq.length&&seq[courseZombieCursor].x<dist+W+105){
-  const e=seq[courseZombieCursor++];const k=e.kind;
-   const toughHp=k===2?Math.min(3,2+stageIndex):1;
-   zombies.push(makeZombieV51(e.x,k,26+stageIndex*9+(k===2?9:0),toughHp,courseZombieCursor,{challenge:true}));
+// V5.3.4: all zombie sources now share ONE active-enemy budget.
+// Authored enemies are handled before extra Rush enemies, and wait for a slot
+// instead of bursting through the cap. No enemy is spawned behind the player.
+let authoredDeferredV534=0,authoredRescheduledV534=0;
+function sharedEnemyCapV534(){return lowPower?7:10;}
+// Give a waiting scripted encounter first chance at the next free slot.
+function authoredDueV534(){
+ const sequence=stageIndex===0?RUIN_ZOMBIES:(EXPERT_ZOMBIES[stageIndex]||[]);
+ const cursor=stageIndex===0?ruinZombieCursor:courseZombieCursor;
+ return cursor<sequence.length&&sequence[cursor].x<dist+W+105;
+}
+function activeEnemyCountV534(){
+ return zombies.reduce((count,z)=>count+(z.status!=='dead'?1:0),0);
+}
+function placeAuthoredZombieV534(e){
+ if(e.x>=dist+heroX+165)return e.x;
+ // The camera has already passed this authored position while the cap was full.
+ // Retry at a safe point ahead, not beside the hero or inside an obstacle.
+ for(let offset=0;offset<=648;offset+=108){
+  const x=dist+W+65+offset;
+  if(rushSafeReentryV533(x))return x;
+ }
+ return null;
+}
+function addExpertZombies(){
+ const seq=EXPERT_ZOMBIES[stageIndex]||[];
+ let released=0;
+ while(courseZombieCursor<seq.length&&seq[courseZombieCursor].x<dist+W+105&&released<2){
+  if(activeEnemyCountV534()>=sharedEnemyCapV534()){
+   authoredDeferredV534++;break;
+  }
+  const e=seq[courseZombieCursor],k=e.kind;
+  const spawnX=placeAuthoredZombieV534(e);
+  if(spawnX===null){authoredDeferredV534++;break;}
+  const toughHp=k===2?Math.min(3,2+stageIndex):1;
+  zombies.push(makeZombieV51(spawnX,k,26+stageIndex*9+(k===2?9:0),toughHp,courseZombieCursor+1,{challenge:true}));
+  if(spawnX!==e.x)authoredRescheduledV534++;
+  courseZombieCursor++;released++;
  }
 }
 
@@ -1030,12 +1079,12 @@ function buildRushPlanV523(){
 // consuming an unspawned enemy. Late wave members are relocated to a safe
 // position AHEAD of the player (not popped into existence behind them).
 function addRushZombiesV523(){
- const cap=lowPower?7:10;
+ const cap=sharedEnemyCapV534();
  let spawned=0;
  while(rushCursorV523<rushPlanV523.length &&
        rushPlanV523[rushCursorV523].x<dist+W+105 && spawned<2){
   const e=rushPlanV523[rushCursorV523];
-  const alive=zombies.reduce((n,z)=>n+(z.status!=='dead'&&z.wx>dist-80?1:0),0);
+  const alive=activeEnemyCountV534();
   if(alive>=cap){
    if(rushPendingIdV533!==e.seq){rushPendingIdV533=e.seq;rushDeferredTotalV533++;}
    break; // Do not advance the cursor: this enemy remains queued.
@@ -1122,9 +1171,17 @@ function addRuinedObstacles(){
  }
 }
 function addRuinedZombies(){
- while(ruinZombieCursor<RUIN_ZOMBIES.length && RUIN_ZOMBIES[ruinZombieCursor].x<dist+W+105){
-  const e=RUIN_ZOMBIES[ruinZombieCursor++],kind=e.kind;
-   zombies.push(makeZombieV51(e.x,kind,25+(kind===2?13:0),kind===2?2:1,ruinZombieCursor,{lesson:true}));
+ let released=0;
+ while(ruinZombieCursor<RUIN_ZOMBIES.length&&RUIN_ZOMBIES[ruinZombieCursor].x<dist+W+105&&released<2){
+  if(activeEnemyCountV534()>=sharedEnemyCapV534()){
+   authoredDeferredV534++;break;
+  }
+  const e=RUIN_ZOMBIES[ruinZombieCursor],kind=e.kind;
+  const spawnX=placeAuthoredZombieV534(e);
+  if(spawnX===null){authoredDeferredV534++;break;}
+  zombies.push(makeZombieV51(spawnX,kind,25+(kind===2?13:0),kind===2?2:1,ruinZombieCursor+1,{lesson:true}));
+  if(spawnX!==e.x)authoredRescheduledV534++;
+  ruinZombieCursor++;released++;
  }
 }
 function addRuinedCoins(){
@@ -1561,22 +1618,32 @@ function pickFrames(key){const img=imageMap[key];return img&&img.naturalWidth?im
 let lastCanvasOrientation=null;
 function resize(){
  const portrait=window.matchMedia('(orientation: portrait)').matches;
- // On iPad Safari the address bar can resize the viewport mid-game.
- // Avoid resetting the canvas, character and position unless orientation changes.
+ // iPad Safari address-bar resizes must NOT reset gameplay state.
  if(lastCanvasOrientation===portrait)return;
  lastCanvasOrientation=portrait;
- const oldGround=ground;
+ const oldGround=ground,oldHeroX=heroX,oldDist=dist;
  W=portrait?360:640;H=portrait?430:360;
  canvas.width=W;canvas.height=H;ground=H-76;
- if(mode==='playing'||mode==='paused')heroX=clamp(heroX,24,W-24);
- else heroX=portrait?65:111;
+ const active=mode==='playing'||mode==='paused';
+ const targetHeroX=portrait?65:108;
+ if(active){
+  // Preserve hero world position == distance + hero-screen-X.
+  heroX=targetHeroX;
+  dist=Math.max(0,oldDist+oldHeroX-heroX);
+ }else heroX=targetHeroX;
  ctx.imageSmoothingEnabled=false;
- const groundShift=ground-oldGround;
+ const groundShift=ground-oldGround,cameraShift=oldDist-dist;
  hero.foot+=groundShift;
- // V5.3.3 FIX-03: projectile lanes are relative to ground, not the old viewport.
- if(groundShift && (mode==='playing'||mode==='paused')){
-  for(const list of [shots,zombieSpit,bossShots,sentryShots,cells,
-   particles,notices,explosions,heroImpactV50]){
+ if(active){
+  // Screen-space effects follow the world while the camera re-centers.
+  for(const list of [shots,zombieSpit,bossShots,sentryShots,particles,notices,heroImpactV50]){
+   for(const obj of list){
+    if(typeof obj.x==='number')obj.x+=cameraShift;
+    if(typeof obj.y==='number')obj.y+=groundShift;
+   }
+  }
+  // World-position entities never change their wx, only their vertical lane.
+  for(const list of [cells,explosions]){
    for(const obj of list)if(typeof obj.y==='number')obj.y+=groundShift;
   }
  }
@@ -1610,7 +1677,7 @@ function reset(resume=false){
  ruinPhaseIndex=-1;ruinHintKey='';phaseDamageBaseline=0;skillSectionWins=0;lessonSkillSeen=new Set();
  $('lessonHud').hidden=false;$('bossHud').hidden=true;
  nextOb=425;nextZ=610;nextCell=190;
-  rushPlanV523=buildRushPlanV523();rushCursorV523=0;rushReleasedV523=0;rushSkippedV523=0;rushPendingIdV533=null;rushDeferredTotalV533=0;rushRescheduledV533=0;
+  rushPlanV523=buildRushPlanV523();rushCursorV523=0;rushReleasedV523=0;rushSkippedV523=0;rushPendingIdV533=null;rushDeferredTotalV533=0;rushRescheduledV533=0;authoredDeferredV534=0;authoredRescheduledV534=0;
  activeWeapon='pistol';weaponAmmo=Infinity;
   obstacles=[];zombies=[];zombieSpit=[];cells=[];shots=[];explosions=[];particles=[];notices=[];heroImpactV50=[];conveyors=[];drones=[];sentries=[];sentryShots=[];gimmickToastShown=false;
  cameraShake=0;clearFireInputsV533();fireQueuedUntil=-99;lastFireAudioAt=-99;jumpHeld=false;prevShot=-99;shotPose=0;heroVolleysFiredV52=0;
@@ -2150,7 +2217,7 @@ function update(dt){if(mode!=='playing')return;
   const lateStageBoost=stageIndex>=3?(stageIndex-2)*8:0;
   speed=difficulty==='challenge'?Math.min(276,143+stageIndex*9+dist*.0095+lateStageBoost):Math.min(258,133+stageIndex*8+dist*.0095+lateStageBoost*.9);
  // Auto-run only: no backward movement or directional stick required.
- heroX=clamp(heroX,W===360?65:72,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;if(!(boss&&boss.active)){addObstacle();addZombies();addCells();}
+ heroX=clamp(heroX,W===360?65:108,W-62);hero.anim+=dt*(speed/8.5);if(hero.invuln>0)hero.invuln-=dt;if(!(boss&&boss.active)){addObstacle();addZombies();addCells();}
  if(!(boss&&boss.active)&&dist>=mission().goal-360&&hero.onGround&&!gapAt(dist+heroX))beginBoss();
  if(fireHeld||fireQueuedUntil>=runTime)fire();
  // Once the cowboy steps into a pit, crossing the far ledge cannot magically reset the fall.
@@ -2345,7 +2412,7 @@ function updateStageGimmicks(dt,sliding,py,hh,takeoffGrace){
    }
   }
  }
- heroX=clamp(heroX,W===360?65:72,W-62);
+ heroX=clamp(heroX,W===360?65:108,W-62);
 }
 function drawStageGimmicksBelow(){
  if(stageIndex===3){
@@ -2834,7 +2901,7 @@ window.addEventListener('keydown',e=>{
  });
  window.addEventListener('blur',()=>{clearFireInputsV533();fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.3',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.4',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,enemyCap:sharedEnemyCapV534(),enemyAlive:activeEnemyCountV534(),authoredDeferred:authoredDeferredV534,authoredRescheduled:authoredRescheduledV534,heroX,ground,W,H,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},

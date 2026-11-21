@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.2 — Hero Combat Classes</title>
+<title>LAST SPARK V5.2.1 — Stability Update</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -243,11 +243,15 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   .launch-hint{display:none}
 }
 
+
+/* V5.2.1 SOUND / PAUSE hit-target isolation; 12px gap */
+#soundButton.sound-toggle{top:9px !important;right:55px !important;width:57px !important;height:34px;z-index:5;font-size:10px}
+#pauseButton.pause{top:9px;right:9px;width:34px;height:34px;z-index:5}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>HERO COMBAT CLASSES · V5.2</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>STABILITY UPDATE · V5.2.1</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -317,7 +321,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.2 · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • INSTANT JUMP • HOLD DUCK • FIRE</div>
+<div class="helper">V5.2.1 · STABILITY UPDATE · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • INSTANT JUMP • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -792,7 +796,7 @@ function makeZombieV51(wx,kind,speed0,originalHp,seq,flags){
  return {wx,kind,v:speed0*cfg.speed,hp,maxHp:hp,w:cfg.w,
   archetype:type,anim:0,status:'run',deadAt:0,rushed:false,
   hurtUntil:0,attackUntil:0,hopTime:0,hopHeight:0,
-  spitWarnAt:0,nextSpitAt:runTime+1.1+(seq%3)*.39,
+  spitWarnAt:0,nextSpitAt:runTime+.18+(seq%3)*.06,
   ...flags};
 }
 function zombieBodyYV51(z){return ground-(z.hopHeight||0);}
@@ -809,16 +813,24 @@ function updateZombieSpecialV51(dt,py,hh,takeoffGrace){
     if(close&&sx>heroX+50&&sx<W-12){z.hopTime=.78;z.hopHeight=3;z.attackUntil=runTime+.17;}
    }
   }
-  if(z.archetype==='spitter'&&sx>heroX+115&&sx<W-20&&sx<heroX+285){
-   if(z.spitWarnAt>0 && runTime>=z.spitWarnAt){
-    z.spitWarnAt=0;z.attackUntil=runTime+.22;
-    zombieSpit.push({x:sx-15,y:ground-26,vx:-(190+stageIndex*8),life:2.6});
-    burst(sx-12,ground-26,5,'#7dff8c');sound(390,.07,'sawtooth',.012);
-   } else if(!z.spitWarnAt&&runTime>=z.nextSpitAt){
-    z.spitWarnAt=runTime+.48;z.nextSpitAt=runTime+3.6;
-    z.attackUntil=runTime+.58;
+  // V5.2.1: once the warning begins, leaving the trigger band
+  // cannot silently cancel the attack (especially on 360px portrait).
+  if(z.archetype==='spitter'){
+   if(z.spitWarnAt>0){
+    if(runTime>=z.spitWarnAt){
+     z.spitWarnAt=0;
+     // Do not spawn a projectile behind the player or far offscreen.
+     if(sx>heroX+25&&sx<W+24){
+      z.attackUntil=runTime+.22;
+      zombieSpit.push({x:sx-15,y:ground-26,vx:-(190+stageIndex*8),life:2.6});
+      burst(sx-12,ground-26,5,'#7dff8c');sound(390,.07,'sawtooth',.012);
+     }
+    }
+   }else if(sx>heroX+105&&sx<Math.min(W-12,heroX+285)&&runTime>=z.nextSpitAt){
+    z.spitWarnAt=runTime+.36;z.nextSpitAt=runTime+3.6;
+    z.attackUntil=runTime+.49;
    }
-  }else if(z.archetype==='spitter'&&z.spitWarnAt>0&&runTime>=z.spitWarnAt){z.spitWarnAt=0;}
+  }
  }
  for(const b of zombieSpit){
   const x0=b.x;b.x+=b.vx*dt;b.life-=dt;
@@ -1149,6 +1161,7 @@ for(const [name,layers] of Object.entries(sceneAssets)){sceneImages[name]=layers
 const hero={foot:ground,vy:0,onGround:true,slideEnd:0,invuln:0,anim:0,deadAt:0,jumpGraceUntil:0,fellInGap:false};
 // V3.5.4: the world auto-scrolls; the large left button controls jump/duck only.
 let joyDownHeld=false;
+ let keyboardDuckHeld=false;
 const weapons={
  pistol:{name:'PISTOL',rate:.30,damage:1,speed:540,ammo:Infinity,desc:'STANDARD',color:'#ffe5ad'},
  shotgun:{name:'SHOTGUN',rate:.77,damage:1,speed:490,ammo:15,desc:'SPREAD',color:'#ffb26b'},
@@ -1356,7 +1369,7 @@ function reset(resume=false){
  overlay.hidden=true;$('restartFullButton').hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;
  $('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;
  runTime=0;dist=0;speed=133;heroX=W===360?65:108;checkpointResumed=false;
- finishDodge(true);joyDownHeld=false;clearDodgeVisual();
+ finishDodge(true);joyDownHeld=false;keyboardDuckHeld=false;clearDodgeVisual();
  energy=0;kills=0;score=0;hp=3;boss=null;bossShots=[];bossBonus=0;dodgeBonus=0;dodgeStreak=0;obstacleSequence=0;
  gunHeat=0;gunOverheated=false;heatNeedsRelease=false;laserCooling=false;laserBackupAmmo=0;laserHeatWarned=false;damageTaken=0;cleanDodges=0;
  courseObstacleCursor=0;courseZombieCursor=0;ruinObstacleCursor=0;ruinZombieCursor=0;ruinCoinCursor=0;expertCoinCursor=0;
@@ -1376,7 +1389,7 @@ function reset(resume=false){
  updatePersonalProgress();updateHud();updateStageHud();sound(520,.08,'triangle',.028);
  toast(checkpointResumed?'CP '+activeCheckpoint.index+' · TRY AGAIN':'STAGE '+(stageIndex+1)+' · FOUR STEP ADVENTURE',heroX+18,ground-96,'#a2f8ff');
 }
-function pause(){if(mode==='playing'){finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function pause(){if(mode==='playing'){keyboardDuckHeld=false;finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;damageTaken++;dodgeStreak=0;hero.invuln=1.2;hero.hurtUntil=runTime+.23;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
@@ -1708,7 +1721,7 @@ function update(dt){if(mode!=='playing')return;
  if(hero.foot>H+60){gameOver('You fell into the ruins');return;}}
  else if(gapAt(dist+heroX)){hero.onGround=false;hero.fellInGap=true;hero.vy=50;hero.coyoteUntil=runTime+.10;}
  // Holding DOWN maintains the crouch so the slide does not expire under a finger.
- const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld);
  const hh=sliding?23:48,py=hero.foot-hh;
  const takeoffGrace=!hero.onGround&&hero.vy<0&&runTime<hero.jumpGraceUntil;
  updateBoss(dt,py,hh);if(mode!=='playing')return;
@@ -2069,7 +2082,7 @@ function imagePixel(im,x,y,w,h){if(!im||!im.complete||!im.naturalWidth)return fa
 // V3.5: single attachment point is shared by drawing and projectile spawn.
 // All positions are in 640x360/360x430 logical coordinates, NOT CSS pixels.
 function gunPose(){
- const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld);
  const shooting=shotPose>runTime && !sliding;
  const airborne=!hero.onGround;
  const w=activeWeapon;
@@ -2154,7 +2167,7 @@ function heroV49Frame(arr,fps){return arr[Math.floor(clock*fps)%arr.length];}
 function newHeroDraw(){
  const cfg=HERO_V49[selected],asset=imageMap['hero'+selected];
  if(!cfg||!asset||!asset.complete||!asset.naturalWidth)return;
- const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld);
  const firing=shotPose>runTime;
  let state='run',frame;
  if(mode==='menu'||mode==='won'||mode==='paused'){state='idle';frame=heroV49Frame(cfg.idle,5);}
@@ -2194,7 +2207,7 @@ function heroDraw(){
  // V3.1: The original if(invuln) return caused the cowboy to become fully
  // invisible in alternating frames after taking damage on iPad screenshots.
  // Keep him visible throughout the 1.2s invulnerability window instead.
- const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld);let anim='run',frame=hero.anim,scale=.86;
+ const sliding=hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld);let anim='run',frame=hero.anim,scale=.86;
  if(mode==='menu'){anim='idle';frame=clock*6;}
  else if(mode==='over'){anim='dead';frame=Math.floor((clock-hero.deadAt)*10);}
  else if(sliding){anim='fighting_stance';frame=clock*5;}
@@ -2321,11 +2334,29 @@ document.addEventListener('dblclick',ev=>{
  if(mode==='playing' && ev.cancelable)ev.preventDefault();
 },{passive:false,capture:true});
 
-window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();if(e.repeat)return;if(e.code==='Space'||e.code==='ArrowUp')jump();if(e.code==='ArrowDown')slide();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}if(e.code==='KeyP'||e.code==='Escape')pause();});
-window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')releaseJump();if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}});
-window.addEventListener('blur',()=>{fireHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
+window.addEventListener('keydown',e=>{
+  if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyF','KeyX'].includes(e.code))e.preventDefault();
+  // DOWN is a held action, not a one-shot 0.7-second slide.
+  if(e.code==='ArrowDown'&&mode==='playing'){
+   if(!keyboardDuckHeld)slide();
+   keyboardDuckHeld=true;
+  }
+  if(e.repeat)return;
+  if(e.code==='Space'||e.code==='ArrowUp')jump();
+  if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;fire();}
+  if(e.code==='KeyP'||e.code==='Escape')pause();
+ });
+ window.addEventListener('keyup',e=>{
+  if(e.code==='Space'||e.code==='ArrowUp')releaseJump();
+  if(e.code==='ArrowDown'){
+   keyboardDuckHeld=false;
+   if(!joyDownHeld)hero.slideEnd=Math.min(hero.slideEnd,runTime+.055);
+  }
+  if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}
+ });
+ window.addEventListener('blur',()=>{fireHeld=false;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.2',mode,stageIndex,heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpHeld,joyDownHeld,unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.2.1',mode,stageIndex,heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},

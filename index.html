@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.3.1 — Boss Evolution</title>
+<title>LAST SPARK V5.3.2 — Enemy Tactics</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -254,7 +254,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>BOSS EVOLUTION · V5.3.1</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>ENEMY TACTICS · V5.3.2</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -324,7 +324,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAHP0lEQVR42t2bXaxUVxXHf2vPvUIDRAqKEklrsdUIiQKKYAqktlVrH9qqiQ3QGGyTKkSj4BshMWkTY5NqSjVpWpuqjU3T8ND2hUTsS7/Sh0pobdrUpAlFPiSCWAsUYe45fx9YO2yOM3PPzJx9L/fuZHImM2f22eu/1vqvj70HGh6SzF+3S9ov6ZSkX0r6jH8fJAWm44iCSdqu/x+HJK1PgZquwi+UdEBSIWnMhR9LgPi1pFl+78h0BOCTbvpyEJS8L/39HkkL/f7WZK47hy8KsC7PMqANfBV4VtI1ZlZMJgi5AFCP70eBAlgJvCDpJgdhZLq4wDWSjnRwgeqIvHBa0rcuBXcYFoCWX1dLOuvCleo9IginJN06GcSYwwVmAx8Cyhr3tvy+WcCTkm4xs7GJtIQcACzya9GFDDutoQQuAx6XtMI5IUw1ACLxXe1X63MdBfBh4GlJS8ysnHKc4CnwizUIsNto+/Wvki6fMhljXKSk+ZLO1CTA8Yjxd5JakkZyghAanudGYEaPZKjuXGPAJmCzmY1l4qosIfCJDrn/IKP012lJy9M841JOgD4h6d0h/L864hwvSZqdq4xucsKvA1c6m4eG1lYA1wLfN7NyCLfKzvwtSX9pUPtVVzgpaXEvV4iNmMny/fVDMn+dqPCUR4RWKmgVEAciTIjv+2LmSNrrwhcZAIjz/lfS2grwKRCzJM3st+M0DFJmZgVwJ7DC09kcyJuH1RnANv+slGRmJklLJe0GjgL7JT0sab5/F3Iz/1WSTiS+mnOU7g5rE1NfJOlgh3tfSdpu1qgF+IRB0ijwG+By135uAiq9etwiKZiZPPFa5NEi1iPngNXAI15at3qBMIiJBM/OfgLc3GDYq+sK1wGf8s8+Xym7zTtObWADsMnXak2Z/ohfb/Ccv5gA0+8UEe5wF3i5UkSpEo3+JenTvcJn6CfkebNiOfAkMHOAsrcJKwC4AVgGLE9co3pfAcwDfpUUazao5mPYWSjptQwJTz9EKEnHvbXeax1lajHdeo5WU/OFpCuAZxz1ogPqk5KIjiNDJOf9wOeADzx+q5YLONsWkhYAT19Cwqtm5Al+72LgThc81LKAhDTmuubXep0+1fr3Eai3XYYTnsSV41qA3/TgFBY+bbp+FrjZrcB6uoD7fSlpK7BxCgtfzSHucMUWXV3A/b6UtAp4ztvVdsm3peqNNrDMzN6KtUTobAAaAXZyfpODaSK8PEu8KZUpdDB9AT8AVnVJMqbqiGb/lY6ZoLN+KWk+sIXeO7y52LrI+Nwo62IvlwtJIVTqewG3O2OWE2T6cTs9uLVZZvAXcWH7zkIifTyosJnh+vqDxGgD9gGPedaWA4QYDucAH78IgKRI+CKwZIJYP5bRJ4CtwBozuwv4ZkxWqLfD3O8zzUGAJLa3PNbflrSjWxlNPpLry8CPzGxfoogjwD+9klPGNVxEDBHpZdUbMph8BPy3wDfMbF/s9joHfcSFn5DwG5LEZwFwVcYHR6IzYIeZ3W1mJ2OfIQG9SIDKpQirugDAx4AFmZn+FHCXme3ysKs0LfVx1l85BR9LXSB+OCchB8sgfAC2ufAjZlamdXmi7X8D72WwALnCx4Dj8bNQ8c8yk98HYKuZPSpp1E2+WxH2PnAgEwAAB9P5QyVONu37MZo8ZGYPuIDtLqV3mnu8mIGLIgD/AI56xLkIgKZ9L4a614HtnmSpBmB4A+ZchmRMwJuuhFasBuOijqe+0RDaZ4Afm9l7SYOlVwNGXqa+A+zmQne3iRHT7D+lITl4+RuAw8DfGwIg+v2jZvZ87C32WbTsTCyyCYUIOAbsSeeMW0wxFu9tSHgDDpH05Pv5vbvL88DvuXCYsok17fLcI1wUgZLNzjUNHm25JzJ73+q6sJExT9LfhtyHKPx1WtKXfN6Rbg+eIenNIXZ742+OSfroMKc2EqWsk/SfIc4fpAcsQlUhodILPAs8MUQlFv38MTM7lvQY+k/Z/KSomb3gDZpyQN8PTsa/cBJWN8RbyZ774cpfXvo5yXFG0rU+19Cd5GRb7r4BXCFumt6XWlWdh20f4LxfXNgbkubWemBNV3DlzO7zKE5c+2t+grVVB4D4l7eZkvb1iXhE+6meRDOcFXy75mGs+P0Hkr7clzIS8lkp6f0+XCEC9bOmzL+DcoJbWC/FFK6MtqTvjheJQhfyCWb2KucPQMUaYTwyi2x/wImv8Z6ek9gfKs2VblXf/Wb2uAtfDmN2P0xMql3D7DYMGv/HWU88nXJ95RBlNd5L0v1Dc1A8Aerv706Owbe7+GD8bGMmAKJrLvUDEqkbpOv5aUKe1iQBrZP0eoVlywm0gAjAFZU/ZraTP159r6no0w2EuZJ2JtaQAhGv9zYdBSprWO3PLxPhD0q6sVHNd9OAv/+CpD8mppiOXX7PaCYO+E7F/P+cHKQeJeeoHkSWtEzSzz3ZeMtD1NdymGFiAWvcAg5L2iHpsmFc7n8tXDnk1C7kbAAAAABJRU5ErkJggg==" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.3.1 · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
+<div class="helper">V5.3.2 · ENEMY TACTICS · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -800,9 +800,95 @@ function makeZombieV51(wx,kind,speed0,originalHp,seq,flags){
   archetype:type,anim:0,status:'run',deadAt:0,rushed:false,
   hurtUntil:0,attackUntil:0,hopTime:0,hopHeight:0,
   spitWarnAt:0,nextSpitAt:runTime+.18+(seq%3)*.06,
+  // V5.3.2: deterministic lightweight per-enemy decision memory.
+  aiSeed:seq||0,aiState:'approach',aiUntil:0,aiReadyAt:runTime+0.55+(seq%4)*.19,
+  aiCue:'',aiActionCount:0,aiGroupCalls:0,spitCount:0,spitStyle:'low',
   ...flags};
 }
 function zombieBodyYV51(z){return ground-(z.hopHeight||0);}
+// V5.3.2 — ENEMY TACTICS: five readable enemy decision styles.
+// No extra sprites or network assets; all AI state belongs to individual enemies.
+// Safety: tactics are disabled near hazards and during scripted boss encounters.
+function zombieAISafeV532(z,margin=110){
+ const pos=z.wx;
+ if(z.status==='dead'||boss&&boss.active)return false;
+ return !obstacles.some(o=>!o.dead&&
+   (o.typ==='gap'||o.typ==='beam'||o.typ==='electric'||o.typ==='rubble')&&
+   pos>=o.wx-margin&&pos<=o.wx+o.w+margin);
+}
+function zombieAICueV532(z,mode,seconds,cue){
+ z.aiState=mode;z.aiUntil=runTime+seconds;z.aiCue=cue;
+ z.attackUntil=Math.max(z.attackUntil,runTime+Math.min(seconds,.38));
+}
+function zombieAIAdvanceV532(z,dt){
+ const sx=z.wx-dist,proximity=sx-heroX;
+ const safe=zombieAISafeV532(z,z.archetype==='tank'?175:110);
+ // Limit special decisions to the nearby visible region; distant zombies just march.
+ if(proximity<20||sx>W+45)return z.v;
+ if(!safe && (z.aiState==='windup'||z.aiState==='charge'||z.aiState==='surge')){
+  z.aiState='approach';z.aiUntil=0;z.aiReadyAt=runTime+.8;
+ }
+ if(z.archetype==='walker'){
+  // A walker in a pack notices the crowd and makes a short, telegraphed lurch.
+  // Only every third member leads a charge; the rest are easy rapid-fire targets.
+  if(z.aiState==='windup'&&runTime>=z.aiUntil){
+   zombieAICueV532(z,'surge',.48,'RUSH');z.aiActionCount++;
+  }else if(z.aiState==='surge'&&runTime>=z.aiUntil)z.aiState='approach';
+  if(z.aiState==='approach'&&safe&&runTime>=z.aiReadyAt&&proximity>85&&proximity<235&&z.aiSeed%3===0){
+   const nearby=zombies.some(o=>o!==z&&o.status!=='dead'&&Math.abs(o.wx-z.wx)<130);
+   if(nearby){zombieAICueV532(z,'windup',.22,'RUSH!');
+    z.aiReadyAt=runTime+3.0;z.aiGroupCalls++;}
+  }
+  return z.v*(z.aiState==='surge'?1.68:z.aiState==='windup'?.62:1);
+ }
+ if(z.archetype==='hunter'){
+  // Hunter warns, then accelerates instead of silently becoming permanently fast.
+  if(z.aiState==='windup'&&runTime>=z.aiUntil){
+   zombieAICueV532(z,'charge',.56,'DASH');z.aiActionCount++;
+  }else if(z.aiState==='charge'&&runTime>=z.aiUntil){
+   zombieAICueV532(z,'recover',.45,'');z.aiReadyAt=runTime+2.35;
+  }else if(z.aiState==='recover'&&runTime>=z.aiUntil)z.aiState='approach';
+  if(z.aiState==='approach'&&safe&&runTime>=z.aiReadyAt&&proximity>125&&proximity<285){
+   zombieAICueV532(z,'windup',.31,'DASH!');
+  }
+  return z.v*(z.aiState==='charge'?2.05:z.aiState==='windup'?.30:z.aiState==='recover'?.8:1);
+ }
+ if(z.archetype==='leaper'){
+  // Anticipate a visible incoming shot, not the player's button press.
+  // The warning gives players time to adjust aim before the leap.
+  if(z.aiState==='windup'&&runTime>=z.aiUntil){
+   z.aiState='leaping';z.aiUntil=runTime+.78;z.aiCue='';
+   z.hopTime=.78;z.hopHeight=2;z.attackUntil=runTime+.24;
+   z.aiActionCount++;z.aiReadyAt=runTime+2.7;
+  }else if(z.aiState==='leaping'&&runTime>=z.aiUntil)z.aiState='approach';
+  if(z.aiState==='approach'&&safe&&z.hopTime<=0&&runTime>=z.aiReadyAt&&proximity>125&&proximity<285){
+   const bulletApproaching=shots.some(p=>p.life>0&&p.vx>0&&
+    sx>p.x+58&&sx<p.x+200&&p.y>ground-62&&p.y<ground-10);
+   // Sometimes anticipate the cowboy's air route too, but no omniscient dodge.
+   const jumpReader=stageIndex>=2&&!hero.onGround&&hero.vy<0&&proximity<195&&z.aiSeed%2===0;
+   if(bulletApproaching||jumpReader)zombieAICueV532(z,'windup',.23,'LEAP!');
+  }
+  return z.v*(z.aiState==='windup'?.63:1);
+ }
+ if(z.archetype==='tank'){
+  // Armored enemies brace, stampede and recover; never charge across a gap.
+  if(z.aiState==='windup'&&runTime>=z.aiUntil){
+   zombieAICueV532(z,'charge',.55,'CHARGE');z.aiActionCount++;
+  }else if(z.aiState==='charge'&&runTime>=z.aiUntil){
+   zombieAICueV532(z,'recover',.65,'TIRED');z.aiReadyAt=runTime+2.85;
+  }else if(z.aiState==='recover'&&runTime>=z.aiUntil)z.aiState='approach';
+  if(z.aiState==='approach'&&safe&&runTime>=z.aiReadyAt&&proximity>155&&proximity<295){
+   zombieAICueV532(z,'windup',.47,'CHARGE!');
+  }
+  return z.v*(z.aiState==='charge'?2.3:z.aiState==='windup'?.14:z.aiState==='recover'?.45:1);
+ }
+ if(z.archetype==='spitter'){
+  // Fire both ground and chest-height projectiles later in the game.
+  // Each trajectory has a distinct color and JUMP / DUCK warning.
+  return z.v*(z.spitWarnAt>runTime?.40:1);
+ }
+ return z.v;
+}
 function updateZombieSpecialV51(dt,py,hh,takeoffGrace){
  for(const z of zombies){
   if(z.status==='dead')continue;
@@ -825,13 +911,17 @@ function updateZombieSpecialV51(dt,py,hh,takeoffGrace){
      // Do not spawn a projectile behind the player or far offscreen.
      if(sx>heroX+25&&sx<W+24){
       z.attackUntil=runTime+.22;
-      zombieSpit.push({x:sx-15,y:ground-26,vx:-(190+stageIndex*8),life:2.6});
-      burst(sx-12,ground-26,5,'#7dff8c');sound(390,.07,'sawtooth',.012);
+      const high=z.spitStyle==='high';
+      const sy=ground-(high?48:22);
+      zombieSpit.push({x:sx-15,y:sy,vx:-(190+stageIndex*8),life:2.6,high});
+      burst(sx-12,sy,5,high?'#baadff':'#7dff8c');sound(high?560:390,.07,'sawtooth',.012);
      }
     }
    }else if(sx>heroX+105&&sx<Math.min(W-12,heroX+285)&&runTime>=z.nextSpitAt){
-    z.spitWarnAt=runTime+.36;z.nextSpitAt=runTime+3.6;
-    z.attackUntil=runTime+.49;
+    z.spitStyle=stageIndex>=3&&z.spitCount%2===1?'high':'low';
+    z.spitCount++;
+    z.spitWarnAt=runTime+.47;z.nextSpitAt=runTime+(z.rush?3.7:2.85);
+    z.attackUntil=runTime+.59;z.aiActionCount++;
    }
   }
  }
@@ -846,9 +936,10 @@ function updateZombieSpecialV51(dt,py,hh,takeoffGrace){
 }
 function drawZombieSpitV51(){
  for(const b of zombieSpit){
-  ctx.save();ctx.globalCompositeOperation='screen';ctx.shadowColor='#8fff63';ctx.shadowBlur=8;
-  rect(b.x-12,b.y-2,13,4,'#65f38288');rect(b.x-7,b.y-5,12,10,'#65d846');
-  rect(b.x-3,b.y-3,6,6,'#cfff9b');ctx.restore();
+  ctx.save();ctx.globalCompositeOperation='screen';ctx.shadowColor=b.high?'#aa95ff':'#8fff63';ctx.shadowBlur=8;
+  rect(b.x-12,b.y-2,13,4,b.high?'#a890f088':'#65f38288');
+  rect(b.x-7,b.y-5,12,10,b.high?'#896cff':'#65d846');
+  rect(b.x-3,b.y-3,6,6,b.high?'#e0d9ff':'#cfff9b');ctx.restore();
  }
 }
 
@@ -1864,7 +1955,7 @@ function bossSignature(stage,x,foot,phase,front=false){
  }
  ctx.restore();
 }
-// V5.3.1: distinct native canvas effects for LOW, HIGH and ANTI-AIR strikes.
+// V5.3.2: distinct native canvas effects for LOW, HIGH and ANTI-AIR strikes.
 // Hitboxes remain exactly the same as the attack-warning rules.
 function drawBossShotV531(b){
  const t=clock*12+(b.animOffset||0),pulse=.65+.35*Math.sin(t),p=b.phaseLevel||1;
@@ -2019,11 +2110,9 @@ function update(dt){if(mode!=='playing')return;
  if(takeoffGrace)continue;
  if(overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx+4,y,o.w-8,h)){o.hit=true;hurt(o.typ==='beam'?'HIT PIPE':'HIT HAZARD');if(mode==='over')return;}}
    for(const z of zombies){if(z.status==='dead')continue;
-   z.wx-=z.v*dt;z.anim+=dt*ZOMBIE_V51[z.archetype||'walker'].fps;
+   const tacticalSpeed=zombieAIAdvanceV532(z,dt);
+   z.wx-=tacticalSpeed*dt;z.anim+=dt*ZOMBIE_V51[z.archetype||'walker'].fps;
    const sx=z.wx-dist;
-   if(z.archetype==='hunter'&&!z.rushed&&sx<heroX+225&&sx>heroX+32){
-    z.rushed=true;z.v+=12+stageIndex*4;toast('HUNTER!',sx-9,ground-68,'#ff9e7c');
-   }
    if(sx<-85||sx>W+90)continue;
    const cy=zombieBodyYV51(z);
    if(!takeoffGrace&&overlap(heroX-10,py+6,21,Math.max(8,hh-12),sx-12,cy-45,z.w,42)){
@@ -2353,9 +2442,21 @@ function zombieDraw(){
     Math.floor(z.anim) % frames;
   sprite(key,x,zombieBodyYV51(z),cfg.scale,index,true);
   if(z.status==='dead')continue;
+  // Tactical warning above the sprite: readable even with no extra effect assets.
+  const cue=z.aiState==='windup'?z.aiCue:(z.aiState==='surge'||z.aiState==='charge'?'!':'');
+  if(cue&&x>20&&x<W-12){
+   ctx.save();ctx.fillStyle=z.aiState==='windup'?'#ffe296':'#ff9b7c';
+   ctx.strokeStyle='#192437';ctx.lineWidth=3;ctx.font='bold 10px monospace';
+   ctx.textAlign='center';ctx.strokeText(cue,x,ground-69-(z.hopHeight||0));
+   ctx.fillText(cue,x,ground-69-(z.hopHeight||0));ctx.restore();
+  }
   if(type==='spitter'&&z.spitWarnAt>runTime){
-   ctx.save();ctx.strokeStyle='#a4fa83';ctx.lineWidth=2;ctx.globalAlpha=.5+.5*Math.abs(Math.sin(clock*13));
-   ctx.beginPath();ctx.arc(x-10,ground-28,8,0,Math.PI*2);ctx.stroke();ctx.restore();
+   ctx.save();const high=z.spitStyle==='high';
+   ctx.strokeStyle=high?'#beadff':'#a4fa83';ctx.lineWidth=2;
+   ctx.globalAlpha=.55+.45*Math.abs(Math.sin(clock*13));
+   ctx.beginPath();ctx.arc(x-10,ground-(high?48:22),9,0,Math.PI*2);ctx.stroke();
+   ctx.globalAlpha=1;ctx.textAlign='center';ctx.font='bold 10px monospace';
+   ctx.fillStyle=high?'#e3d7ff':'#ddffb8';ctx.fillText(high?'DUCK':'JUMP',x,ground-76);ctx.restore();
   }
   if(z.maxHp>1){
    const y=ground-52-(z.hopHeight||0);
@@ -2643,7 +2744,7 @@ window.addEventListener('keydown',e=>{
  });
  window.addEventListener('blur',()=>{fireHeld=false;fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.1',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.2',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},

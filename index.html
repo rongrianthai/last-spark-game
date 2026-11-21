@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.3.2 — Enemy Tactics</title>
+<title>LAST SPARK V5.3.3 — Bug Fix & Stability</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -254,7 +254,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>ENEMY TACTICS · V5.3.2</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>BUG FIX · V5.3.3</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -324,7 +324,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.3.2 · ENEMY TACTICS · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
+<div class="helper">V5.3.3 · BUG FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -513,8 +513,16 @@ let gunHeat=0,gunOverheated=false,heatNeedsRelease=false,laserCooling=false,lase
 const RANK_KEY='last_spark_v39_rank_';
 function rankForStage(i){try{return localStorage.getItem(RANK_KEY+difficulty+'_'+i)||'';}catch(e){return '';}}
 function setRankForStage(i,rank){const old=rankForStage(i);const order={B:1,A:2,S:3};if((order[rank]||0)>(order[old]||0)){try{localStorage.setItem(RANK_KEY+difficulty+'_'+i,rank);}catch(e){}}}
-function updateDifficultyButtons(){document.querySelectorAll('[data-difficulty]').forEach(b=>b.classList.toggle('selected',b.dataset.difficulty===difficulty));}
-function selectDifficulty(v){if(!['challenge','standard'].includes(v))return;difficulty=v;try{localStorage.setItem(DIFFICULTY_KEY,v);}catch(e){}updateDifficultyButtons();loadStageCheckpoint();updateStagePicker();updatePersonalProgress();updateMenuCheckpointControls();}
+function updateDifficultyButtons(){document.querySelectorAll('[data-difficulty]').forEach(b=>{b.classList.toggle('selected',b.dataset.difficulty===difficulty);b.disabled=mode==='playing'||mode==='paused';});}
+// V5.3.3 FIX-02: one run has exactly one difficulty / checkpoint namespace.
+function selectDifficulty(v){
+ if(!['challenge','standard'].includes(v))return false;
+ if(mode==='playing'||mode==='paused')return false;
+ difficulty=v;
+ try{localStorage.setItem(DIFFICULTY_KEY,v);}catch(e){}
+ updateDifficultyButtons();loadStageCheckpoint();updateStagePicker();updatePersonalProgress();updateMenuCheckpointControls();
+ return true;
+}
 
 
 const BOSSES=[
@@ -956,6 +964,23 @@ function addExpertZombies(){const seq=EXPERT_ZOMBIES[stageIndex]||[];
 // Deterministic, stage-aware formations preserve the authored obstacle courses;
 // wave enemies are ordinary, low-HP zombies, not extra bosses.
 let rushPlanV523=[],rushCursorV523=0,rushReleasedV523=0,rushSkippedV523=0;
+let rushPendingIdV533=null,rushDeferredTotalV533=0,rushRescheduledV533=0;
+function rushSafeReentryV533(x){
+ const obs=stageIndex===0?RUIN_OBSTACLES:(EXPERT_COURSES[stageIndex]||[]);
+ const scripts=stageIndex===0?RUIN_ZOMBIES:(EXPERT_ZOMBIES[stageIndex]||[]);
+ const extra=stageIndex===4?CYBER_DRONES:stageIndex===5?BASE_SENTRIES:[];
+ if(x>mission().goal-680 || x<dist+heroX+165)return false;
+ for(const o of obs){
+  const before=o.type==='gap'?205:155,after=o.type==='gap'?265:185;
+  if(x>=o.x-before&&x<=o.x+(o.w||0)+after)return false;
+ }
+ if(scripts.some(z=>Math.abs(z.x-x)<115))return false;
+ if(extra.some(z=>Math.abs(z.x-x)<145))return false;
+ // Never overlap a live enemy or another new rush spawn.
+ if(zombies.some(z=>z.status!=='dead'&&Math.abs(z.wx-x)<105))return false;
+ return true;
+}
+
 function buildRushPlanV523(){
   const obstaclesForStage=stageIndex===0?RUIN_OBSTACLES:(EXPERT_COURSES[stageIndex]||[]);
   const scripted=stageIndex===0?RUIN_ZOMBIES:(EXPERT_ZOMBIES[stageIndex]||[]);
@@ -1001,17 +1026,40 @@ function buildRushPlanV523(){
   }
   return plan.sort((a,b)=>a.x-b.x);
 }
+// V5.3.3 FIX-01: a full enemy cap pauses the spawn cursor rather than
+// consuming an unspawned enemy. Late wave members are relocated to a safe
+// position AHEAD of the player (not popped into existence behind them).
 function addRushZombiesV523(){
-  const cap=lowPower?7:10; // keep iPad/Safari rendering and hit-checks bounded
-  while(rushCursorV523<rushPlanV523.length&&rushPlanV523[rushCursorV523].x<dist+W+105){
-    const e=rushPlanV523[rushCursorV523++];
-    const alive=zombies.reduce((n,z)=>n+(z.status!=='dead'&&z.wx>dist-80?1:0),0);
-    if(alive>=cap){rushSkippedV523++;continue;}
-    const z=makeZombieV51(e.x,e.kind,21+stageIndex*2,1,e.seq,{rush:true});
-    // No armored rush enemies: wave packs are quick, satisfying one-shot targets.
-    z.hp=1;z.maxHp=1;
-    zombies.push(z);rushReleasedV523++;
+ const cap=lowPower?7:10;
+ let spawned=0;
+ while(rushCursorV523<rushPlanV523.length &&
+       rushPlanV523[rushCursorV523].x<dist+W+105 && spawned<2){
+  const e=rushPlanV523[rushCursorV523];
+  const alive=zombies.reduce((n,z)=>n+(z.status!=='dead'&&z.wx>dist-80?1:0),0);
+  if(alive>=cap){
+   if(rushPendingIdV533!==e.seq){rushPendingIdV533=e.seq;rushDeferredTotalV533++;}
+   break; // Do not advance the cursor: this enemy remains queued.
   }
+  let spawnX=e.x;
+  const isLate=spawnX<dist+heroX+165;
+  if(isLate){
+   spawnX=null;
+   // Spawn near the camera edge after checking authored hazards and enemies.
+   for(let offset=0;offset<=648;offset+=108){
+    const candidate=dist+W+65+offset;
+    if(rushSafeReentryV533(candidate)){spawnX=candidate;break;}
+   }
+   if(spawnX===null)break; // Wait for a safe stretch; don't force an unfair wave.
+  }
+  const z=makeZombieV51(spawnX,e.kind,21+stageIndex*2,1,e.seq,{rush:true});
+  z.hp=1;z.maxHp=1;
+  zombies.push(z);
+  rushCursorV523++;rushReleasedV523++;spawned++;
+  if(isLate)rushRescheduledV533++;
+  if(rushPendingIdV533===e.seq)rushPendingIdV533=null;
+  // Only backfill one delayed enemy per frame so a backlog cannot explode.
+  if(isLate)break;
+ }
 }
 
 const RUIN_PHASES=[
@@ -1221,7 +1269,7 @@ function spawnAtCheckpoint(){
  const coin=EXPERT_COIN_POINTS[stageIndex]||[];
  courseObstacleCursor=obs.findIndex(x=>x.x>safeDist);if(courseObstacleCursor<0)courseObstacleCursor=obs.length;
  courseZombieCursor=zom.findIndex(x=>x.x>safeDist);if(courseZombieCursor<0)courseZombieCursor=zom.length;
-  rushCursorV523=rushPlanV523.findIndex(x=>x.x>safeDist);if(rushCursorV523<0)rushCursorV523=rushPlanV523.length;
+  rushCursorV523=rushPlanV523.findIndex(x=>x.x>safeDist);if(rushCursorV523<0)rushCursorV523=rushPlanV523.length;rushPendingIdV533=null;
  expertCoinCursor=coin.findIndex(x=>x.x>safeDist);if(expertCoinCursor<0)expertCoinCursor=coin.length;
  
  for(const d of drones)if(d.x<safeDist)d.dead=true;
@@ -1281,8 +1329,8 @@ function updateStageHud(){
 }
 function levelClear(){
  if(mode!=='playing'||hero.fellInGap||hero.foot>ground+10)return;
- mode='won';$('restartFullButton').hidden=true;$('lessonHud').hidden=true;$('pauseButton').hidden=true;finishDodge(true);dodgeTouchId=null;dodgePointer=null;
- fireHeld=false;jumpHeld=false;if(bgm)bgm.pause();
+ mode='won';updateDifficultyButtons();$('restartFullButton').hidden=true;$('lessonHud').hidden=true;$('pauseButton').hidden=true;finishDodge(true);dodgeTouchId=null;dodgePointer=null;
+ clearFireInputsV533();jumpHeld=false;if(bgm)bgm.pause();
  lockGamePage(true);
  const m=mission();finalScoreBonus=m.reward+hp*100;
  score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus+finalScoreBonus;
@@ -1350,6 +1398,17 @@ function combatClassV52(){return activeWeapon==='pistol'?HERO_CLASSES_V52[select
 // V5.2.4 input buffering prevents rapid taps being discarded while a class reloads.
 // Input queue holds at most one future volley (no delayed multi-shot backlog).
 let fireQueuedUntil=-99,lastFireAudioAt=-99;
+// V5.3.3 FIX-04: independent touch pointers and keyboard sources.
+const firePointerIdsV533=new Set(),fireKeysV533=new Set();
+function syncFireHeldV533(){
+ fireHeld=firePointerIdsV533.size>0||fireKeysV533.size>0;
+ if(!fireHeld)heatNeedsRelease=false;
+}
+function clearFireInputsV533(){
+ firePointerIdsV533.clear();fireKeysV533.clear();fireHeld=false;
+ const button=$('fireButton');if(button)button.classList.remove('held');
+}
+
 function requestFire(){
  if(mode!=='playing')return;
  fireQueuedUntil=Math.max(fireQueuedUntil,runTime+.50);
@@ -1511,14 +1570,23 @@ function resize(){
  canvas.width=W;canvas.height=H;ground=H-76;
  if(mode==='playing'||mode==='paused')heroX=clamp(heroX,24,W-24);
  else heroX=portrait?65:111;
- ctx.imageSmoothingEnabled=false;hero.foot+=ground-oldGround;
+ ctx.imageSmoothingEnabled=false;
+ const groundShift=ground-oldGround;
+ hero.foot+=groundShift;
+ // V5.3.3 FIX-03: projectile lanes are relative to ground, not the old viewport.
+ if(groundShift && (mode==='playing'||mode==='paused')){
+  for(const list of [shots,zombieSpit,bossShots,sentryShots,cells,
+   particles,notices,explosions,heroImpactV50]){
+   for(const obj of list)if(typeof obj.y==='number')obj.y+=groundShift;
+  }
+ }
  if(mode==='menu'||mode==='over')hero.foot=ground;
 }
 function lockGamePage(active){
  document.documentElement.classList.toggle('game-locked',Boolean(active));
  if(active)window.scrollTo(0,0);
 }
-function panel(title,sub,description,button,eyebrow){$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
+function panel(title,sub,description,button,eyebrow){$('difficultyPicker').hidden=mode==='paused';$('overlayTitle').textContent=title;$('subtitle').textContent=sub;$('overlayText').textContent=description;$('playButton').textContent=button;$('eyebrow').textContent=eyebrow;overlay.hidden=false;}
 function updateHeatHud(){
  const node=$('heatHud');if(!node)return;
  // A standard pistol never overheats; only the Laser Rifle shows heat in Challenge.
@@ -1532,7 +1600,7 @@ function updateHeatHud(){
 function updateHud(){updateHeatHud();$('hp').textContent='♥ '.repeat(Math.max(0,hp)).trim()+'♡ '.repeat(3-Math.max(0,hp));$('energy').textContent=energy;$('kills').textContent=kills;$('score').textContent=score;$('best').textContent=best;$('distance').textContent=Math.floor(dist/12);$('weaponName').textContent=combatClassV52()?.hud||(laserCooling?'PISTOL (LASER COOLING)':weapons[activeWeapon].name);$('weaponIcon').src=gearAssets[activeWeapon];$('weaponIcon').hidden=!!combatClassV52();$('ammo').textContent=Number.isFinite(weaponAmmo)?(weaponAmmo+' SHOTS'):'∞ AMMO';}
 function reset(resume=false){
  selectScene(mission().scene);finalScoreBonus=0;enableAudio();mode='playing';lockGamePage(true);
- overlay.hidden=true;$('restartFullButton').hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;
+ overlay.hidden=true;updateDifficultyButtons();$('restartFullButton').hidden=true;$('stageProgress').hidden=false;$('pauseButton').hidden=false;hud.hidden=false;
  $('pauseButton').textContent='Ⅱ';$('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;
  runTime=0;dist=0;speed=133;heroX=W===360?65:108;checkpointResumed=false;
  finishDodge(true);joyDownHeld=false;keyboardDuckHeld=false;clearDodgeVisual();
@@ -1542,10 +1610,10 @@ function reset(resume=false){
  ruinPhaseIndex=-1;ruinHintKey='';phaseDamageBaseline=0;skillSectionWins=0;lessonSkillSeen=new Set();
  $('lessonHud').hidden=false;$('bossHud').hidden=true;
  nextOb=425;nextZ=610;nextCell=190;
-  rushPlanV523=buildRushPlanV523();rushCursorV523=0;rushReleasedV523=0;rushSkippedV523=0;
+  rushPlanV523=buildRushPlanV523();rushCursorV523=0;rushReleasedV523=0;rushSkippedV523=0;rushPendingIdV533=null;rushDeferredTotalV533=0;rushRescheduledV533=0;
  activeWeapon='pistol';weaponAmmo=Infinity;
   obstacles=[];zombies=[];zombieSpit=[];cells=[];shots=[];explosions=[];particles=[];notices=[];heroImpactV50=[];conveyors=[];drones=[];sentries=[];sentryShots=[];gimmickToastShown=false;
- cameraShake=0;fireHeld=false;fireQueuedUntil=-99;lastFireAudioAt=-99;jumpHeld=false;prevShot=-99;shotPose=0;heroVolleysFiredV52=0;
+ cameraShake=0;clearFireInputsV533();fireQueuedUntil=-99;lastFireAudioAt=-99;jumpHeld=false;prevShot=-99;shotPose=0;heroVolleysFiredV52=0;
  hero.foot=ground;hero.vy=0;hero.onGround=true;hero.fellInGap=false;hero.slideEnd=0;hero.invuln=0;hero.hurtUntil=0;
  hero.jumpGraceUntil=0;hero.coyoteUntil=0;hero.jumpBufferUntil=0;hero.jumpPressCount=0;hero.anim=0;
  if(stageIndex===3)conveyors=FACTORY_CONVEYORS.map(c=>({...c}));
@@ -1556,11 +1624,11 @@ function reset(resume=false){
  updatePersonalProgress();updateHud();updateStageHud();sound(520,.08,'triangle',.028);
  toast(checkpointResumed?'CP '+activeCheckpoint.index+' · TRY AGAIN':'STAGE '+(stageIndex+1)+' · FOUR STEP ADVENTURE',heroX+18,ground-96,'#a2f8ff');
 }
-function pause(){if(mode==='playing'){keyboardDuckHeld=false;finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;fireQueuedUntil=-99;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
+function pause(){if(mode==='playing'){keyboardDuckHeld=false;finishDodge(true);dodgeTouchId=null;dodgePointer=null;if(bgm)bgm.pause();mode='paused';updateDifficultyButtons();$('lessonHud').hidden=true;lockGamePage(true);clearFireInputsV533();fireQueuedUntil=-99;jumpHeld=false;$('characterPicker').hidden=true;$('scenePicker').hidden=true;$('sceneLabel').hidden=true;panel('PAUSED','TAKE YOUR TIME','Your score and current run are safe.','▶ RESUME','MISSION ON HOLD');$('pauseButton').textContent='▶';}else if(mode==='paused'){mode='playing';updateDifficultyButtons();lockGamePage(true);if(bgm&&!muted)bgm.play().catch(()=>{});overlay.hidden=true;$('pauseButton').textContent='Ⅱ';}}
 function toast(s,x=heroX,y=ground-72,col='#fce4aa'){notices.push({s,x,y,life:.9,col});}
 function burst(x,y,n,c){if(lowPower)n=Math.ceil(n*.7);for(let i=0;i<n;i++){let a=rand(clock*341+i*29)*Math.PI*2,v=20+rand(i*29+clock*18)*115;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:.25+rand(i*.6+9)*.32,c,size:2+Math.floor(rand(i*2+7)*4)})}}
 function hurt(reason){if(mode!=='playing'||hero.invuln>0)return;hp--;damageTaken++;dodgeStreak=0;hero.invuln=1.2;hero.hurtUntil=runTime+.23;cameraShake=7;burst(heroX,hero.foot-24,13,'#ff6b78');playFx('hurt',.3);sound(168,.21,'sawtooth',.035);toast(reason,heroX-16,hero.foot-66,'#ff879b');if(hp<=0){gameOver(reason);}}
-function gameOver(reason){if(mode!=='playing')return;lastFailureAdvice=failureAdvice(reason);saveMax(PROGRESS_KEY+difficulty+'_'+stageIndex,dist);mode='over';$('lessonHud').hidden=true;lockGamePage(true);fireHeld=false;fireQueuedUntil=-99;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
+function gameOver(reason){if(mode!=='playing')return;lastFailureAdvice=failureAdvice(reason);saveMax(PROGRESS_KEY+difficulty+'_'+stageIndex,dist);mode='over';updateDifficultyButtons();$('lessonHud').hidden=true;lockGamePage(true);clearFireInputsV533();fireQueuedUntil=-99;if(bgm)bgm.pause();hero.deadAt=clock;score=Math.floor(dist/8)+energy*25+kills*120+dodgeBonus+bossBonus;const newBest=score>best;if(newBest){best=score;try{localStorage.setItem('last_spark_v2_best',String(best));}catch(e){}}
  $('characterPicker').hidden=false;$('scenePicker').hidden=false;$('sceneLabel').hidden=false;updateHud();sound(130,.33,'sawtooth',.05);panel('GAME OVER',newBest?'NEW RECORD!':'TRY AGAIN?',`${reason}. You reached ${Math.floor(dist/mission().goal*100)}%. NEXT TRY: ${lastFailureAdvice} · Coins: ${energy} · Score: ${score}.`,
     checkpointReady()?'▶ CONTINUE FROM CHECKPOINT':'↻ RETRY','LEARN · ADAPT · TRY AGAIN');
      $('restartFullButton').hidden=!checkpointReady();
@@ -2666,7 +2734,29 @@ try{const h=Number(localStorage.getItem('last_spark_v49_hero')||4);if([1,2,3,4,5
 setHeroV49Choice();
 document.querySelectorAll('[data-char]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.char);try{localStorage.setItem('last_spark_v49_hero',String(selected));}catch(_){}setHeroV49Choice();sound(540,.06,'sine',.015);}));
 function bind(id,down,up){const e=$(id);e.addEventListener('pointerdown',ev=>{ev.preventDefault();wakeGameAudio();e.classList.add('held');try{e.setPointerCapture(ev.pointerId);}catch(_){}down();});for(const typ of ['pointerup','pointercancel','lostpointercapture'])e.addEventListener(typ,()=>{e.classList.remove('held');if(up)up();});}
-bind('fireButton',()=>{fireHeld=true;requestFire();},()=>{fireHeld=false;heatNeedsRelease=false});
+// FIRE supports multiple simultaneous touch contacts; a single released
+// finger cannot cancel another held finger (or a held keyboard key).
+const fireButtonV533=$('fireButton');
+fireButtonV533.addEventListener('pointerdown',ev=>{
+ if(mode!=='playing'||(ev.pointerType==='mouse'&&ev.button!==0))return;
+ if(ev.cancelable)ev.preventDefault();
+ wakeGameAudio();
+ if(!firePointerIdsV533.has(ev.pointerId)){
+  firePointerIdsV533.add(ev.pointerId);
+  fireButtonV533.classList.add('held');
+  syncFireHeldV533();requestFire();
+ }
+ try{fireButtonV533.setPointerCapture(ev.pointerId);}catch(_){}
+});
+for(const eventName of ['pointerup','pointercancel','lostpointercapture']){
+ fireButtonV533.addEventListener(eventName,ev=>{
+  if(!firePointerIdsV533.has(ev.pointerId))return;
+  if(ev.cancelable)ev.preventDefault();
+  firePointerIdsV533.delete(ev.pointerId);
+  if(firePointerIdsV533.size===0)fireButtonV533.classList.remove('held');
+  syncFireHeldV533();
+ });
+}
 canvas.addEventListener('pointerdown',e=>{if(mode==='playing'){e.preventDefault();requestFire();}});
  // V4.8: Single-purpose controls. Jump begins at pointerdown, not at pointerup.
  // The old 190 ms hold timer could classify a legitimate gap jump as a duck,
@@ -2731,7 +2821,7 @@ window.addEventListener('keydown',e=>{
   }
   if(e.repeat)return;
   if(e.code==='Space'||e.code==='ArrowUp')jump();
-  if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=true;requestFire();}
+  if(e.code==='KeyF'||e.code==='KeyX'){fireKeysV533.add(e.code);syncFireHeldV533();requestFire();}
   if(e.code==='KeyP'||e.code==='Escape')pause();
  });
  window.addEventListener('keyup',e=>{
@@ -2740,15 +2830,15 @@ window.addEventListener('keydown',e=>{
    keyboardDuckHeld=false;
    if(!joyDownHeld)hero.slideEnd=Math.min(hero.slideEnd,runTime+.055);
   }
-  if(e.code==='KeyF'||e.code==='KeyX'){fireHeld=false;heatNeedsRelease=false;}
+  if(e.code==='KeyF'||e.code==='KeyX'){fireKeysV533.delete(e.code);syncFireHeldV533();}
  });
- window.addEventListener('blur',()=>{fireHeld=false;fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
+ window.addEventListener('blur',()=>{clearFireInputsV533();fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.2',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.3',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},
- gunHeat,gunOverheated,laserCooling,laserBackupAmmo,laserHeatWarned,damageTaken,fireHeld,fireQueuedUntil,prevShot,boss:boss?{...boss}:null,
+ gunHeat,gunOverheated,laserCooling,laserBackupAmmo,laserHeatWarned,damageTaken,fireHeld,firePointers:firePointerIdsV533.size,fireKeys:[...fireKeysV533],fireQueuedUntil,prevShot,boss:boss?{...boss}:null,
  activeWeapon,weaponAmmo,combatClass:combatClassV52()?.name||'CLASSIC',combatRate:combatClassV52()?.rate??weapons[activeWeapon].rate,combatDamage:combatClassV52()?.damage??weapons[activeWeapon].damage,volleyCount:heroVolleysFiredV52,shotCount:shots.length,shotDamages:shots.map(p=>p.damage),shotVys:shots.map(p=>p.vy),shotPierce:shots.map(p=>p.pierce),obstacles:obstacles.length,coinCount:cells.length,zombies:zombies.length,zombieSpit:zombieSpit.length,zombieTypes:zombies.map(z=>z.archetype),
  noFlag:true,noMysteryBox:true,lowPower,audioState:ac?ac.state:'not-initialized',audioMuted:muted,audioDecoded:Object.keys(soundBuffers),audioDecodeComplete,audioDecodeErrors,targetFPS:Math.round(1000/minFrameMs)});
 resize();updateHud();requestAnimationFrame(animate);

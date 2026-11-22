@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.3.6 — Encounter Recovery</title>
+<title>LAST SPARK V5.3.7 — Phone Landscape UI Fix</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -266,11 +266,43 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  .hud .right .sub{display:none!important}
  .lesson-hud{top:62px;max-width:58%;width:330px}
 }
+
+/* V5.3.7 - Mobile landscape: maximize 16:9 playfield, position touch controls
+   in side gutters (or over lower corners on narrow phones). No JS physics edits. */
+@media (orientation: landscape) and (max-height: 550px) and (max-width: 1100px){
+ html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+ .shell,html.game-locked .shell{position:relative;width:100%;height:100dvh;min-height:0;max-height:100dvh;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:0;padding:0!important}
+ .top,.helper,.credit-line{display:none!important}
+ .frame{flex:0 0 auto;max-width:none!important;width:min(calc(100vw - 12px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)),calc((100dvh - 6px)*1.7777778))!important;margin:0 auto;aspect-ratio:16 / 9;height:auto;border-width:2px;border-radius:8px;box-shadow:0 0 0 1px #66718a,0 0 20px #0009}
+ .controls,html.game-locked .controls{position:fixed;z-index:12;left:max(3px,env(safe-area-inset-left));right:max(3px,env(safe-area-inset-right));bottom:max(4px,env(safe-area-inset-bottom));width:auto!important;max-width:none!important;min-height:0;height:auto;margin:0;padding:0;gap:4px;align-items:flex-end;display:flex;justify-content:space-between;pointer-events:none}
+ .dodge-area{width:auto!important;min-width:0!important;min-height:0!important;gap:5px;align-items:flex-end;pointer-events:auto;filter:drop-shadow(0 2px 4px #000b)}
+ .dodge-button{width:clamp(48px,10.5dvh,68px)!important;height:clamp(48px,10.5dvh,68px)!important;flex:0 0 clamp(48px,10.5dvh,68px)!important;border-width:2px;box-shadow:inset 0 0 0 2px #112b42,0 0 0 2px #101c2d,0 2px 7px #000a}
+ .duck-button{width:clamp(46px,9.4dvh,62px)!important;height:clamp(46px,9.4dvh,62px)!important;flex:0 0 clamp(46px,9.4dvh,62px)!important;border-width:2px}
+ .dodge-main,.duck-main{font-size:14px!important}
+ .dodge-word,.duck-word{font-size:10px!important}
+ .dodge-mini,.duck-mini{font-size:6px!important;margin-top:1px}
+ .action-pads{flex:0 0 auto;gap:0;pointer-events:none}
+ .pad-btn.fire{flex:0 0 clamp(52px,10.5dvh,68px)!important;width:clamp(52px,10.5dvh,68px)!important;height:clamp(52px,10.5dvh,68px)!important;pointer-events:auto;filter:drop-shadow(0 2px 4px #0009)}
+ .pad-btn img{width:22px;height:22px}.pad-btn span{font-size:8px}
+ .overlay{padding:3px 5px!important;align-items:center;justify-content:center}
+ .overlay .panel{max-height:none;min-height:0;padding:6px 9px;overflow-y:auto;overscroll-behavior:contain}
+ .launch-dock{padding:3px 6px 2px;gap:0}.launch-dock .action{min-height:31px;font-size:12px}.launch-hint{display:none}
+ .hud{padding:4px 7px 14px;font-size:10px}.hud .sub{font-size:8px}.hud .right{padding-right:103px;font-size:10px}
+ #soundButton.sound-toggle{top:4px!important;right:44px!important;width:52px!important;height:29px;font-size:9px}
+ #pauseButton.pause{top:4px;right:5px;width:30px;height:29px}
+ .stage-progress{top:4px}
+ .lesson-hud{top:43px;max-width:55%;width:min(55%,320px)}
+ .boss-hud{top:36px}.boss-hud.late-boss{top:54px}
+}
+@media (orientation: landscape) and (max-height: 285px) and (max-width: 1100px){
+ .hud .right .sub,.hud .gun-line{display:none!important}
+ .hud{font-size:9px}.lesson-hud{top:36px}.boss-hud{top:28px}.boss-hud.late-boss{top:42px}
+}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>ENCOUNTER FIX · V5.3.6</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>PHONE LANDSCAPE FIX · V5.3.7</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -340,7 +372,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAHP0lEQVR42t2bXaxUVxXHf2vPvUIDRAqKEklrsdUIiQKKYAqktlVrH9qqiQ3QGGyTKkSj4BshMWkTY5NqSjVpWpuqjU3T8ND2hUTsS7/Sh0pobdrUpAlFPiSCWAsUYe45fx9YO2yOM3PPzJx9L/fuZHImM2f22eu/1vqvj70HGh6SzF+3S9ov6ZSkX0r6jH8fJAWm44iCSdqu/x+HJK1PgZquwi+UdEBSIWnMhR9LgPi1pFl+78h0BOCTbvpyEJS8L/39HkkL/f7WZK47hy8KsC7PMqANfBV4VtI1ZlZMJgi5AFCP70eBAlgJvCDpJgdhZLq4wDWSjnRwgeqIvHBa0rcuBXcYFoCWX1dLOuvCleo9IginJN06GcSYwwVmAx8Cyhr3tvy+WcCTkm4xs7GJtIQcACzya9GFDDutoQQuAx6XtMI5IUw1ACLxXe1X63MdBfBh4GlJS8ysnHKc4CnwizUIsNto+/Wvki6fMhljXKSk+ZLO1CTA8Yjxd5JakkZyghAanudGYEaPZKjuXGPAJmCzmY1l4qosIfCJDrn/IKP012lJy9M841JOgD4h6d0h/L864hwvSZqdq4xucsKvA1c6m4eG1lYA1wLfN7NyCLfKzvwtSX9pUPtVVzgpaXEvV4iNmMny/fVDMn+dqPCUR4RWKmgVEAciTIjv+2LmSNrrwhcZAIjz/lfS2grwKRCzJM3st+M0DFJmZgVwJ7DC09kcyJuH1RnANv+slGRmJklLJe0GjgL7JT0sab5/F3Iz/1WSTiS+mnOU7g5rE1NfJOlgh3tfSdpu1qgF+IRB0ijwG+By135uAiq9etwiKZiZPPFa5NEi1iPngNXAI15at3qBMIiJBM/OfgLc3GDYq+sK1wGf8s8+Xym7zTtObWADsMnXak2Z/ohfb/Ccv5gA0+8UEe5wF3i5UkSpEo3+JenTvcJn6CfkebNiOfAkMHOAsrcJKwC4AVgGLE9co3pfAcwDfpUUazao5mPYWSjptQwJTz9EKEnHvbXeax1lajHdeo5WU/OFpCuAZxz1ogPqk5KIjiNDJOf9wOeADzx+q5YLONsWkhYAT19Cwqtm5Al+72LgThc81LKAhDTmuubXep0+1fr3Eai3XYYTnsSV41qA3/TgFBY+bbp+FrjZrcB6uoD7fSlpK7BxCgtfzSHucMUWXV3A/b6UtAp4ztvVdsm3peqNNrDMzN6KtUTobAAaAXZyfpODaSK8PEu8KZUpdDB9AT8AVnVJMqbqiGb/lY6ZoLN+KWk+sIXeO7y52LrI+Nwo62IvlwtJIVTqewG3O2OWE2T6cTs9uLVZZvAXcWH7zkIifTyosJnh+vqDxGgD9gGPedaWA4QYDucAH78IgKRI+CKwZIJYP5bRJ4CtwBozuwv4ZkxWqLfD3O8zzUGAJLa3PNbflrSjWxlNPpLry8CPzGxfoogjwD+9klPGNVxEDBHpZdUbMph8BPy3wDfMbF/s9joHfcSFn5DwG5LEZwFwVcYHR6IzYIeZ3W1mJ2OfIQG9SIDKpQirugDAx4AFmZn+FHCXme3ysKs0LfVx1l85BR9LXSB+OCchB8sgfAC2ufAjZlamdXmi7X8D72WwALnCx4Dj8bNQ8c8yk98HYKuZPSpp1E2+WxH2PnAgEwAAB9P5QyVONu37MZo8ZGYPuIDtLqV3mnu8mIGLIgD/AI56xLkIgKZ9L4a614HtnmSpBmB4A+ZchmRMwJuuhFasBuOijqe+0RDaZ4Afm9l7SYOlVwNGXqa+A+zmQne3iRHT7D+lITl4+RuAw8DfGwIg+v2jZvZ87C32WbTsTCyyCYUIOAbsSeeMW0wxFu9tSHgDDpH05Pv5vbvL88DvuXCYsok17fLcI1wUgZLNzjUNHm25JzJ73+q6sJExT9LfhtyHKPx1WtKXfN6Rbg+eIenNIXZ742+OSfroMKc2EqWsk/SfIc4fpAcsQlUhodILPAs8MUQlFv38MTM7lvQY+k/Z/KSomb3gDZpyQN8PTsa/cBJWN8RbyZ774cpfXvo5yXFG0rU+19Cd5GRb7r4BXCFumt6XWlWdh20f4LxfXNgbkubWemBNV3DlzO7zKE5c+2t+grVVB4D4l7eZkvb1iXhE+6meRDOcFXy75mGs+P0Hkr7clzIS8lkp6f0+XCEC9bOmzL+DcoJbWC/FFK6MtqTvjheJQhfyCWb2KucPQMUaYTwyi2x/wImv8Z6ek9gfKs2VblXf/Wb2uAtfDmN2P0xMql3D7DYMGv/HWU88nXJ95RBlNd5L0v1Dc1A8Aerv706Owbe7+GD8bGMmAKJrLvUDEqkbpOv5aUKe1iQBrZP0eoVlywm0gAjAFZU/ZraTP159r6no0w2EuZJ2JtaQAhGv9zYdBSprWO3PLxPhD0q6sVHNd9OAv/+CpD8mppiOXX7PaCYO+E7F/P+cHKQeJeeoHkSWtEzSzz3ZeMtD1NdymGFiAWvcAg5L2iHpsmFc7n8tXDnk1C7kbAAAAABJRU5ErkJggg==" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.3.6 · ENCOUNTER FIX · ROTATION FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
+<div class="helper">V5.3.7 · PHONE LANDSCAPE FIX · ENCOUNTER FIX · ROTATION FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>

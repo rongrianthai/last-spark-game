@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0e1b2c"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<title>LAST SPARK V5.4.0 — Mobile Control Phase 1</title>
+<title>LAST SPARK V5.4.1 — Full-Screen Touch Refinement</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -381,11 +381,139 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  #touchSettingsButton{top:9px;right:117px;width:33px;height:33px;z-index:8}
 }
 
+
+/* ========================================================================
+   V5.4.1 — FULL-BLEED LANDSCAPE TOUCH UI (CSS ONLY)
+   Keeps 640x360 gameplay canvas/physics unchanged. Canvas is drawn as a
+   uniform 16:9 image with controlled *vertical* overscan on wide phones.
+   16:9 or taller screens use containment; no horizontal scene clipping.
+   Touch buttons are independent overlays with stable full hit-box sizes.
+   ======================================================================== */
+@media (orientation:landscape) and (max-height:750px) {
+  html,body {height:100%;width:100%;overflow:hidden!important;overscroll-behavior:none}
+  .shell,html.game-locked .shell {
+    position:relative!important;display:block!important;
+    width:100%!important;height:100dvh!important;max-height:100dvh!important;
+    min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;
+  }
+  .top,.helper,.credit-line {display:none!important}
+  .frame {
+    position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+    min-height:0!important;flex:none!important;margin:0!important;padding:0!important;
+    border:0!important;border-radius:0!important;box-shadow:none!important;
+    aspect-ratio:auto!important;display:block!important;overflow:hidden!important;
+    background:#0b1a2b!important;
+  }
+  .frame canvas#stage {
+    display:block!important;position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+    margin:0!important;padding:0!important;
+    object-fit:cover!important;object-position:center center!important;
+    image-rendering:pixelated!important;
+  }
+  /* The three touch controls live visually inside the game viewport.
+     Keep their *real* rectangular hit targets large, even at 20% opacity. */
+  .controls,html.game-locked .controls {
+    position:fixed!important;inset:auto 0 0!important;z-index:12!important;
+    width:100%!important;max-width:none!important;height:0!important;min-height:0!important;
+    margin:0!important;padding:0!important;display:block!important;pointer-events:none!important;
+  }
+  .dodge-area {
+    position:fixed!important;left:max(12px,env(safe-area-inset-left))!important;
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    display:flex!important;flex-flow:row nowrap!important;gap:12px!important;
+    align-items:flex-end!important;width:auto!important;min-width:0!important;min-height:0!important;
+    pointer-events:none!important;filter:drop-shadow(0 3px 7px #0009);
+  }
+  .dodge-button,.duck-button {
+    box-sizing:border-box!important;
+    width:clamp(78px,22dvh,104px)!important;height:clamp(78px,22dvh,104px)!important;
+    flex:0 0 clamp(78px,22dvh,104px)!important;
+    padding:0!important;border-width:3px!important;pointer-events:auto!important;touch-action:none!important;
+    box-shadow:0 3px 10px #000a!important;
+  }
+  .dodge-main,.duck-main {font-size:20px!important}
+  .dodge-word,.duck-word {font-size:13px!important}
+  .dodge-mini,.duck-mini {font-size:8px!important}
+  .action-pads {
+    position:fixed!important;right:max(12px,env(safe-area-inset-right))!important;
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    display:block!important;width:auto!important;flex:none!important;pointer-events:none!important;
+  }
+  .pad-btn.fire {
+    box-sizing:border-box!important;
+    width:clamp(85px,24dvh,116px)!important;height:clamp(85px,24dvh,116px)!important;
+    flex:0 0 clamp(85px,24dvh,116px)!important;
+    pointer-events:auto!important;touch-action:none!important;
+    filter:drop-shadow(0 4px 10px #000b);
+  }
+  .pad-btn.fire img{width:33px!important;height:33px!important}
+  .pad-btn.fire span{font-size:11px!important}
+  .overlay {z-index:16!important;}
+  .overlay[hidden]{display:none!important}
+  .hud {padding:5px max(8px,env(safe-area-inset-left)) 10px!important;font-size:11px!important}
+  .hud .right {padding-right:clamp(125px,21vw,173px)!important;font-size:11px!important}
+  .hud .right .sub {display:none!important}
+  #touchSettingsButton {
+    top:max(6px,env(safe-area-inset-top))!important;
+    right:calc(max(8px,env(safe-area-inset-right)) + 110px)!important;
+    width:36px!important;height:37px!important;z-index:20!important;
+  }
+  #soundButton.sound-toggle {
+    top:max(6px,env(safe-area-inset-top))!important;
+    right:calc(max(8px,env(safe-area-inset-right)) + 45px)!important;
+    width:56px!important;height:37px!important;z-index:20!important;
+  }
+  #pauseButton.pause {
+    top:max(6px,env(safe-area-inset-top))!important;
+    right:max(8px,env(safe-area-inset-right))!important;
+    width:37px!important;height:37px!important;z-index:20!important;
+  }
+  .stage-progress {top:8px!important}
+  .lesson-hud {top:52px!important;max-width:58%!important;width:min(58%,440px)!important}
+  .boss-hud {top:43px!important}
+  .boss-hud.late-boss {top:61px!important}
+  /* Overlay UI must scroll if a menu is taller than a short landscape phone. */
+  .overlay{padding:5px max(8px,env(safe-area-inset-right)) 5px max(8px,env(safe-area-inset-left))!important}
+  .overlay .panel {max-height:100%!important;overflow-y:auto!important}
+  .launch-hint {display:block!important;font-size:9px!important}
+}
+/* On narrow landscape phones, stack the two left buttons within the left
+   safe zone so neither button covers the hero near the start of the scene. */
+@media (orientation:landscape) and (max-width:1050px) and (max-height:550px){
+  .dodge-area {flex-direction:column-reverse!important;gap:7px!important;align-items:flex-start!important}
+  .dodge-button,.duck-button {
+    width:clamp(68px,20dvh,84px)!important;height:clamp(68px,20dvh,84px)!important;
+    flex-basis:clamp(68px,20dvh,84px)!important;
+  }
+  .pad-btn.fire {width:clamp(80px,24dvh,96px)!important;height:clamp(80px,24dvh,96px)!important;
+    flex-basis:clamp(80px,24dvh,96px)!important}
+  .dodge-main,.duck-main{font-size:17px!important}
+  .dodge-word,.duck-word{font-size:11px!important}
+  .dodge-mini,.duck-mini{font-size:7px!important}
+  .hud {font-size:9px!important}
+  .hud .sub {font-size:8px!important}
+  .hud .right {padding-right:147px!important;font-size:9px!important}
+  .lesson-hud{top:48px!important;max-width:60%!important}
+}
+/* Tiny-height landscape devices: keep all buttons wholly on-screen. */
+@media (orientation:landscape) and (max-height:305px){
+  .dodge-area{gap:5px!important;left:max(7px,env(safe-area-inset-left))!important;bottom:max(6px,env(safe-area-inset-bottom))!important}
+  .dodge-button,.duck-button{width:clamp(56px,22dvh,68px)!important;height:clamp(56px,22dvh,68px)!important;
+    flex-basis:clamp(56px,22dvh,68px)!important}
+  .action-pads{right:max(7px,env(safe-area-inset-right))!important;bottom:max(6px,env(safe-area-inset-bottom))!important}
+  .pad-btn.fire{width:clamp(64px,26dvh,78px)!important;height:clamp(64px,26dvh,78px)!important;
+    flex-basis:clamp(64px,26dvh,78px)!important}
+  #touchSettingsButton,#soundButton.sound-toggle,#pauseButton.pause{height:31px!important}
+  .lesson-hud{top:39px!important}
+}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>MOBILE CONTROLS · V5.4.0</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>FULL-BLEED CONTROLS · V5.4.1</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -456,7 +584,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <button class="pad-btn fire" id="fireButton" aria-label="Fire"><img src="data:image/png;base64,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" alt=""/><span>FIRE</span></button>
  </div>
 </div>
-<div class="helper">V5.3.7 · PHONE LANDSCAPE FIX · ENCOUNTER FIX · ROTATION FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
+<div class="helper">V5.4.1 · FULL-BLEED TOUCH UI · ENCOUNTER FIX · ROTATION FIX · BOSS EVOLUTION · DOUBLE JUMP · RAPID COMBAT · ZOMBIE RUSH · HERO COMBAT CLASSES · FIVE ZOMBIE ENEMIES · SIX-STAGE SKILLS • 2 CHECKPOINTS (STAGES 4–6) • DOUBLE JUMP (MAX 2) • HOLD DUCK • FIRE</div>
 <div class="credit-line">Weapon sprites (scaled/embedded) by <a href="http://www.reactorcoregames.com" target="_blank" rel="noopener noreferrer">Reactorcore</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>) · Explosion sprites CC0 (Skulitom) · SFX from CraftPix Free Sci-Fi Wasteland Pack (<a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer">CraftPix.net</a>)</div>
 </div>
 <script>
@@ -3055,7 +3183,7 @@ window.addEventListener('keydown',e=>{
  });
  window.addEventListener('blur',()=>{clearFireInputsV533();fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.4.0',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,enemyCap:sharedEnemyCapV534(),enemyAlive:activeEnemyCountV534(),authoredDeferred:authoredDeferredV534,authoredRescheduled:authoredRescheduledV534,heroX,ground,W,H,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.4.1',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,enemyCap:sharedEnemyCapV534(),enemyAlive:activeEnemyCountV534(),authoredDeferred:authoredDeferredV534,authoredRescheduled:authoredRescheduledV534,heroX,ground,W,H,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},

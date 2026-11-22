@@ -4,7 +4,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
 <meta name="theme-color" content="#0e1b2c"/>
-<title>LAST SPARK V5.3.7 — Phone Landscape UI Fix</title>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>LAST SPARK V5.4.0 — Mobile Control Phase 1</title>
 <style>
 :root{color-scheme:dark;--gold:#f7c777;--aqua:#68e7ff;--ink:#e9f4ff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -298,11 +300,92 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
  .hud .right .sub,.hud .gun-line{display:none!important}
  .hud{font-size:9px}.lesson-hud{top:36px}.boss-hud{top:28px}.boss-hud.late-boss{top:42px}
 }
+
+/* LAST SPARK V5.4.0 — PHASE 1: UI-ONLY MOBILE TOUCH CONTROLS.
+   Gameplay canvas and physics resolution are deliberately unchanged.
+   Full viewport container uses an aspect-preserving canvas; side areas on wide phones
+   are intentional safe gutters, NEVER cropped game content. */
+:root { --touch-control-opacity: .5; }
+#dodgeButton,#duckButton,#fireButton { opacity:var(--touch-control-opacity,.5)!important; transition:filter .08s ease; }
+#touchSettingsButton { position:absolute;right:122px;top:9px;width:35px;height:34px;z-index:8;line-height:1;font-size:19px;touch-action:manipulation; }
+#touchSettingsModal { position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#020814d9;padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));overscroll-behavior:contain; }
+#touchSettingsModal[hidden] { display:none!important; }
+#touchSettingsBox { width:min(100%,350px);background:#0d2234;color:#f5faff;padding:17px 19px;border:2px solid #87b8ce;border-radius:15px;box-shadow:0 16px 65px #000; }
+#touchSettingsBox h2{margin:0 0 6px;font-size:20px;color:#ffe2a1;letter-spacing:.03em}
+#touchSettingsBox p {font-size:12px;line-height:1.5;color:#d0e2f3;margin:4px 0 12px}
+#touchSettingsBox label{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:750;align-items:center}
+#touchOpacitySlider{width:100%;height:44px;accent-color:#f4c878;touch-action:auto;cursor:pointer}
+.touch-settings-preview{display:flex;gap:14px;justify-content:center;margin:8px 0 12px}
+.touch-settings-preview span{display:grid;place-items:center;width:61px;height:61px;border-radius:50%;border:2px solid #93e3fa;background:#21455d;font-size:11px;font-weight:1000;opacity:var(--touch-control-opacity,.5);pointer-events:none}
+#touchSettingsDone{display:block;width:100%;min-height:46px;border:2px solid #ffdaa2;border-radius:9px;background:linear-gradient(#ffe0a0,#e1a45c);color:#14283a;font-weight:900;font-size:16px;cursor:pointer;touch-action:manipulation}
+@media (orientation: landscape) and (max-height: 550px) and (max-width:1100px) {
+ html, body { width:100%;height:100%;overflow:hidden;overscroll-behavior:none; }
+ .shell, html.game-locked .shell {
+   position:relative!important;width:100%!important;height:100dvh!important;min-height:0!important;max-height:100dvh!important;
+   margin:0!important;padding:0!important;gap:0!important;display:flex;align-items:center;justify-content:center;overflow:hidden;
+ }
+ .top,.helper,.credit-line{display:none!important}
+ .frame {
+   width:100vw!important;height:100dvh!important;max-width:none!important;max-height:100dvh!important;
+   min-height:0!important;flex:0 0 100%!important;margin:0!important;border:0!important;border-radius:0!important;
+   box-shadow:none!important;aspect-ratio:auto!important;display:flex;align-items:center;justify-content:center;
+   background:linear-gradient(90deg,#142636 0%,#1c3041 22%,#15283c 50%,#1c3041 78%,#142636 100%)!important;
+ }
+ .frame canvas#stage {
+   width:auto!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+   flex:none;align-self:center;object-fit:contain;aspect-ratio:auto!important;
+ }
+ .controls,html.game-locked .controls {
+   position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;
+   width:100vw!important;max-width:none!important;min-height:0!important;height:0!important;
+   margin:0!important;padding:0!important;display:block!important;z-index:12!important;
+   pointer-events:none!important;
+ }
+ .dodge-area { position:fixed;left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom));
+   width:auto!important;min-width:0!important;min-height:0!important;display:flex;gap:10px!important;
+   align-items:center!important;pointer-events:none!important; }
+ .dodge-button, .duck-button {
+   box-sizing:border-box!important;width:clamp(64px,21dvh,90px)!important;height:clamp(64px,21dvh,90px)!important;
+   flex:0 0 clamp(64px,21dvh,90px)!important;border-width:3px!important;
+   pointer-events:auto!important;touch-action:none!important;box-shadow:0 4px 14px #000a!important;
+ }
+ .dodge-main, .duck-main {font-size:18px!important}
+ .dodge-word, .duck-word {font-size:12px!important}
+ .dodge-mini, .duck-mini {font-size:8px!important}
+ .action-pads{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));
+   width:auto!important;display:block!important;flex:none!important;pointer-events:none!important}
+ .pad-btn.fire {
+   box-sizing:border-box!important;width:clamp(72px,23dvh,98px)!important;height:clamp(72px,23dvh,98px)!important;
+   flex:0 0 clamp(72px,23dvh,98px)!important;pointer-events:auto!important;touch-action:none!important;
+   filter:drop-shadow(0 4px 9px #000d);
+ }
+ .pad-btn.fire img{width:30px!important;height:30px!important}.pad-btn.fire span{font-size:11px!important}
+ .overlay { z-index:16!important; }
+ .overlay[hidden] { display:none!important; }
+ .hud { padding:5px max(6px,env(safe-area-inset-left)) 15px;max-width:100%; }
+ .hud .right{padding-right:148px!important;font-size:10px!important;}
+ .hud .right .sub{display:none!important;}
+ #touchSettingsButton {top:max(3px,env(safe-area-inset-top));right:calc(max(3px,env(safe-area-inset-right)) + 102px);z-index:20;width:34px;height:33px;}
+ #soundButton.sound-toggle { top:max(3px,env(safe-area-inset-top))!important;right:calc(max(3px,env(safe-area-inset-right)) + 40px)!important;width:53px!important;height:33px;z-index:20; }
+ #pauseButton.pause { top:max(3px,env(safe-area-inset-top));right:max(3px,env(safe-area-inset-right));width:34px;height:33px;z-index:20; }
+ .lesson-hud {max-width:53%!important;top:48px;}
+ .stage-progress{top:6px}
+}
+@media (orientation:landscape) and (max-height:310px) and (max-width:1100px) {
+ .dodge-area{gap:7px!important}
+ .dodge-button,.duck-button{width:clamp(68px,22dvh,78px)!important;height:clamp(68px,22dvh,78px)!important;flex-basis:clamp(68px,22dvh,78px)!important}
+ .pad-btn.fire{width:clamp(74px,25dvh,84px)!important;height:clamp(74px,25dvh,84px)!important;flex-basis:clamp(74px,25dvh,84px)!important}
+ .hud .gun-line,.hud .right .sub{display:none!important}
+}
+@media (orientation:portrait) {
+ #touchSettingsButton{top:9px;right:117px;width:33px;height:33px;z-index:8}
+}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="top"><span class="brand">⚡ LAST SPARK</span><small>PHONE LANDSCAPE FIX · V5.3.7</small></div>
+<div class="top"><span class="brand">⚡ LAST SPARK</span><small>MOBILE CONTROLS · V5.4.0</small></div>
 <div class="frame" id="frame">
  <canvas id="stage" width="640" height="360" aria-label="Last Spark: cowboy runs, jumps and fires energy to destroy zombies"></canvas>
  <div class="boss-hud" id="bossHud" hidden aria-live="off">
@@ -320,6 +403,7 @@ html.game-locked .controls,html.game-locked .joy,html.game-locked .pad-btn,html.
   <div class="right">SCORE <span class="accent" id="score">0</span><div class="sub">BEST <span id="best">0</span> · <span id="distance">0</span>m</div></div>
  </div>
   <div class="heat-line" id="heatHud" hidden style="position:absolute;top:61px;left:12px;z-index:2;pointer-events:none;background:#0617279c;padding:2px 5px;border-radius:4px">HEAT <span id="heatValue" class="heat-safe">▰▱▱▱▱</span></div>
+  <button type="button" class="pause" id="touchSettingsButton" aria-label="Control opacity settings" title="Control settings">⚙</button>
   <button class="pause sound-toggle" id="soundButton" aria-label="Toggle audio">♫ ON</button><button class="pause" id="pauseButton" aria-label="Pause" hidden>Ⅱ</button>
  <div class="overlay" id="overlay">
    <div class="panel"><div class="eyebrow" id="eyebrow">HEROES VS ZOMBIES</div>
@@ -2971,7 +3055,7 @@ window.addEventListener('keydown',e=>{
  });
  window.addEventListener('blur',()=>{clearFireInputsV533();fireQueuedUntil=-99;keyboardDuckHeld=false;dodgePointer=null;dodgeTouchId=null;finishDodge(true);joyDownHeld=false;releaseJump();clearDodgeVisual();if(mode==='playing')pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='playing')pause();});window.addEventListener('resize',resize);
 for(const [name,asset] of Object.entries(atlas)){const im=new Image();imageMap[name]=im;im.onload=()=>{loaded++;checkReady();};im.onerror=()=>{loaded++;checkReady();};im.src=asset.src;}
-window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.3.6',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,enemyCap:sharedEnemyCapV534(),enemyAlive:activeEnemyCountV534(),authoredDeferred:authoredDeferredV534,authoredRescheduled:authoredRescheduledV534,heroX,ground,W,H,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
+window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[selected]?.name||('COWBOY '+selected),heroArtLoaded:!!(imageMap['hero'+selected]?.naturalWidth),version:'5.4.0',mode,stageIndex,rushPlanned:rushPlanV523.length,rushReleased:rushReleasedV523,rushSkipped:rushSkippedV523,rushRemaining:rushPlanV523.length-rushCursorV523,rushDeferredTotal:rushDeferredTotalV533,rushRescheduled:rushRescheduledV533,rushPendingId:rushPendingIdV533,enemyCap:sharedEnemyCapV534(),enemyAlive:activeEnemyCountV534(),authoredDeferred:authoredDeferredV534,authoredRescheduled:authoredRescheduledV534,heroX,ground,W,H,rushAlive:zombies.filter(z=>z.rush&&z.status!=='dead').length,enemyAI:zombies.filter(z=>z.status!=='dead').map(z=>({type:z.archetype,state:z.aiState,actions:z.aiActionCount,cue:z.aiCue})),spitModes:zombieSpit.map(b=>b.high?'high':'low'),heroVy:hero.vy,heroOnGround:hero.onGround,heroFellInGap:hero.fellInGap,jumpPressCount:hero.jumpPressCount||0,heroFoot:hero.foot,jumpCeiling:Math.max(56,ground-190),jumpHeld,joyDownHeld,keyboardDuckHeld,sliding:hero.onGround&&(runTime<hero.slideEnd||joyDownHeld||keyboardDuckHeld),unlockedStage,allStagesCleared,
  stageGoal:mission().goal,stagePhase:phaseForStage(),dist,score,hp,energy,kills,cleanDodges,
  checkpointIndex:checkpointReady()?activeCheckpoint.index:0,checkpointResumed,
  gimmickCounts:{conveyors:conveyors.length,drones:drones.length,sentries:sentries.length,sentryShots:sentryShots.length},
@@ -2979,6 +3063,52 @@ window.__lastSparkDiagnostics=()=>({heroChoice:selected,heroName:HERO_V49[select
  activeWeapon,weaponAmmo,combatClass:combatClassV52()?.name||'CLASSIC',combatRate:combatClassV52()?.rate??weapons[activeWeapon].rate,combatDamage:combatClassV52()?.damage??weapons[activeWeapon].damage,volleyCount:heroVolleysFiredV52,shotCount:shots.length,shotDamages:shots.map(p=>p.damage),shotVys:shots.map(p=>p.vy),shotPierce:shots.map(p=>p.pierce),obstacles:obstacles.length,coinCount:cells.length,zombies:zombies.length,zombieSpit:zombieSpit.length,zombieTypes:zombies.map(z=>z.archetype),
  noFlag:true,noMysteryBox:true,lowPower,audioState:ac?ac.state:'not-initialized',audioMuted:muted,audioDecoded:Object.keys(soundBuffers),audioDecodeComplete,audioDecodeErrors,targetFPS:Math.round(1000/minFrameMs)});
 resize();updateHud();requestAnimationFrame(animate);
+})();
+</script>
+
+<!-- Phase 1 ONLY: settings UI; no new movement, combo, charge or skills. -->
+<div id="touchSettingsModal" role="dialog" aria-modal="true" aria-labelledby="touchSettingsTitle" hidden>
+ <div id="touchSettingsBox">
+  <h2 id="touchSettingsTitle">⚙ CONTROL OPACITY</h2>
+  <p>ปรับความทึบของปุ่ม JUMP · DUCK · FIRE (20–100%) ขนาดพื้นที่กดไม่เปลี่ยน ค่าเริ่มต้น 50%</p>
+  <label for="touchOpacitySlider"><span>BUTTON OPACITY</span><output id="touchOpacityValue" for="touchOpacitySlider">50%</output></label>
+  <input id="touchOpacitySlider" type="range" min="20" max="100" step="5" value="50" aria-label="Button opacity percentage"/>
+  <div class="touch-settings-preview" aria-hidden="true"><span>JUMP</span><span>DUCK</span><span>FIRE</span></div>
+  <button id="touchSettingsDone" type="button">✓ SAVE & CLOSE</button>
+  <p>เกมจะหยุดชั่วคราวระหว่างปรับค่า แล้วกด RESUME เพื่อเล่นต่อ • Safari ปกติอาจยังมีแถบเบราว์เซอร์</p>
+ </div>
+</div>
+<script>
+/* Standalone Phase 1 visual-control settings. Gameplay IIFE is left unmodified. */
+(function(){
+ 'use strict';
+ const KEY='last_spark_control_opacity_phase1';
+ const root=document.documentElement;
+ const settings=document.getElementById('touchSettingsButton');
+ const modal=document.getElementById('touchSettingsModal');
+ const slider=document.getElementById('touchOpacitySlider');
+ const output=document.getElementById('touchOpacityValue');
+ const done=document.getElementById('touchSettingsDone');
+ let percent=50;
+ try{const saved=Number(localStorage.getItem(KEY));if(Number.isFinite(saved)&&saved>=20&&saved<=100){percent=saved;}}catch(_e){}
+ function apply(v,save){const numeric=Number(v);percent=Math.max(20,Math.min(100,Math.round(numeric/5)*5));
+  root.style.setProperty('--touch-control-opacity',String(percent/100));slider.value=String(percent);output.textContent=percent+'%';
+  if(save){try{localStorage.setItem(KEY,String(percent));}catch(_e){}}
+ }
+ apply(percent,false);
+ function openSettings(){
+  const diagnostics=window.__lastSparkDiagnostics;
+  // Use the existing pause event rather than reaching inside gameplay IIFE.
+  if(typeof diagnostics==='function' && diagnostics().mode==='playing')document.getElementById('pauseButton').click();
+  modal.hidden=false;slider.focus({preventScroll:true});
+ }
+ function closeSettings(){modal.hidden=true;settings.focus({preventScroll:true});}
+ settings.addEventListener('click',openSettings);
+ slider.addEventListener('input',()=>apply(slider.value,true));
+ done.addEventListener('click',closeSettings);
+ modal.addEventListener('pointerdown',ev=>{if(ev.target===modal)closeSettings();});
+ document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!modal.hidden){ev.preventDefault();ev.stopImmediatePropagation();closeSettings();}},true);
+ window.__lastSparkPhase1=()=>({opacity:percent,sliderMin:Number(slider.min),sliderMax:Number(slider.max),settingsOpen:!modal.hidden,layout:matchMedia('(orientation:landscape)').matches?'landscape':'portrait'});
 })();
 </script>
 </body>
